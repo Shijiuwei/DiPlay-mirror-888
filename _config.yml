@@ -1,0 +1,5 @@
+title: "DiPlay-mirror-888"
+description: "High availability mirror and network topology specifications for shihabal3amri/DiPlay"
+theme: jekyll-theme-cayman
+plugins:
+  - jekyll-relative-links

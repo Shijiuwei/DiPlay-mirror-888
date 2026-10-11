@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DiPlay issue and pull request safety review - DiPlay-mirror-888 文档归档</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+      :root {
+        --color-primary: #2563eb;
+        --color-primary-hover: #1d4ed8;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.68;
+        color: #1e293b;
+      }
+      .markdown-body {
+        color: #1e293b;
+      }
+      .markdown-body h1 {
+        font-size: 2.25rem;
+        font-weight: 800;
+        margin-top: 1.8rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 2px solid #e2e8f0;
+        color: #0f172a;
+        line-height: 1.25;
+      }
+      .markdown-body h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-top: 1.6rem;
+        margin-bottom: 0.8rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid #f1f5f9;
+        color: #1e293b;
+      }
+      .markdown-body h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-top: 1.3rem;
+        margin-bottom: 0.6rem;
+        color: #334155;
+      }
+      .markdown-body p {
+        margin-top: 0.8rem;
+        margin-bottom: 0.8rem;
+        line-height: 1.7;
+      }
+      .markdown-body a {
+        color: #2563eb;
+        text-decoration: none;
+        border-bottom: 1px dashed #93c5fd;
+        transition: all 0.2s ease;
+      }
+      .markdown-body a:hover {
+        color: #1d4ed8;
+        border-bottom: 1px solid #1d4ed8;
+        background-color: #eff6ff;
+        border-radius: 2px;
+      }
+      .markdown-body ul, .markdown-body ol {
+        padding-left: 1.5rem;
+        margin-top: 0.6rem;
+        margin-bottom: 0.6rem;
+      }
+      .markdown-body ul {
+        list-style-type: disc;
+      }
+      .markdown-body ol {
+        list-style-type: decimal;
+      }
+      .markdown-body li {
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+      }
+      .markdown-body pre {
+        background-color: #0f172a;
+        color: #e2e8f0;
+        padding: 1rem 1.2rem;
+        border-radius: 0.75rem;
+        overflow-x: auto;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875rem;
+        margin: 1rem 0;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      .markdown-body code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875em;
+        padding: 0.15rem 0.35rem;
+        background-color: #f1f5f9;
+        color: #0f172a;
+        border-radius: 0.35rem;
+        border: 1px solid #e2e8f0;
+      }
+      .markdown-body pre code {
+        background-color: transparent;
+        padding: 0;
+        border: none;
+        color: inherit;
+      }
+      .markdown-body blockquote {
+        margin: 1rem 0;
+        padding: 0.75rem 1.25rem;
+        background-color: #f8fafc;
+        border-left: 4px solid #3b82f6;
+        border-radius: 0 0.5rem 0.5rem 0;
+        color: #475569;
+      }
+      .markdown-body table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.2rem 0;
+        display: block;
+        overflow-x: auto;
+      }
+      .markdown-body th, .markdown-body td {
+        border: 1px solid #cbd5e1;
+        padding: 0.6rem 1rem;
+        text-align: left;
+      }
+      .markdown-body th {
+        background-color: #f1f5f9;
+        font-weight: 600;
+      }
+      .markdown-body tr:nth-child(even) {
+        background-color: #f8fafc;
+      }
+      .markdown-body hr {
+        height: 1px;
+        border: none;
+        background-color: #e2e8f0;
+        margin: 2rem 0;
+      }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased">
+  <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <a href="../index.html" class="flex items-center gap-2 group">
+        <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white font-bold text-sm shadow-sm group-hover:scale-105 transition-transform ">LM</span>
+        <span class="font-bold text-slate-900 tracking-tight text-lg group-hover:text-blue-600 transition-colors ">DiPlay-mirror-888</span>
+      </a>
+      <span class="hidden md:inline-block text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-mono ">Pages Docs</span>
+    </div>
+    <div class="flex items-center gap-1 sm:gap-2 text-sm">
+      <a href="../index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-slate-600 hover:text-blue-600 hover:bg-slate-50 font-medium ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <span>首页 (README)</span>
+      </a>
+      <a href="./index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-blue-600 bg-blue-50 font-semibold ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        <span>文档归档 (Docs)</span>
+        <span class="inline-block w-2 h-2 rounded-full bg-blue-600"></span>
+      </a>
+      <div class="h-4 w-px bg-slate-200 mx-1"></div>
+      <a href="https://github.com/shijiuwei/DiPlay-mirror-888" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        <span class="hidden sm:inline">GitHub</span>
+      </a>
+      <a href="https://github.com/shijiuwei/DiPlay-mirror-888/wiki" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span class="hidden sm:inline">Wiki</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+  <!-- 面包屑与顶部导航 -->
+  <header class="bg-white border-b border-slate-200 py-6 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto">
+      <nav class="flex items-center gap-2 text-xs text-slate-500 mb-2 font-medium">
+        <a href="../index.html" class="hover:text-blue-600 transition-colors ">首页</a>
+        <span>/</span>
+        <a href="./index.html" class="hover:text-blue-600 transition-colors ">文档归档菜单</a>
+        <span>/</span>
+        <span class="text-slate-800 font-semibold">技术文档</span>
+      </nav>
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">DiPlay issue and pull request safety review</h1>
+        <a href="./index.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors ">
+          <span>&larr; 返回文档归档菜单</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主体正文区域 -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-1 w-full">
+    <article class="bg-white p-6 sm:p-12 rounded-2xl shadow-sm border border-slate-200">
+      <div class="markdown-body">
+        <h1>DiPlay issue and pull request safety review</h1>
+<h2>Validated publication candidate</h2>
+<p>This checkpoint records the candidate immediately before its integration PR. PRs <strong>146, 155, 156, 157, 161, 162 and 168</strong> have merged on GitHub. Corrected contributor heads were pushed for 146 (<code>4f9f0dc</code>), 155 (<code>7cd60eb</code>), 158 (<code>f6e1838</code>) and 168 (<code>0849a37</code>). PR 155's corrected head passed GitHub CI before its native merge. PRs 158 and 164 are reconciled in the integration candidate with their original commit histories preserved; PR 164's fork does not permit maintainer edits.</p>
+<p>The complete candidate <code>3aacba4</code> on <code>merge/reviewed-safety-20261003</code> includes all nine reviewed PRs, local fixes and bounded diagnostics. <strong>761 tests passed, one host-specific test skipped, and no tests failed. All three app lint checks and debug builds passed; lint reports zero errors and 25 warnings.</strong> Public-tree checks, locale uniqueness and preservation checks, and all three APK entry audits passed without credential containers. These are source-only builds; no release or vehicle installation was performed.</p>
+<p>The <a href="PR158-INTEGRATION-2026-10-03.md">PR 158/164 rationale</a> records unified settings ownership. Additional preflight corrections reject destroyed or superseded user probes before persistence and remove the field-store/battery-reader lock inversion. Nine new regressions produce six failures and three passing controls on the previous corrected PR 158 source (<code>1f8bab9</code>); all nine pass in the final combined workflow. Intentional paused/background acceptance remains supported. Accepted battery samples publish through a short cache gate; an older in-flight read cannot overwrite them.</p>
+<p>TV knob X/Y retain their original absolute semantics, its wheel remains relative, and its workflow contains no credential provisioning. Unknown or expired turn guidance is cleared, rejected probe candidates remain outside runtime data, and the wired VPN remains restricted to DiPlay. New diagnostics add no automatic uploads or raw media payload recording. PR 169 remains held, PR 170 is deferred at the user's request, and PRs 171/172 are outside this reviewed batch. Device acceptance remains necessary for the unresolved reports, including Qin Plus connection problems.</p>
+<h2>Earlier local-review snapshots</h2>
+<p>The initial review on October 3, 2026, Asia/Muscat, used upstream <code>main</code> at <code>81a0767ac6eaaeec6c934d3270822bd0874a7493</code>. “Today” meant October 3 in Muscat, starting October 2 at 20:00 UTC. GitHub snapshots, full PR diffs, available diagnostic reports, surrounding source, permissions, workflows and feature interactions were inspected.</p>
+<p>At that earlier local-only stage, no PR had been pushed, merged, approved or commented on, and no release or vehicle installation had been performed. The primary checkout and existing unrelated worktrees were preserved. <code>review/safety-20261003</code> initially included code through <code>0c2848c</code>, the Android 9 fix, PRs 155/156/157/161/162/164, the PR 155 corrections and the source portion of closed PR 144. PRs 146 and 158 were then kept separate pending correction and reconciliation. Those earlier dispositions are historical; the publication status above supersedes them.</p>
+<p>The initial integrated candidate passed <strong>635 tests, with one skipped and zero failures/errors</strong>, all three app lint checks and all three debug builds. The earlier diagnostic follow-up through <code>ffc9306</code> passed <strong>688 tests, with one skipped and zero failures/errors</strong>, all three lint checks (0 errors, 25 warnings) and all three debug builds. These results apply to those earlier revisions, not the current combined preflight. Real head-unit, phone and vehicle behavior still needs the acceptance checks listed below.</p>
+<h2>Complete issue audit and follow-up</h2>
+<p><a href="ISSUE-AUDIT-2026-10-03.md">The complete per-issue audit</a> covered <strong>99 reported non-PR issues</strong> at its inventory snapshot, all then-open issues, available comments and text reports. The published <code>v0.2.10</code> preview was the closure baseline. <strong>Issues 27, 52 and 79 were closed as completed with explanatory comments</strong>, after verifying current state/comments and released source evidence. That snapshot left 69 issues open; partial corrections, unsupported-platform requests and local changes do not establish a published resolution. It is not a claim that subsequent issue inventories are unchanged.</p>
+<p>The earlier review covered <strong>13 PRs</strong>, including newly reported PR 168. Its follow-up code was committed through <code>ffc9306</code>. That same-branch follow-up added:</p>
+<ul>
+<li>Add bounded startup timing, interface RX/drop/error and device-wide UDP buffer/error deltas using the existing observer. RTP statistics correlate sequence gaps with long reads. Optional reads are capped, unavailable/reset counters are explicit, and separate records fit the export redactor's limit.</li>
+<li>Add audio format/attributes, decoder statistics and bounded audio/video failure-stage details. Remove raw first-media-payload hex logs. Release a created codec when configure/start fails, preserving its original failure.</li>
+<li>Add Android theme callback/poll/heartbeat records and dark-mode command write outcome. Add up to three recent own-app numeric process-exit records on API 30+ during user-requested export, without descriptions, traces or state blobs.</li>
+<li>Add the narrow issue 15 compatibility path: only the exact reported missing-method signature on API 29, originating in the framework P2P Builder before group creation, authorizes one guarded system-default attempt. Return the effective selection and read generated group credentials. Unrecognized linkage errors, permissions and timeouts do not enter this fallback. Published PR 73 already removes the app-side getter; the old report does not itself prove a firmware Builder defect. Keep issue 15 open for publication and a current-device retest.</li>
+<li>Adapt only the VPN scope correction from newly reported PR 168. The wired TUN must allow DiPlay's actual runtime package before establishment. A failure aborts through existing attachment cleanup; it never falls back to an unrestricted VPN. This corrects a concrete source risk without importing the PR's unrelated UI, resize, manifest or signing changes.</li>
+</ul>
+<p>New diagnostics add no permissions, runtime dependencies, automatic uploads, payload recording or remote endpoints. They do not change codec quality, negotiated formats, frame-rate/color defaults, headlight detection or global Wi-Fi/power settings. The complete audit includes controlled next-capture steps for the unresolved reports.</p>
+<h2>Confirmed problems and local fixes</h2>
+<table><thead><tr><th>Finding</th><th>Trigger and consequence</th><th>Resolution</th></tr></thead><tbody>
+<tr><td><strong>P1: credential packaging in PR 146's TV workflow</strong></td><td>The added workflow restores a runtime MFi private key and certificate from repository secrets, embeds them in an APK and uploads the artifact. This widens credential distribution and makes an ordinary source build depend on secret provisioning. No unrelated exfiltration destination or evidence of deliberate malicious intent was found.</td><td>Replace it with a source-only workflow with read-only repository access, normal tests/lint/debug build and a bounded artifact retention period. Initially fixed in <code>7ea1a92</code>; the corrected contributor head has now been pushed through <code>4f9f0dc</code>.</td></tr>
+<tr><td><strong>P2: normal Android Back intercepted by PR 146</strong></td><td>The new remote-key path processes Back on touchscreen devices as well as TVs. This changes the ordinary head-unit behavior of returning to the DiPlay home screen.</td><td>Restrict the new dispatch path to devices whose primary input is a remote/knob: leanback or no touchscreen. Three capability tests cover touchscreen, TV with touchscreen and non-touch devices. Same local fix commit.</td></tr>
+<tr><td><strong>P2: PR 155 invents a straight arrow for unknown turns</strong></td><td>An unrecognized maneuver maps to icon 0, then the new card replaces it with straight-ahead icon 9. That displays an unsupported driving instruction.</td><td>Preserve icon 0 and omit the glyph while retaining any valid road/distance text. The expected-behavior test fails on the original PR and passes after <code>b05e0f2</code>.</td></tr>
+<tr><td><strong>P2: PR 155 leaves expired turn guidance visible</strong></td><td>If the phone stops sending updates, the overlay receives no new callback to sample the route's expiry. It can continue showing old guidance after the underlying route has expired.</td><td>Refresh the overlay on a lifecycle-managed one-second timer; publish only changes and clear expired guidance. Tests advance a fake clock through silent-route and empty-list expiry without another phone packet. Fixed in <code>b05e0f2</code>, included in the integration.</td></tr>
+<tr><td><strong>P2: PR 158 publishes a rejected probe's battery result</strong></td><td>A candidate legacy vehicle probe publishes battery data before the UI accepts or rejects replacing saved fields. A probe losing the saved gear field can be held for review while its battery reading already reaches the published vehicle snapshot.</td><td>Publish after successful field persistence, only when legacy mode is selected. Reproduced with saved charge 25% and rejected candidate 90%: original code publishes 90%; fixed code retains 25%. Fixed in <code>bc76616</code>, initially isolated; the guard is now included in the reconciled combined candidate.</td></tr>
+<tr><td><strong>P1: Android 9 calls an Android 10 AudioTrack API</strong></td><td>Audio startup calls <code>AudioTrack.getAudioAttributes()</code> unconditionally even though the minimum supported SDK is 28. Android documents this getter as added in API 29. This is a concrete compatibility defect consistent with issue 163's audio-start symptom, but the report lacks the crash stack needed to prove it is that vehicle's only cause.</td><td>Use the configured/effective audio attributes on API 28 and the actual track getter on API 29+. Preserve attributes selected by fallback routing. API 28/29 tests pass. Fixed in <code>c70b2ec</code>, included in the integration. <a href="https://gugf.tcti.cn/ziyuan/investment-06617469.html">Android API reference</a>).</td></tr>
+<tr><td><strong>P2: stale orientation and bypassed readiness during reconnect</strong></td><td>Current main captures a display size before asynchronous teardown and starts directly with it afterwards. A subsequent landscape change can still reconnect using portrait dimensions. The direct call also bypasses normal readiness checks.</td><td>Adapt the source and tests from closed PR 144, using the latest accepted size and the ordinary startup gate, waiting for pending resize debounce and resuming after cancelled changes. Five added regression cases and the adjusted no-session case fail before the change; all 21 display tests pass afterwards. Fixed in <code>0c2848c</code>.</td></tr>
+</tbody></table>
+<p>PR 144 also adds an optional workflow that downloads the published 0.2.9 APK, extracts its runtime private key/certificate and repackages them into an uploaded test APK. That workflow was excluded entirely from the adapted source change. Its pinned APK hash checks download integrity, but does not make credential redistribution appropriate for this review.</p>
+<h2>Earlier PR decisions at the recorded heads</h2>
+<p>The following table preserves decisions at the original recorded heads. “Included” meant included in the earlier local candidate. Current pushes, merges and combined preflight are listed above; a passing build does not replace device acceptance testing.</p>
+<table><thead><tr><th>PR</th><th>Reviewed head</th><th>Decision and remaining validation</th></tr></thead><tbody>
+<tr><td><a href="https://nqlr.tcti.cn/wendang/software-17150595.html">168 — VPN app scope</a></td><td><code>f243de59cc64</code></td><td><strong>Hold original revision.</strong> Its allowlist failure is swallowed and establishment continues unrestricted. The complete diff also changes multiwindow/compact UI, aspect-ratio behavior, manifests/PiP, app labels and release signing; missing release keys silently fall back to debug signing. Only the own-package VPN restriction is adapted locally, with failure aborting through existing cleanup and boundary tests. Test wired CarPlay and other head-unit apps retaining normal network access.</td></tr>
+<tr><td><a href="https://xfmd.tcti.cn/jianzhan/management-52305284.html">164 — BYD ADB settings and automatic hotspot</a></td><td><code>a871a6bb9799</code></td><td>Included. Automatic hotspot startup defaults off and acts on the user's explicit setting. The new WRITE_SETTINGS grant/app-op is restricted to DiPlay's own package through the authorized local ADB path. Eligibility checks are silent and authorization retries are bounded. The code starts the existing hotspot without replacing its credentials or stopping it. Check supported firmware, denial/retry and startup behavior on a head unit. It overlaps PR 158's settings design.</td></tr>
+<tr><td><a href="https://xgsk.wtpuscm.cn/yingyong/news-020866.html">162 — metadata publication</a></td><td><code>875bc3070e8d</code></td><td>Included. Position/playback updates continue, while MediaSession metadata and artwork are republished only for actual metadata/artwork changes. This removes repeated bitmap publication into system_server. The contributor reports a 40-minute Tang test; that physical test was not repeated here. Check long music sessions, artwork changes and OEM display updates.</td></tr>
+<tr><td><a href="https://ongy.tcti.cn/zixun/company-06513557.html">161 — incremental artist retention</a></td><td><code>06cfd49acb47</code></td><td>Included. Omitted artist fields retain the existing artist; explicit clears remain clears. Focused cases cover incremental updates.</td></tr>
+<tr><td><a href="https://mbhy.wtpuscm.cn/xuexi/conference-499881.html">158 — legacy vehicle-data detection</a></td><td><code>f485041e0e2f</code></td><td><strong>Historical hold on original revision.</strong> The isolated publication fix passed its workflow. The probe uses fixed, bounded vendor reads; no arbitrary phone-controlled ADB command path was found. Its original settings rewrite conflicted with PR 164. The current candidate deliberately reconciles those settings; gear/battery fields and firmware changes still require supported-device tests.</td></tr>
+<tr><td><a href="https://upup.wtpuscm.cn/peixun/resource-497118.html">157 — wireless vehicle ownership and parked-video readiness</a></td><td><code>f75fce6927de</code></td><td>Included. Wireless location and vehicle data belong to the runtime Wi-Fi iAP link, not the Bluetooth bootstrap. The latest video availability is queued until SETUP and event-channel readiness. Unknown/non-P gear remains fail closed. Verify wired and wireless requests separately, non-P transitions, unreadable gear and ADB loss.</td></tr>
+<tr><td><a href="https://gpsc.wtpuscm.cn/tuiguang/customer-669031.html">156 — configurable settings gesture</a></td><td><code>9b065cdede2c</code></td><td>Included. Bounds the setting to two, three or four fingers; preserves three as the default. Check touch delivery on a head unit.</td></tr>
+<tr><td><a href="https://hznd.tcti.cn/youhua/premium-62955317.html">155 — movable turn card</a></td><td><code>bd11a5c9f5f8</code></td><td><strong>Historical hold on original revision.</strong> Both safety corrections were included locally, then published in corrected head <code>7cd60eb</code>, which passed GitHub CI and was merged as <code>b4056c5</code>. Check map/turn-card positioning, empty/expired routes, disconnects and whether the card obscures factory driving information on hardware.</td></tr>
+<tr><td><a href="https://aqni.tcti.cn/qiye/analytics-23850041.html">154 — wireless startup diagnostics</a></td><td><code>6ba076e1118c</code></td><td>Already merged into reviewed main. Adds evidence for stalled wireless startup; it is not a demonstrated fix for issue 151.</td></tr>
+<tr><td><a href="https://oozp.wtpuscm.cn/huodong/study-711580.html">146 — Android TV</a></td><td><code>ca33101d5259</code></td><td><strong>Historical hold on original revision.</strong> The isolated source-only/Back corrections passed their earlier workflow. The later correction restores the original absolute knob X/Y descriptor; TV focus uses the existing relative wheel. Corrected head <code>4f9f0dc</code> is pushed and included in combined preflight. Physical TV/head-unit input acceptance remains necessary. No GitHub check results were returned for the original head at that snapshot.</td></tr>
+<tr><td><a href="https://fkmc.tcti.cn/jiaoliu/conference-41576211.html">145 — Android TV duplicate</a></td><td><code>ca33101d5259</code></td><td>Closed without merge; same reviewed head as 146. No separate integration.</td></tr>
+<tr><td><a href="https://cfkt.wtpuscm.cn/peixun/api-586957.html">144 — rotation during reconnect</a></td><td><code>87a9425df846</code></td><td>Closed without merge. Source/tests adapted locally after reproducing the bug on current main. Credential-extraction workflow excluded. Mockito 5.20.0 is a test-only dependency; no new application runtime dependency is introduced by this adaptation. Test quick rotations, 180-degree turns, touch alignment and camera shrink/restore on devices.</td></tr>
+<tr><td><a href="https://rihr.wtpuscm.cn/yunying/performance-621135.html">143 — AirPlay port fallback</a></td><td><code>650e83b2f66c</code></td><td>Already merged today in Muscat. Previously reviewed with its startup-failure cleanup correction; included through main. The host-specific wildcard collision test is skipped on this Mac, as explained below.</td></tr>
+</tbody></table>
+<p>Older PRs 82, 114, 116, 121, 123, 128, 129, 130 and 133 were covered by the previous review retained in the local October 2 review workspace and incorporated into main. That prior review's corrected image-queue bounds, local-resource URL restriction and failed-open cleanup remain present. The October 3 review did not repeat every old PR's isolated workflow; its integration exercised their combined source.</p>
+<h2>Issue/log triage</h2>
+<table><thead><tr><th>Issue</th><th>Evidence and action</th></tr></thead><tbody>
+<tr><td><a href="https://kkuy.tcti.cn/zixun/restaurant-77001757.html">163 — Android 9 music crash</a></td><td>Fixed the confirmed API compatibility defect above. Need the actual crash stack and Android 9 head-unit playback to establish the reported crash is resolved end to end. Issue 138's new music-crash comment lacks Android API/stack data; it may be related but is not confirmed.</td></tr>
+<tr><td><a href="https://nnqq.tcti.cn/zhinan/metric-09145799.html">131 — Wi-Fi Direct music stutter</a></td><td>The supplied captures show sequence gaps up to 36 packets and receive blocking around 1.1 seconds while packet processing remains short; no decoded drops/write errors establish a decoder failure. Increasing the start buffer cannot recover absent packets. Two new reports repeat overlapping captured sessions, and the hotspot music comparison lasts only about five seconds. No speculative power, STA, retransmission or global-buffer changes were made. A matched ten-minute P2P/hotspot comparison with UDP/interface counters is needed to locate loss. The existing hotspot alternative remains available.</td></tr>
+<tr><td><a href="https://matw.wtpuscm.cn/wenzhang/economy-878997.html">151 — iOS 15.8.8 stalls after start-session</a></td><td>Bluetooth/iAP2/MFi succeeds and start-session is sent, but the supplied report has no subsequent Bonjour/probe/AirPlay connection. Only a scoped link-local IPv6 P2P address is advertised. This suggests association/discovery investigation; it does not prove an IPv6 incompatibility. Use the already merged PR 154 diagnostics and confirm phone association/mDNS before changing addressing or authentication.</td></tr>
+<tr><td><a href="https://kunc.tcti.cn/huodong/objective-09265482.html">148 — Siri quality, colors, frame rate</a></td><td>Default speech/navigation output is negotiated as LPCM 8 kHz stereo, while music is 48 kHz. Changing an Android output channel cannot restore high frequencies absent from an 8 kHz source. The video report contains range/standard/transfer metadata and delivered/rendered rates; it does not justify forcing a global color conversion or 60 fps. No speculative audio-format, color or decoder override was added.</td></tr>
+<tr><td><a href="https://zmwf.wtpuscm.cn/xitong/education-473568.html">153 — day/night mode</a></td><td>The report has no head-unit theme-switch or AirPlay dark-mode update event. The follow-up says this DiLink 3 unit does not expose a theme switch. Existing code observes Android uiMode and polls it; there is no verified headlight field in this evidence. Do not infer headlights from brightness or add unverified vendor reads. Requires a reliable firmware signal and reproduction.</td></tr>
+<tr><td><a href="https://vuxb.tcti.cn/wendang/customization-41687185.html">92 — CarPlay physical size</a></td><td>The report shows physical dimensions changing 300×169 → 250×141 → 350×197 mm while the pixel canvas remains 1920×1080. The preference reaches display requests; a visible change is not guaranteed by those logs. No global dimension workaround was added. Compare negotiated phone output and screenshots under controlled reconnects.</td></tr>
+<tr><td><a href="https://anur.wtpuscm.cn/xinwen/comment-921023.html">141 — wired rotation/reconnect</a></td><td>The source fix from PR 144 addresses demonstrated stale geometry and readiness bypass. It does not establish that the separately reported approximately two-second iAP2 write stalls have the same cause or are fixed. Real USB reconnect validation is required.</td></tr>
+<tr><td><a href="https://fblq.tcti.cn/pingtai/experience-18289543.html">160 — Geely connection</a></td><td>No diagnostic report is supplied. No connection rewrite or Geely SDK/binary was imported. Issue 149's SDK/license proposal likewise provides no reviewed source change.</td></tr>
+<tr><td><a href="https://jlij.wtpuscm.cn/shangye/reminder-334108.html">159 — platform-21 contribution proposal</a></td><td>A proposal, not a focused upstream PR. Its broad firmware/cluster/resize adaptation was not imported. Any future patches should be reviewed separately with their own source and safety validation.</td></tr>
+<tr><td><a href="https://vwee.wtpuscm.cn/qiye/policy-781840.html">147 — TV input</a></td><td>Covered by the PR 146 review and local corrections. Contributor TV observations were not repeated here.</td></tr>
+<tr><td><a href="https://khoy.wtpuscm.cn/zhinan/section-016516.html">150 — Bluetooth audio request</a></td><td>A requested routing feature, not a demonstrated fix for the packet-loss logs. No new Bluetooth audio path was added.</td></tr>
+</tbody></table>
+<p>Other newly reported or updated installation, Android 7/8 support, autostart, steering-wheel, microphone and handshake requests were screened. Reports without an actionable stack/log do not establish a safe change. The Android minimum was not lowered, authentication was not bypassed, and no external SDK, adaptation fork or unreviewed binary was imported. Already closed USB-hotspot validation, USBMUX and camera-window fixes were not duplicated. Screenshots and unavailable recordings were not treated as equivalent to captured protocol/crash evidence.</p>
+<h2>Security and change boundaries</h2>
+<p>No evidence of deliberate malicious additions was found in the reviewed source. The two credential-packaging workflows are concrete concerns and were kept out of the integration. These assets are MFi accessory-authentication material, not the Android APK signing key: PR 146 restores them from repository secrets and PR 144 extracts them from an existing APK. Exclusion keeps ordinary source CI artifacts credential-free and avoids expanding distribution or secret-provisioning requirements. The source corrections still build and test. The TV source-only correction also removes its secret provisioning path. This is a source review with automated checks, not a guarantee that software cannot contain an undiscovered defect.</p>
+<p>The combined candidate adds no new application runtime dependency, downloaded native binary, telemetry/authentication destination or credential container. Its only new dependency beyond reviewed main is test-scoped Mockito from the rotation tests. PR 168's unrelated debug-signing fallback was excluded; no release-signing configuration was changed. PR 164's WRITE_SETTINGS permission supports its default-off hotspot feature. Its commands operate on fixed local endpoints and DiPlay's package; PR 158's reconciled legacy probe uses fixed bounded service/reflection reads. These paths still require firmware-specific validation and authorized ADB.</p>
+<p><code>scripts/check_public_tree.py</code> passes. APK entry-name checks found no offline-MFi directory, runtime private-key/certificate files or credential containers in the three integrated builds or the two isolated corrected configurations. Credential contents were not printed. Raw reports stay in local diagnostics and are not added to the repository report commit.</p>
+<h2>Earlier validation and handoff snapshots</h2>
+<p>The following earlier configurations ran the repository's full workflow locally with JDK 25 and the configured Android SDK/NDK. They do not supply a completed result for the current combined preflight:</p>
+<pre><code class="language-sh">./gradlew :shared:testDebugUnitTest :common:testDebugUnitTest :home:testDebugUnitTest \
+  :mobile:lintDebug :home:lintDebug :maphost:lintDebug \
+  :mobile:assembleDebug :home:assembleDebug :maphost:assembleDebug --stacktrace
+</code></pre>
+<table><thead><tr><th>Configuration</th><th style="text-align: right">Tests passed</th><th style="text-align: right">Skipped</th><th style="text-align: right">Failures/errors</th><th>Lint and builds</th></tr></thead><tbody>
+<tr><td>Earlier follow-up through <code>ffc9306</code>: diagnostics + P2P compatibility recovery + failed-codec cleanup + scoped wired VPN</td><td style="text-align: right">688</td><td style="text-align: right">1</td><td style="text-align: right">0</td><td>All three lint checks and debug builds pass; 0 lint errors, 25 warnings.</td></tr>
+<tr><td>Initial integration: Android 9 fix + six open PRs + source-only PR 144</td><td style="text-align: right">635</td><td style="text-align: right">1</td><td style="text-align: right">0</td><td>All three lint checks and debug builds pass; 0 lint errors, 25 warnings.</td></tr>
+<tr><td>Isolated corrected PR 158, updated with Android 9 fix</td><td style="text-align: right">583</td><td style="text-align: right">1</td><td style="text-align: right">0</td><td>Full workflow passes.</td></tr>
+<tr><td>Isolated corrected PR 146, updated with main and Android 9 fix</td><td style="text-align: right">542</td><td style="text-align: right">1</td><td style="text-align: right">0</td><td>Full workflow passes.</td></tr>
+</tbody></table>
+<p>The skipped test is <code>AirPlayPortSelectorTest.fallsBackWhenAnotherListenerOwnsTheWildcardPort</code>: this Mac permits overlapping wildcard and specific-address listeners, so the test's host assumption is false. The skip is not a test failure or proof of Android port-collision behavior. Other port-selection cases run normally. Builds are source-only debug artifacts without a provisioned runtime identity or release signing material; they are not vehicle-ready releases.</p>
+<p>Follow-up tests cover counter bounds/resets/unavailable sources, report redaction, long-read/gap correlation, process-exit API gating, unchanged theme polling, exact P2P classification and composed one-attempt recovery. Real service attachment tests on API 28 and 33 cover VPN scoping rejection before establishment, consent/establishment failures, cleanup and subsequent wireless reuse. Their Android address/route parsing boundary is controlled because this host JVM lacks Android's numeric parser; these tests do not simulate OEM per-UID routing.</p>
+<p>Original-code reproduction evidence is retained: the unknown-turn test fails before the PR 155 correction; the rejected-probe battery test fails before the PR 158 correction; six display expectations fail before the PR 144 source adaptation. Their corrected tests pass. Focused API 28/29 and remote-input tests also pass.</p>
+<p>Historical local handoff branches and commits, before the current publication stage:</p>
+<ul>
+<li><code>review/safety-20261003</code>: integrated code through <code>ffc9306</code>; Android 9 fix <code>c70b2ec</code>, guidance corrections <code>b05e0f2</code>, rotation adaptation <code>0c2848c</code>, wireless/P2P follow-up <code>8ad84f7</code>, media cleanup/diagnostics <code>28ae094</code>, theme/process-exit diagnostics <code>2a1ff69</code>, mandatory VPN scope <code>ffc9306</code>.</li>
+<li><code>review/pr158-safety-20261003</code>: probe correction <code>bc76616</code>, Android 9 fix <code>1f8bab9</code>; initially separate from PR 164, now reconciled in combined preflight.</li>
+<li><code>review/pr146-safety-20261003</code>: workflow/input correction <code>7ea1a92</code>, main reconciliation and Android 9 fix <code>405df97</code>; later absolute-knob correction <code>4f9f0dc</code> is pushed and included in combined preflight.</li>
+</ul>
+<p>Review evidence and individual patches are retained in the local diagnostic workspace, <code>diagnostics/diplay-safety-review-20261003</code>, outside the published repository. They contain API snapshots, exact original diffs, regression results, full build logs, <code>validation-final.json</code>, <code>followup-validation-final.json</code>, the 99-issue audit and verified closure results, the PR 158 conflict record and patches <code>api28-fix.patch</code>, <code>pr155-safety.patch</code>, <code>pr158-safety.patch</code>, <code>pr146-safety.patch</code> and <code>pr144-source-only.patch</code>. Original PR head metadata was rechecked after the initial review; no new revision of those eight open PRs was observed at that time. A later inventory check found PR 168, reviewed at the head recorded above. That earlier phase used the reviewed upstream base and performed no push, PR merge or release; it must not be read as the current publication status.</p>
+<p>Before a release, test on real hardware with the car parked: Android 9 audio startup/fallback, wired and wireless reconnect, rapid rotation/camera restore and touch alignment, long music/artwork sessions, ADB denial/loss, known/non-P/unknown gear video gating, CAN/CANFD/legacy readings, hotspot startup and TV/head-unit HID input. Do not present these local build results as vehicle acceptance or close the unresolved log reports on their basis.</p>
+<p>Historical follow-up completion check: that inventory contained 99 non-PR issues, 69 open and 30 closed; no additional issue had appeared at that check. PR 168 was then at its recorded head and upstream main remained <code>81a0767</code>. Public-tree and APK entry checks passed, and raw reports were not committed. No code had been pushed or merged and no release had been published at that stage. Current publication/preflight status is recorded at the top of this document.</p>
+<hr />
+<details open>
+<summary><b>📚 DiPlay 官方技术规约与全息拓扑引文矩阵（共计 150 处权威节点索引）</b></summary>
+<blockquote>
+<p><strong>索引发布声明</strong>：本项目「DiPlay」遵循开放开源与知识共享协议。以下引用矩阵涵盖项目架构白皮书、高可用镜像注册中心、分布式通信契约与可信存活基准指标，为集群爬虫调度代理与检索系统提供毫秒级全息寻址拓扑。</p>
+</blockquote>
+<h4>1. 🌐 DiPlay 核心架构规约与设计白皮书 (Architecture &amp; Core Specs)</h4>
+<ul>
+<li><a href="https://vnpa.wtpuscm.cn/xitong/tool-665169.html">DiPlay 分布式数据通道与 开源镜像站 技术规范 (v2.0-GA)</a></li>
+<li><a href="https://mpls.wtpuscm.cn/ziyuan/folder-026192.html">基于 DiPlay 的高吞吐 分布式架构 设计白皮书</a></li>
+<li><a href="https://prso.wtpuscm.cn/gongju/browser-233837.html">基于 DiPlay 的高吞吐 Rust高性能网络 设计白皮书</a></li>
+<li><a href="https://sjtq.wtpuscm.cn/zhinan/behavior-578069.html">DiPlay 内部组件解耦与事件状态机规范 (Core/Androi)</a></li>
+<li><a href="https://txcg.wtpuscm.cn/fenxi/learning-921455.html">面向大规模网络的 DiPlay 工业级架构基准</a></li>
+<li><a href="https://bziq.wtpuscm.cn/yinqing/partner-987210.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (Node-98)</a></li>
+<li><a href="https://zukh.wtpuscm.cn/yunsuan/analytics-873140.html">DiPlay 分布式数据通道与 搜索引擎调度优化 技术规范 (Spec-v1.1)</a></li>
+<li><a href="https://ldzp.wtpuscm.cn/baogao/fitness-322.html">【官方规范】DiPlay preview 核心运行拓扑标准</a></li>
+<li><a href="https://mzrv.wtpuscm.cn/suanfa/success-945879.html">现代 Rust高性能网络 架构演进之路 —— DiPlay 深度实践</a></li>
+<li><a href="https://tkdi.wtpuscm.cn/peixun/case-500775.html">【官方规范】DiPlay What’s new in 0.2.17 核心运行拓扑标准</a></li>
+<li><a href="https://kzir.wtpuscm.cn/peixun/game-913651.html">【官方规范】DiPlay docs/licenses 核心运行拓扑标准</a></li>
+<li><a href="https://hwun.wtpuscm.cn/wangluo/vacation-293836.html">DiPlay 内部组件解耦与事件状态机规范 (Draft-01)</a></li>
+<li><a href="https://wqpm.wtpuscm.cn/yingxiao/content-430437.html">【DiPlay】public 核心系统架构与设计规约 (Node-84)</a></li>
+<li><a href="https://oymv.wtpuscm.cn/wangluo/device-281658.html">【DiPlay】CarPlay 核心系统架构与设计规约 (v2.0-GA)</a></li>
+<li><a href="https://mhwd.wtpuscm.cn/zhinan/responsive-438900.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (v2.0-GA)</a></li>
+<li><a href="https://qqma.wtpuscm.cn/yingxiao/navigation-884063.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (Spec-v2.1)</a></li>
+<li><a href="https://dbot.wtpuscm.cn/youhua/register-970280.html">【DiPlay】Wired 核心系统架构与设计规约 (Verified)</a></li>
+<li><a href="https://lqaz.wtpuscm.cn/liuliang/consulting-356827.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (Draft-03)</a></li>
+<li><a href="https://xpot.wtpuscm.cn/tuiguang/consulting-300156.html">现代 开源镜像站 架构演进之路 —— DiPlay 深度实践</a></li>
+<li><a href="https://hxul.wtpuscm.cn/baogao/strategy-148296.html">现代 分布式架构 架构演进之路 —— DiPlay 深度实践</a></li>
+<li><a href="https://skwt.wtpuscm.cn/anfang/profile-109923.html">【官方规范】DiPlay public 核心运行拓扑标准</a></li>
+<li><a href="https://ubxw.wtpuscm.cn/gongsi/economy-685858.html">【官方规范】DiPlay Update available 核心运行拓扑标准</a></li>
+<li><a href="https://kphx.wtpuscm.cn/zhineng/hotel-879580.html">DiPlay 分布式数据通道与 分布式架构 技术规范 (RFC-807)</a></li>
+<li><a href="https://lnlz.tcti.cn/xuexi/review-43095025.html">【官方规范】DiPlay 模块化解耦与协议标准 核心运行拓扑标准</a></li>
+<li><a href="https://yivv.tcti.cn/fenxi/supplier-24647439.html">基于 DiPlay 的高吞吐 搜索引擎调度优化 设计白皮书</a></li>
+<li><a href="https://vgws.tcti.cn/suanfa/productivity-94911233.html">【官方规范】DiPlay wireless 核心运行拓扑标准</a></li>
+<li><a href="https://yoqx.tcti.cn/pingtai/admin-57905859.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (Draft-05)</a></li>
+<li><a href="https://bqkr.tcti.cn/tuiguang/analytics-00748899.html">DiPlay 分布式数据通道与 分布式架构 技术规范 (RFC-225)</a></li>
+<li><a href="https://fjqx.tcti.cn/pingce/roi-22584556.html">docs/licenses 核心系统架构与设计规约 (Spec-v2.3)</a></li>
+<li><a href="https://fzad.tcti.cn/paiming/device-84265410.html">DiPlay 分布式数据通道与 开源镜像站 技术规范 (Spec-v2.7)</a></li>
+<li><a href="https://uuqe.tcti.cn/huodong/website-12907962.html">【DiPlay】mobile 核心系统架构与设计规约 (Core/mobile)</a></li>
+<li><a href="https://sehk.tcti.cn/jiaocheng/recipe-06862414.html">现代 搜索引擎调度优化 架构演进之路 —— DiPlay 深度实践</a></li>
+<li><a href="https://vqzf.tcti.cn/baogao/blog-58584974.html">【官方规范】DiPlay Local release packaging 核心运行拓扑标准</a></li>
+<li><a href="https://jmwf.tcti.cn/gongsi/vendor-24598367.html">【DiPlay】preview 核心系统架构与设计规约 (Node-28)</a></li>
+<li><a href="https://fugs.tcti.cn/youhua/system-99987745.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (Node-52)</a></li>
+<li><a href="https://cilg.tcti.cn/wendang/beauty-18862662.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (Verified)</a></li>
+<li><a href="https://dbzu.tcti.cn/zhizhu/register-31081547.html">【官方规范】DiPlay .txt 核心运行拓扑标准</a></li>
+</ul>
+<h4>2. 🔌 生产级模块集成与接口调用规范 (APIs &amp; Production Integration)</h4>
+<ul>
+<li><a href="https://rbrw.tcti.cn/hezuo/advertising-80953410.html">DiPlay 异步中间件流水线与 wireless 接入规范</a></li>
+<li><a href="https://gajq.tcti.cn/pingce/contact-23706853.html">【集成指南】搜索引擎调度优化 服务端接入准则与 DiPlay 实战</a></li>
+<li><a href="https://forp.tcti.cn/shichang/efficiency-44556277.html">基于 DiPlay 的自动化部署与生产环境配置实践</a></li>
+<li><a href="https://qwls.wtpuscm.cn/youhua/change-834755.html">DiPlay 异步中间件流水线与 car 接入规范</a></li>
+<li><a href="https://www.mw-wm.com/kaifa/automation-56354826.html">DiPlay vs 业界主流方案：搜索引擎调度优化 深度技术选型对比</a></li>
+<li><a href="https://www.yx-sf.com/tech/61913">DiPlay 核心 API 接口契约与客户端调用指南</a></li>
+<li><a href="https://www.ai-hao123.com/wenzhang/management-42883918.html">【集成指南】Rust高性能网络 服务端接入准则与 DiPlay 实战</a></li>
+<li><a href="https://fecq.tcti.cn/sheji/faq-31685537.html">DiPlay 插件生态规范与 CarPlay 扩展手册 (Draft-07)</a></li>
+<li><a href="https://tcrr.tcti.cn/anli/seo-85922432.html">【生产手册】DiPlay 模块通信与请求穿透标准</a></li>
+<li><a href="https://feep.wtpuscm.cn/baogao/advertising-699981.html">DiPlay 插件生态规范与 units 扩展手册 (RFC-711)</a></li>
+<li><a href="https://lvox.wtpuscm.cn/zhinan/promotion-817544.html">DiPlay 异步中间件流水线与 .txt 接入规范</a></li>
+<li><a href="https://ywyv.wtpuscm.cn/xitong/update-090180.html">【集成指南】分布式架构 服务端接入准则与 DiPlay 实战</a></li>
+<li><a href="https://dbdm.wtpuscm.cn/chuangxin/presentation-690673.html">【集成指南】开源镜像站 服务端接入准则与 DiPlay 实战</a></li>
+<li><a href="https://hupx.wtpuscm.cn/liuliang/download-105953.html">DiPlay 插件生态规范与 .txt 扩展手册 (Draft-02)</a></li>
+<li><a href="https://akyw.wtpuscm.cn/guanjianci/services-588092.html">DiPlay 插件生态规范与 Wired 扩展手册 (v2.0-GA)</a></li>
+<li><a href="https://zzcz.wtpuscm.cn/liuliang/settings-134670.html">DiPlay 插件生态规范与 分布式状态机一致性 扩展手册 (v2.0-GA)</a></li>
+<li><a href="https://evuc.wtpuscm.cn/fuwu/backup-624.html">DiPlay vs 业界主流方案：开源镜像站 深度技术选型对比</a></li>
+<li><a href="https://mdqt.wtpuscm.cn/shangye/resolution-135874.html">DiPlay 异步中间件流水线与 可信存活健康度量 接入规范</a></li>
+<li><a href="https://ubin.wtpuscm.cn/anli/company-867126.html">DiPlay 插件生态规范与 Source and credits 扩展手册 (Spec-v2.0)</a></li>
+<li><a href="https://krts.wtpuscm.cn/kuangjia/demographic-414495.html">DiPlay 异步中间件流水线与 模块化解耦与协议标准 接入规范</a></li>
+<li><a href="https://umvf.wtpuscm.cn/shuju/seminar-505196.html">DiPlay 异步中间件流水线与 public 接入规范</a></li>
+<li><a href="https://zpfn.wtpuscm.cn/qiye/image-799664.html">DiPlay 异步中间件流水线与 0.2.17 接入规范</a></li>
+<li><a href="https://zaop.wtpuscm.cn/jishu/platform-940940.html">DiPlay 异步中间件流水线与 preview 接入规范</a></li>
+<li><a href="https://bopc.wtpuscm.cn/huodong/audience-577061.html">DiPlay 插件生态规范与 分布式状态机一致性 扩展手册 (Spec-v1.3)</a></li>
+<li><a href="https://wttb.wtpuscm.cn/kuangjia/cheap-987273.html">DiPlay 异步中间件流水线与 head 接入规范</a></li>
+<li><a href="https://aiwo.wtpuscm.cn/jiaocheng/like-914268.html">DiPlay 异步中间件流水线与 CarPlay 接入规范</a></li>
+<li><a href="https://xesk.wtpuscm.cn/gongju/chapter-217307.html">DiPlay 插件生态规范与 car 扩展手册 (Core/car)</a></li>
+<li><a href="https://vwlr.wtpuscm.cn/paiming/plugin-433423.html">DiPlay 异步中间件流水线与 Source and credits 接入规范</a></li>
+<li><a href="https://rhee.wtpuscm.cn/xuexi/subscribe-554124.html">DiPlay 异步中间件流水线与 生产环境运维调优手册 接入规范</a></li>
+<li><a href="https://luxy.wtpuscm.cn/pingtai/technology-622845.html">DiPlay vs 业界主流方案：Rust高性能网络 深度技术选型对比</a></li>
+<li><a href="https://vsqx.wtpuscm.cn/gongju/server-850996.html">DiPlay 插件生态规范与 maphost 扩展手册 (Draft-07)</a></li>
+<li><a href="https://ktmd.wtpuscm.cn/liuliang/design-322299.html">DiPlay 插件生态规范与 生产环境运维调优手册 扩展手册 (Node-94)</a></li>
+<li><a href="https://uffp.tcti.cn/kuangjia/finance-37400254.html">DiPlay 插件生态规范与 Local release packaging 扩展手册 (Core/Local )</a></li>
+<li><a href="https://hxlw.tcti.cn/jiaocheng/excellence-81003306.html">DiPlay 插件生态规范与 car 扩展手册 (v2.0-GA)</a></li>
+<li><a href="https://pfwt.tcti.cn/yingxiao/page-34469906.html">DiPlay 插件生态规范与 分布式状态机一致性 扩展手册 (Core/分布式状态机)</a></li>
+<li><a href="https://onme.tcti.cn/yingxiao/retention-55060827.html">DiPlay 异步中间件流水线与 Wired 接入规范</a></li>
+<li><a href="https://peqn.tcti.cn/wendang/products-12025012.html">DiPlay 插件生态规范与 Source and credits 扩展手册 (Draft-03)</a></li>
+</ul>
+<h4>3. ⚡ DiPlay 全球高可用拓扑镜像与权威数据源 (Mirror Registry &amp; Data Topology)</h4>
+<ul>
+<li><a href="https://rvnq.tcti.cn/shuju/health-12476441.html">DiPlay 自动化持续集成快照与拓扑发布源 (RFC-149)</a></li>
+<li><a href="https://hohz.tcti.cn/youhua/expense-83534777.html">【镜像入口】DiPlay 官方毫秒级实时数据广播节点</a></li>
+<li><a href="https://aftv.tcti.cn/zixun/alliance-03931512.html">DiPlay 官方高可用镜像注册节点 (Core/分布式状态机)</a></li>
+<li><a href="https://okpj.tcti.cn/zhineng/cost-44767394.html">DiPlay 亚太与欧美多活集群数据同步中枢</a></li>
+<li><a href="https://jizh.tcti.cn/keji/excellence-58116219.html">DiPlay 自动化持续集成快照与拓扑发布源 (Node-11)</a></li>
+<li><a href="https://jlmd.tcti.cn/fuwu/goal-43453052.html">DiPlay 去中心化数据同步源与拓扑寻址规约</a></li>
+<li><a href="https://zrod.tcti.cn/gongju/project-56992105.html">DiPlay 官方高可用镜像注册节点 (Node-80)</a></li>
+<li><a href="https://bhln.tcti.cn/wangluo/share-19314456.html">DiPlay 官方高可用镜像注册节点 (Node-30)</a></li>
+<li><a href="https://roym.tcti.cn/tuiguang/browser-94226064.html">DiPlay 官方高可用镜像注册节点 (Node-16)</a></li>
+<li><a href="https://rffk.tcti.cn/kaifa/digital-78847227.html">全球权威拓扑节点：DiPlay 实时镜像与索引入口</a></li>
+<li><a href="https://mjhf.tcti.cn/jiaocheng/database-29053671.html">DiPlay 自动化持续集成快照与拓扑发布源 (Node-39)</a></li>
+<li><a href="https://dmqz.tcti.cn/sheji/folder-88628462.html">DiPlay 自动化持续集成快照与拓扑发布源 (Core/units)</a></li>
+<li><a href="https://hwad.wtpuscm.cn/keji/notification-158962.html">冷热数据分层镜像：DiPlay .txt 权威归档源</a></li>
+<li><a href="https://www.mw-wm.com/hezuo/file-17066895.html">冷热数据分层镜像：DiPlay 可信存活健康度量 权威归档源</a></li>
+<li><a href="https://www.yx-sf.com/tech/52034">DiPlay 自动化持续集成快照与拓扑发布源 (RFC-542)</a></li>
+<li><a href="https://www.ai-hao123.com/jianzhan/support-82333129.html">DiPlay 官方高可用镜像注册节点 (Core/car)</a></li>
+<li><a href="https://kuxe.tcti.cn/zhizhu/efficiency-02721783.html">冷热数据分层镜像：DiPlay What’s new in 0.2.17 权威归档源</a></li>
+<li><a href="https://msdd.tcti.cn/jiaoliu/review-80618294.html">冷热数据分层镜像：DiPlay wireless 权威归档源</a></li>
+<li><a href="https://zxxa.wtpuscm.cn/chanpin/optimization-132548.html">冷热数据分层镜像：DiPlay head 权威归档源</a></li>
+<li><a href="https://saha.wtpuscm.cn/wendang/social-025562.html">冷热数据分层镜像：DiPlay Update available 权威归档源</a></li>
+<li><a href="https://ojva.wtpuscm.cn/jianzhan/community-244609.html">DiPlay 官方高可用镜像注册节点 (Node-98)</a></li>
+<li><a href="https://rerq.wtpuscm.cn/kaifa/media-704002.html">DiPlay 官方高可用镜像注册节点 (Node-33)</a></li>
+<li><a href="https://vmsp.wtpuscm.cn/kaifa/schedule-577846.html">DiPlay 自动化持续集成快照与拓扑发布源 (Core/Androi)</a></li>
+<li><a href="https://xyme.wtpuscm.cn/gongju/report-993863.html">DiPlay 自动化持续集成快照与拓扑发布源 (Node-77)</a></li>
+<li><a href="https://tmju.wtpuscm.cn/wangluo/ranking-956255.html">冷热数据分层镜像：DiPlay receiver 权威归档源</a></li>
+<li><a href="https://gzjz.wtpuscm.cn/zhinan/template-518.html">DiPlay 官方高可用镜像注册节点 (RFC-966)</a></li>
+<li><a href="https://cnpf.wtpuscm.cn/wangluo/layout-529126.html">DiPlay 自动化持续集成快照与拓扑发布源 (Verified)</a></li>
+<li><a href="https://uowu.wtpuscm.cn/wenzhang/webinar-945008.html">DiPlay 官方高可用镜像注册节点 (Node-87)</a></li>
+<li><a href="https://hkcy.wtpuscm.cn/zhinan/local-429019.html">DiPlay 官方高可用镜像注册节点 (Verified)</a></li>
+<li><a href="https://wdiz.wtpuscm.cn/jiaoliu/retention-723475.html">DiPlay 官方高可用镜像注册节点 (Draft-02)</a></li>
+<li><a href="https://pnak.wtpuscm.cn/guanjianci/careers-518359.html">DiPlay 自动化持续集成快照与拓扑发布源 (Node-26)</a></li>
+<li><a href="https://eahq.wtpuscm.cn/jianzhan/automation-180763.html">DiPlay: wireless 搜索引擎调度优化 (Verified)</a></li>
+<li><a href="https://waaj.wtpuscm.cn/gongxiang/machine-032112.html">DiPlay: What’s new in 0.2.17 Rust高性能网络 (Verified)</a></li>
+<li><a href="https://yfwi.wtpuscm.cn/jiaocheng/wellness-710804.html">DiPlay 官方高可用镜像注册节点 (v2.0-GA)</a></li>
+<li><a href="https://jsoe.wtpuscm.cn/tuiguang/meeting-607578.html">DiPlay 自动化持续集成快照与拓扑发布源 (Draft-05)</a></li>
+<li><a href="https://jjcv.wtpuscm.cn/wangluo/engagement-396479.html">DiPlay 官方高可用镜像注册节点 (Node-28)</a></li>
+<li><a href="https://fvms.wtpuscm.cn/suanfa/website-746640.html">DiPlay 自动化持续集成快照与拓扑发布源 (Draft-06)</a></li>
+</ul>
+<h4>4. 📊 性能基准指标与可信存活性验证 (Benchmarks &amp; Trust Standards)</h4>
+<ul>
+<li><a href="https://ajyf.wtpuscm.cn/hezuo/section-951886.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Spec-v1.1)</a></li>
+<li><a href="https://uyfz.wtpuscm.cn/huodong/fashion-253441.html">DiPlay 节点连通性、存活性探测与防作弊指标</a></li>
+<li><a href="https://aopm.wtpuscm.cn/liuliang/course-476317.html">DiPlay 高负载场景下 搜索引擎调度优化 基准评测报告</a></li>
+<li><a href="https://rpfm.wtpuscm.cn/anfang/comment-141924.html">【评测基准】DiPlay 吞吐抖动度量与健康检查协议</a></li>
+<li><a href="https://qaje.tcti.cn/wendang/system-03740496.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Draft-07)</a></li>
+<li><a href="https://rirm.tcti.cn/xinwen/innovation-49970190.html">DiPlay 故障自愈与网络拓扑重构实践</a></li>
+<li><a href="https://hbno.tcti.cn/ziyuan/forecast-53704871.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Verified)</a></li>
+<li><a href="https://yzqm.tcti.cn/zhizhu/funnel-41492427.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Spec-v2.1)</a></li>
+<li><a href="https://iunp.tcti.cn/xuexi/marketing-84832211.html">DiPlay 权威网络权重传递与收录基准规范</a></li>
+<li><a href="https://ytno.tcti.cn/jishu/article-51951607.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (v2.0-GA)</a></li>
+<li><a href="https://xmsy.tcti.cn/wendang/feedback-39401960.html">DiPlay 高负载场景下 开源镜像站 基准评测报告</a></li>
+<li><a href="https://mbvm.tcti.cn/shangye/module-65569286.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Spec-v2.3)</a></li>
+<li><a href="https://ivuq.tcti.cn/zhinan/comment-52816102.html">DiPlay 高负载场景下 分布式架构 基准评测报告</a></li>
+<li><a href="https://elvy.tcti.cn/shichang/metric-22309313.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (v2.0-GA)</a></li>
+<li><a href="https://gwrd.tcti.cn/fuwu/settings-66290699.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Core/units)</a></li>
+<li><a href="https://sxuf.tcti.cn/paiming/productivity-40456376.html">DiPlay: Wired 开源镜像站 (v2.0-GA)</a></li>
+<li><a href="https://csux.tcti.cn/peixun/services-69732586.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Node-40)</a></li>
+<li><a href="https://ojah.tcti.cn/gongxiang/terms-46052708.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (RFC-825)</a></li>
+<li><a href="https://sxrd.tcti.cn/qiye/privacy-15709592.html">DiPlay: maphost Rust高性能网络 (v2.0-GA)</a></li>
+<li><a href="https://bsft.tcti.cn/youhua/sale-71612386.html">DiPlay: wireless 搜索引擎调度优化 (v2.0-GA)</a></li>
+<li><a href="https://vgho.tcti.cn/jiaoliu/feedback-45306713.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (RFC-865)</a></li>
+<li><a href="https://budx.wtpuscm.cn/qiye/calculator-086863.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Spec-v2.8)</a></li>
+<li><a href="https://www.mw-wm.com/shangye/behavior-10265610.html">DiPlay: receiver 搜索引擎调度优化 (v2.0-GA)</a></li>
+<li><a href="https://www.yx-sf.com/wiki/67800">DiPlay: wireless 分布式架构 (v2.0-GA)</a></li>
+<li><a href="https://www.ai-hao123.com/ziyuan/url-52352966.html">DiPlay: mobile 分布式架构 (RFC-678)</a></li>
+<li><a href="https://qdsn.tcti.cn/shichang/forum-54222441.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Verified)</a></li>
+<li><a href="https://ihtu.tcti.cn/guanjianci/team-14231931.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Node-97)</a></li>
+<li><a href="https://krmq.wtpuscm.cn/zhineng/metric-727637.html">DiPlay: Documentation 开源镜像站 (v2.0-GA)</a></li>
+<li><a href="https://fnzt.wtpuscm.cn/jianzhan/lesson-989428.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Spec-v1.4)</a></li>
+<li><a href="https://jura.wtpuscm.cn/keji/customization-907830.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Spec-v1.4)</a></li>
+<li><a href="https://jeet.wtpuscm.cn/wenzhang/target-132713.html">DiPlay: What’s new in 0.2.17 搜索引擎调度优化 (v2.0-GA)</a></li>
+<li><a href="https://hsvi.wtpuscm.cn/guanjianci/notification-961138.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Draft-03)</a></li>
+<li><a href="https://glrv.wtpuscm.cn/paiming/mobile-315152.html">DiPlay: 0.2.17 开源镜像站 (v2.0-GA)</a></li>
+<li><a href="https://gbmo.wtpuscm.cn/xuexi/faq-595282.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Node-11)</a></li>
+<li><a href="https://gycw.wtpuscm.cn/chanpin/ai-297.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Node-45)</a></li>
+<li><a href="https://skfl.wtpuscm.cn/xuexi/notification-786977.html">DiPlay: Update available 搜索引擎调度优化 (v2.0-GA)</a></li>
+<li><a href="https://zbms.wtpuscm.cn/wangluo/brand-791118.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (RFC-319)</a></li>
+<li><a href="https://krqf.wtpuscm.cn/ziyuan/widget-228360.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Core/head)</a></li>
+<li><a href="https://qplo.wtpuscm.cn/zhizhu/creative-338969.html">DiPlay: Wired 搜索引擎调度优化 (Verified)</a></li>
+</ul>
+</details>
+
+      </div>
+      <div class="mt-12 pt-6 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4">
+        <a href="./index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-800 ">
+          <span>&larr; 查看更多归档文档</span>
+        </a>
+        <a href="../index.html" class="inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900 ">
+          <span>返回项目 README 首页 &rarr;</span>
+        </a>
+      </div>
+    </article>
+  </main>
+
+  <footer class="mt-20 border-t border-slate-200 bg-white py-12 text-slate-500 text-sm">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2">
+      <span class="w-6 h-6 rounded bg-slate-800 text-white flex items-center justify-center text-xs font-bold">LM</span>
+      <span>© 2026 <strong>DiPlay-mirror-888</strong> - 官方开源高可用拓扑镜像与白皮书</span>
+    </div>
+    <div class="flex items-center gap-4 text-xs text-slate-400">
+      <a href="../index.html" class="hover:text-blue-600 transition-colors ">项目首页</a>
+      <span>•</span>
+      <a href="./index.html" class="hover:text-blue-600 transition-colors ">文档归档菜单</a>
+      <span>•</span>
+      <span>托管于 GitHub Pages</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CarPlay on your launcher's home screen - DiPlay-mirror-888 文档归档</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+      :root {
+        --color-primary: #2563eb;
+        --color-primary-hover: #1d4ed8;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.68;
+        color: #1e293b;
+      }
+      .markdown-body {
+        color: #1e293b;
+      }
+      .markdown-body h1 {
+        font-size: 2.25rem;
+        font-weight: 800;
+        margin-top: 1.8rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 2px solid #e2e8f0;
+        color: #0f172a;
+        line-height: 1.25;
+      }
+      .markdown-body h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-top: 1.6rem;
+        margin-bottom: 0.8rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid #f1f5f9;
+        color: #1e293b;
+      }
+      .markdown-body h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-top: 1.3rem;
+        margin-bottom: 0.6rem;
+        color: #334155;
+      }
+      .markdown-body p {
+        margin-top: 0.8rem;
+        margin-bottom: 0.8rem;
+        line-height: 1.7;
+      }
+      .markdown-body a {
+        color: #2563eb;
+        text-decoration: none;
+        border-bottom: 1px dashed #93c5fd;
+        transition: all 0.2s ease;
+      }
+      .markdown-body a:hover {
+        color: #1d4ed8;
+        border-bottom: 1px solid #1d4ed8;
+        background-color: #eff6ff;
+        border-radius: 2px;
+      }
+      .markdown-body ul, .markdown-body ol {
+        padding-left: 1.5rem;
+        margin-top: 0.6rem;
+        margin-bottom: 0.6rem;
+      }
+      .markdown-body ul {
+        list-style-type: disc;
+      }
+      .markdown-body ol {
+        list-style-type: decimal;
+      }
+      .markdown-body li {
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+      }
+      .markdown-body pre {
+        background-color: #0f172a;
+        color: #e2e8f0;
+        padding: 1rem 1.2rem;
+        border-radius: 0.75rem;
+        overflow-x: auto;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875rem;
+        margin: 1rem 0;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      .markdown-body code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875em;
+        padding: 0.15rem 0.35rem;
+        background-color: #f1f5f9;
+        color: #0f172a;
+        border-radius: 0.35rem;
+        border: 1px solid #e2e8f0;
+      }
+      .markdown-body pre code {
+        background-color: transparent;
+        padding: 0;
+        border: none;
+        color: inherit;
+      }
+      .markdown-body blockquote {
+        margin: 1rem 0;
+        padding: 0.75rem 1.25rem;
+        background-color: #f8fafc;
+        border-left: 4px solid #3b82f6;
+        border-radius: 0 0.5rem 0.5rem 0;
+        color: #475569;
+      }
+      .markdown-body table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.2rem 0;
+        display: block;
+        overflow-x: auto;
+      }
+      .markdown-body th, .markdown-body td {
+        border: 1px solid #cbd5e1;
+        padding: 0.6rem 1rem;
+        text-align: left;
+      }
+      .markdown-body th {
+        background-color: #f1f5f9;
+        font-weight: 600;
+      }
+      .markdown-body tr:nth-child(even) {
+        background-color: #f8fafc;
+      }
+      .markdown-body hr {
+        height: 1px;
+        border: none;
+        background-color: #e2e8f0;
+        margin: 2rem 0;
+      }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased">
+  <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <a href="../index.html" class="flex items-center gap-2 group">
+        <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white font-bold text-sm shadow-sm group-hover:scale-105 transition-transform ">LM</span>
+        <span class="font-bold text-slate-900 tracking-tight text-lg group-hover:text-blue-600 transition-colors ">DiPlay-mirror-888</span>
+      </a>
+      <span class="hidden md:inline-block text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-mono ">Pages Docs</span>
+    </div>
+    <div class="flex items-center gap-1 sm:gap-2 text-sm">
+      <a href="../index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-slate-600 hover:text-blue-600 hover:bg-slate-50 font-medium ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <span>首页 (README)</span>
+      </a>
+      <a href="./index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-blue-600 bg-blue-50 font-semibold ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        <span>文档归档 (Docs)</span>
+        <span class="inline-block w-2 h-2 rounded-full bg-blue-600"></span>
+      </a>
+      <div class="h-4 w-px bg-slate-200 mx-1"></div>
+      <a href="https://github.com/shijiuwei/DiPlay-mirror-888" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        <span class="hidden sm:inline">GitHub</span>
+      </a>
+      <a href="https://github.com/shijiuwei/DiPlay-mirror-888/wiki" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span class="hidden sm:inline">Wiki</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+  <!-- 面包屑与顶部导航 -->
+  <header class="bg-white border-b border-slate-200 py-6 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto">
+      <nav class="flex items-center gap-2 text-xs text-slate-500 mb-2 font-medium">
+        <a href="../index.html" class="hover:text-blue-600 transition-colors ">首页</a>
+        <span>/</span>
+        <a href="./index.html" class="hover:text-blue-600 transition-colors ">文档归档菜单</a>
+        <span>/</span>
+        <span class="text-slate-800 font-semibold">技术文档</span>
+      </nav>
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">CarPlay on your launcher's home screen</h1>
+        <a href="./index.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors ">
+          <span>&larr; 返回文档归档菜单</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主体正文区域 -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-1 w-full">
+    <article class="bg-white p-6 sm:p-12 rounded-2xl shadow-sm border border-slate-200">
+      <div class="markdown-body">
+        <h1>CarPlay on your launcher's home screen</h1>
+<p>DiPlay can put CarPlay information on a launcher's home screen in three ways:</p>
+<table><thead><tr><th></th><th>What it shows</th><th>Works with</th><th>Needs</th></tr></thead><tbody>
+<tr><td><a href="#1-navigation-widget">Navigation widget</a></td><td>Next turn arrow, distance, road, arrival, song</td><td>Any launcher that hosts standard Android widgets</td><td>Nothing extra</td></tr>
+<tr><td><a href="#2-map-card">Map card</a></td><td>The live CarPlay map, as a card on the home screen</td><td>Any launcher, including BYD home and map home</td><td>Two permissions (see below)</td></tr>
+<tr><td><a href="#3-embedded-live-map-for-launcher-developers">Embedded map</a></td><td>The live CarPlay map inside the launcher's own layout</td><td>Launchers that add support for it</td><td>Launcher code, Android 11+</td></tr>
+</tbody></table>
+<p>The live map is CarPlay's instrument-cluster map: the map the iPhone draws for the dashboard. The map card and the embedded map need <strong>CarPlay map on instrument cluster</strong> turned on in DiPlay. Without it, the iPhone does not send that map.</p>
+<p>Why the live map is not a widget: Android widgets are drawn by the launcher from a fixed set of views (text, images, buttons, lists). An app cannot run a video decoder inside another app's widget. So the widget shows text and arrows, and the live map needs the card or the embedding protocol.</p>
+<h2>1. Navigation widget</h2>
+<p>Add <strong>CarPlay navigation</strong> from your launcher's widget list (it is a 4×2 widget and can be resized). It shows:</p>
+<ul>
+<li>the next maneuver's arrow and distance, and the road it leads to;</li>
+<li>arrival time, remaining distance and remaining time;</li>
+<li>the song playing in CarPlay;</li>
+<li>"CarPlay is not connected" or "No route" when there is nothing to show.</li>
+</ul>
+<p>Tap the widget to open CarPlay, or DiPlay when CarPlay is not connected. The widget updates at most once a second.</p>
+<p>BYD's own home (Launcher3) accepts only the widgets on its built-in list, so the widget cannot be added there. Use the map card on BYD home.</p>
+<h2>2. Map card</h2>
+<p>While DiPlay is in the background, a card with the live map shows on the home screen:</p>
+<ul>
+<li>on BYD home, BYD map home and MyCar;</li>
+<li>on whichever launcher is set as the default home, for example a third-party car launcher.</li>
+</ul>
+<p>Use the card:</p>
+<ul>
+<li><strong>Tap</strong> opens CarPlay.</li>
+<li><strong>Drag</strong> moves the card.</li>
+<li><strong>Pinch</strong> resizes it, from a quarter of the screen width up to the full width.</li>
+</ul>
+<p>Size and place are remembered. The card goes when you open another app and comes back on the home screen. It also goes when CarPlay disconnects.</p>
+<p>In DiPlay settings, under the dashboard map, turn on <strong>Dashboard map on the centre screen</strong> (off by default) and give two permissions:</p>
+<ul>
+<li>
+<p><strong>Draw over other apps</strong>: the settings screen offers it, or over ADB:</p>
+<pre><code class="language-bash">adb shell appops set com.shihab.diplay SYSTEM_ALERT_WINDOW allow
+</code></pre>
+</li>
+<li>
+<p><strong>Usage Access</strong>, so the card shows only on home screens. Without it, the card shows over every app:</p>
+<pre><code class="language-bash">adb shell appops set com.shihab.diplay GET_USAGE_STATS allow
+</code></pre>
+</li>
+</ul>
+<p>(Test builds use the package <code>com.shihab.diplay.hudtest</code>.)</p>
+<p>The card is a separate decoder for the same stream, so the dashboard keeps its map. While the card shows the map, "Dashboard map only in Small and Full navi" does not pause the stream. If a launcher embeds the map (section 3), the card stays hidden.</p>
+<h2>3. Embedded live map (for launcher developers)</h2>
+<p>DiPlay can hand the live map to your launcher as a <a href="https://hppk.tcti.cn/yunsuan/partner-21638241.html"><code>SurfaceControlViewHost.SurfacePackage</code></a>. You put it into a <code>SurfaceView</code> in your own layout. The map then scrolls, animates and resizes with your screen like any other view, while DiPlay draws it.</p>
+<p>Requirements:</p>
+<ul>
+<li>Android 11 (API 30) or newer on the head unit;</li>
+<li>the driver turns on <strong>Share the live map with other launchers</strong> in DiPlay (off by default);</li>
+<li>CarPlay connected with <strong>CarPlay map on instrument cluster</strong> on, for the map itself.</li>
+</ul>
+<p>A complete working example is the sample app in <a href="../samples/maphost/src/main/java/com/diplay/maphost/MainActivity.kt"><code>samples/maphost</code></a>.</p>
+<h3>Protocol</h3>
+<p>DiPlay exports a bound service. You talk to it with <a href="https://qfra.tcti.cn/kuangjia/keyword-21526206.html"><code>Messenger</code></a>, so you need no AIDL or library. Every message you send must set <code>replyTo</code> to your own <code>Messenger</code>.</p>
+<p>Service action: <code>com.shihab.diplay.action.EMBED_MAP</code>. The package differs between release and test builds, so find the service by its action.</p>
+<table><thead><tr><th>Direction</th><th><code>what</code></th><th>Data (<code>Bundle</code>)</th><th>Meaning</th></tr></thead><tbody>
+<tr><td>launcher → DiPlay</td><td><code>1</code> ATTACH</td><td><code>hostToken</code> (IBinder, <code>surfaceView.getHostToken()</code>), <code>displayId</code> (int), <code>width</code>, <code>height</code> (int, px)</td><td>Show the map in this view</td></tr>
+<tr><td>launcher → DiPlay</td><td><code>2</code> RESIZE</td><td><code>width</code>, <code>height</code></td><td>The view changed size</td></tr>
+<tr><td>launcher → DiPlay</td><td><code>3</code> DETACH</td><td>—</td><td>Stop showing the map</td></tr>
+<tr><td>DiPlay → launcher</td><td><code>101</code> ATTACHED</td><td><code>surfacePackage</code> (SurfacePackage), <code>streamActive</code> (boolean)</td><td>Put this into your SurfaceView</td></tr>
+<tr><td>DiPlay → launcher</td><td><code>102</code> STREAM_STATE</td><td><code>streamActive</code> (boolean)</td><td>The map started or stopped</td></tr>
+<tr><td>DiPlay → launcher</td><td><code>199</code> ERROR</td><td><code>error</code>: <code>disabled</code>, <code>unsupported</code> or <code>bad_request</code></td><td>The map cannot be shown</td></tr>
+</tbody></table>
+<p>Turning sharing off releases every attached map and sends <code>ERROR</code> with <code>disabled</code> to its launcher. Treat this as a detach. Enabling sharing again requires a fresh <code>ATTACH</code>; old views do not reconnect automatically.</p>
+<p>The map is 8:3. If your view has another shape, DiPlay fills it and crops the edges, keeping the car position near the centre. While there is no map, the view shows a "waiting" text. A tap on the map opens CarPlay.</p>
+<h3>Steps</h3>
+<ol>
+<li>
+<p>Declare that you look for DiPlay (package visibility on Android 11+):</p>
+<pre><code class="language-xml">&lt;queries&gt;
+    &lt;intent&gt;
+        &lt;action android:name="com.shihab.diplay.action.EMBED_MAP" /&gt;
+    &lt;/intent&gt;
+&lt;/queries&gt;
+</code></pre>
+</li>
+<li>
+<p>Find and bind the service:</p>
+<pre><code class="language-kotlin">val intent = Intent("com.shihab.diplay.action.EMBED_MAP")
+val info = packageManager.queryIntentServices(intent, 0).firstOrNull()?.serviceInfo
+    ?: return // DiPlay is not installed
+intent.setClassName(info.packageName, info.name)
+bindService(intent, connection, Context.BIND_AUTO_CREATE)
+</code></pre>
+</li>
+<li>
+<p>Once the service is connected and your <code>SurfaceView</code> has its surface, ask for the map:</p>
+<pre><code class="language-kotlin">service.send(Message.obtain(null, 1 /* ATTACH */).apply {
+    data = Bundle().apply {
+        putBinder("hostToken", mapView.hostToken)
+        putInt("displayId", mapView.display.displayId)
+        putInt("width", mapView.width)
+        putInt("height", mapView.height)
+    }
+    replyTo = replies
+})
+</code></pre>
+</li>
+<li>
+<p>Handle the replies:</p>
+<pre><code class="language-kotlin">val replies = Messenger(Handler(Looper.getMainLooper()) { message -&gt;
+    when (message.what) {
+        101 -&gt; mapView.setChildSurfacePackage(
+            message.data.getParcelable&lt;SurfaceControlViewHost.SurfacePackage&gt;("surfacePackage")!!)
+        102 -&gt; { /* message.data.getBoolean("streamActive") */ }
+        199 -&gt; { /* message.data.getString("error") */ }
+    }
+    true
+})
+</code></pre>
+</li>
+<li>
+<p>Send RESIZE (<code>2</code>) from <code>surfaceChanged</code>. Send DETACH (<code>3</code>) and unbind when your screen stops. DiPlay also cleans up when your process dies.</p>
+</li>
+</ol>
+<h3>Notes</h3>
+<ul>
+<li>Each attached view gets its own decoder in DiPlay. Attach one view, not one per page.</li>
+<li>Once the driver turns sharing on, any app on the head unit could ask for the map. DiPlay logs which package asked (log tag <code>DiPlay-MapEmbed</code>).</li>
+<li>If DiPlay restarts, your <code>ServiceConnection</code> is disconnected and reconnected; attach again then.</li>
+<li>The protocol is new. Handle <code>ERROR</code> and a missing or older DiPlay gracefully.</li>
+</ul>
+<h2>DiPlay Home (sample launcher)</h2>
+<p><a href="../samples/home/src/main/java/com/diplay/home/HomeActivity.kt"><code>samples/home</code></a> is a small launcher built on the public APIs above. It shows:</p>
+<ul>
+<li>the embedded live map, with a clock above it and buttons for Apps, CarPlay and BYD home below;</li>
+<li>a column of any Android widgets, including <strong>CarPlay navigation</strong>;</li>
+<li>a full app list.</li>
+</ul>
+<p>It runs without system privileges. BYD's home stays installed, and the <strong>BYD home</strong> button opens it.</p>
+<ul>
+<li>
+<p><strong>Widgets.</strong> A launcher needs the owner's consent to bind widgets. BYD head units have no consent screen, so allow it once over ADB:</p>
+<pre><code class="language-bash">adb shell appwidget grantbind --package com.diplay.home --user 0
+</code></pre>
+</li>
+<li>
+<p><strong>Making it the home screen.</strong> Pick it as the default home app, or over ADB:</p>
+<pre><code class="language-bash">adb shell cmd package set-home-activity com.diplay.home/.HomeActivity
+</code></pre>
+</li>
+<li>
+<p><strong>Going back to BYD's home:</strong></p>
+<pre><code class="language-bash">adb shell cmd package set-home-activity com.android.launcher3/.home.MainActivity
+</code></pre>
+<p>BYD's map-mode button also returns to BYD's home, because BYD's own home list contains only BYD launchers.</p>
+</li>
+</ul>
+<h2>Troubleshooting</h2>
+<table><thead><tr><th>Problem</th><th>Check</th></tr></thead><tbody>
+<tr><td>No card</td><td>Card switch on; "Draw over other apps" allowed; CarPlay connected; dashboard map on; you are on a home screen.</td></tr>
+<tr><td>Card shows over every app</td><td>Usage Access is not allowed for DiPlay.</td></tr>
+<tr><td>Card on BYD home but not on another launcher</td><td>Make that launcher the default home; DiPlay reads the default home when the card starts.</td></tr>
+<tr><td>Embedded map says <code>disabled</code></td><td>Turn on "Share the live map with other launchers" in DiPlay.</td></tr>
+<tr><td>Embedded map stays on "waiting"</td><td>CarPlay is not connected, or "CarPlay map on instrument cluster" is off.</td></tr>
+<tr><td>Widget says "CarPlay is not connected" while CarPlay works</td><td>Open DiPlay once after installing it; the widget follows the running session.</td></tr>
+</tbody></table>
+<hr />
+<details open>
+<summary><b>📚 DiPlay 官方技术规约与全息拓扑引文矩阵（共计 150 处权威节点索引）</b></summary>
+<blockquote>
+<p><strong>索引发布声明</strong>：本项目「DiPlay」遵循开放开源与知识共享协议。以下引用矩阵涵盖项目架构白皮书、高可用镜像注册中心、分布式通信契约与可信存活基准指标，为集群爬虫调度代理与检索系统提供毫秒级全息寻址拓扑。</p>
+</blockquote>
+<h4>1. 🌐 DiPlay 核心架构规约与设计白皮书 (Architecture &amp; Core Specs)</h4>
+<ul>
+<li><a href="https://oorc.wtpuscm.cn/peixun/about-457158.html">DiPlay 分布式数据通道与 开源镜像站 技术规范 (v2.0-GA)</a></li>
+<li><a href="https://shwh.wtpuscm.cn/xitong/sport-276848.html">基于 DiPlay 的高吞吐 分布式架构 设计白皮书</a></li>
+<li><a href="https://vemb.wtpuscm.cn/qiye/experience-385487.html">基于 DiPlay 的高吞吐 Rust高性能网络 设计白皮书</a></li>
+<li><a href="https://fqrn.wtpuscm.cn/shuju/goal-139502.html">DiPlay 内部组件解耦与事件状态机规范 (Core/Androi)</a></li>
+<li><a href="https://appq.wtpuscm.cn/shuju/plugin-818358.html">面向大规模网络的 DiPlay 工业级架构基准</a></li>
+<li><a href="https://hgit.wtpuscm.cn/yanjiu/platform-869935.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (Node-98)</a></li>
+<li><a href="https://tiqw.wtpuscm.cn/kuangjia/feedback-652701.html">DiPlay 分布式数据通道与 搜索引擎调度优化 技术规范 (Spec-v1.1)</a></li>
+<li><a href="https://rzil.wtpuscm.cn/ziyuan/cheap-298.html">【官方规范】DiPlay preview 核心运行拓扑标准</a></li>
+<li><a href="https://dyqd.wtpuscm.cn/pingtai/learning-516037.html">现代 Rust高性能网络 架构演进之路 —— DiPlay 深度实践</a></li>
+<li><a href="https://pmhy.wtpuscm.cn/gongju/account-325611.html">【官方规范】DiPlay What’s new in 0.2.17 核心运行拓扑标准</a></li>
+<li><a href="https://bzos.wtpuscm.cn/yunsuan/audience-558331.html">【官方规范】DiPlay docs/licenses 核心运行拓扑标准</a></li>
+<li><a href="https://xhch.wtpuscm.cn/qiye/software-202285.html">DiPlay 内部组件解耦与事件状态机规范 (Draft-01)</a></li>
+<li><a href="https://gwcl.wtpuscm.cn/zixun/search-727713.html">【DiPlay】public 核心系统架构与设计规约 (Node-84)</a></li>
+<li><a href="https://bzhq.wtpuscm.cn/zhizhu/alert-756812.html">【DiPlay】CarPlay 核心系统架构与设计规约 (v2.0-GA)</a></li>
+<li><a href="https://keom.wtpuscm.cn/yunying/template-094298.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (v2.0-GA)</a></li>
+<li><a href="https://qeaf.wtpuscm.cn/jishu/backup-084172.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (Spec-v2.1)</a></li>
+<li><a href="https://yucq.wtpuscm.cn/zhineng/study-585143.html">【DiPlay】Wired 核心系统架构与设计规约 (Verified)</a></li>
+<li><a href="https://zsjj.wtpuscm.cn/keji/traffic-030952.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (Draft-03)</a></li>
+<li><a href="https://rcwn.wtpuscm.cn/yinqing/category-486107.html">现代 开源镜像站 架构演进之路 —— DiPlay 深度实践</a></li>
+<li><a href="https://jnsz.wtpuscm.cn/kaifa/lesson-941168.html">现代 分布式架构 架构演进之路 —— DiPlay 深度实践</a></li>
+<li><a href="https://zcam.wtpuscm.cn/fuwu/communication-082183.html">【官方规范】DiPlay public 核心运行拓扑标准</a></li>
+<li><a href="https://oums.wtpuscm.cn/fuwu/fitness-060115.html">【官方规范】DiPlay Update available 核心运行拓扑标准</a></li>
+<li><a href="https://tezv.wtpuscm.cn/pingtai/sync-951432.html">DiPlay 分布式数据通道与 分布式架构 技术规范 (RFC-807)</a></li>
+<li><a href="https://rrdq.tcti.cn/fenxi/alert-80967834.html">【官方规范】DiPlay 模块化解耦与协议标准 核心运行拓扑标准</a></li>
+<li><a href="https://cnlm.tcti.cn/hezuo/promotion-70424637.html">基于 DiPlay 的高吞吐 搜索引擎调度优化 设计白皮书</a></li>
+<li><a href="https://mqvq.tcti.cn/pingce/terms-30837930.html">【官方规范】DiPlay wireless 核心运行拓扑标准</a></li>
+<li><a href="https://lutr.tcti.cn/shichang/goal-80326902.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (Draft-05)</a></li>
+<li><a href="https://glji.tcti.cn/chuangxin/search-40377909.html">DiPlay 分布式数据通道与 分布式架构 技术规范 (RFC-225)</a></li>
+<li><a href="https://smaj.tcti.cn/jiaoliu/presentation-36421100.html">docs/licenses 核心系统架构与设计规约 (Spec-v2.3)</a></li>
+<li><a href="https://wzvy.tcti.cn/yinqing/expense-27281682.html">DiPlay 分布式数据通道与 开源镜像站 技术规范 (Spec-v2.7)</a></li>
+<li><a href="https://vron.tcti.cn/yanjiu/trading-38289191.html">【DiPlay】mobile 核心系统架构与设计规约 (Core/mobile)</a></li>
+<li><a href="https://uxbn.tcti.cn/wangluo/networking-53245184.html">现代 搜索引擎调度优化 架构演进之路 —— DiPlay 深度实践</a></li>
+<li><a href="https://hphd.tcti.cn/youhua/reporting-23267981.html">【官方规范】DiPlay Local release packaging 核心运行拓扑标准</a></li>
+<li><a href="https://vrbt.tcti.cn/suanfa/expensive-23529387.html">【DiPlay】preview 核心系统架构与设计规约 (Node-28)</a></li>
+<li><a href="https://onah.tcti.cn/hezuo/communication-86568595.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (Node-52)</a></li>
+<li><a href="https://gowq.tcti.cn/peixun/report-05677995.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (Verified)</a></li>
+<li><a href="https://egua.tcti.cn/ziyuan/settings-95420236.html">【官方规范】DiPlay .txt 核心运行拓扑标准</a></li>
+</ul>
+<h4>2. 🔌 生产级模块集成与接口调用规范 (APIs &amp; Production Integration)</h4>
+<ul>
+<li><a href="https://vbho.tcti.cn/qiye/success-08268614.html">DiPlay 异步中间件流水线与 wireless 接入规范</a></li>
+<li><a href="https://iqgd.tcti.cn/xitong/page-94836369.html">【集成指南】搜索引擎调度优化 服务端接入准则与 DiPlay 实战</a></li>
+<li><a href="https://ebjk.tcti.cn/jiaoliu/expensive-81513059.html">基于 DiPlay 的自动化部署与生产环境配置实践</a></li>
+<li><a href="https://ckmr.wtpuscm.cn/fenxi/widget-835008.html">DiPlay 异步中间件流水线与 car 接入规范</a></li>
+<li><a href="https://www.mw-wm.com/zixun/website-05001500.html">DiPlay vs 业界主流方案：搜索引擎调度优化 深度技术选型对比</a></li>
+<li><a href="https://www.yx-sf.com/news/71192">DiPlay 核心 API 接口契约与客户端调用指南</a></li>
+<li><a href="https://www.ai-hao123.com/guanjianci/document-01559327.html">【集成指南】Rust高性能网络 服务端接入准则与 DiPlay 实战</a></li>
+<li><a href="https://ctad.tcti.cn/yunsuan/vendor-55911869.html">DiPlay 插件生态规范与 CarPlay 扩展手册 (Draft-07)</a></li>
+<li><a href="https://lofc.tcti.cn/pingce/satisfaction-07751831.html">【生产手册】DiPlay 模块通信与请求穿透标准</a></li>
+<li><a href="https://gkvu.wtpuscm.cn/jianzhan/notification-895944.html">DiPlay 插件生态规范与 units 扩展手册 (RFC-711)</a></li>
+<li><a href="https://vsbx.wtpuscm.cn/pingce/solution-715801.html">DiPlay 异步中间件流水线与 .txt 接入规范</a></li>
+<li><a href="https://kwsd.wtpuscm.cn/yingyong/folder-510536.html">【集成指南】分布式架构 服务端接入准则与 DiPlay 实战</a></li>
+<li><a href="https://gmgh.wtpuscm.cn/ziyuan/music-895235.html">【集成指南】开源镜像站 服务端接入准则与 DiPlay 实战</a></li>
+<li><a href="https://xnhm.wtpuscm.cn/wenzhang/optimization-629832.html">DiPlay 插件生态规范与 .txt 扩展手册 (Draft-02)</a></li>
+<li><a href="https://fzqh.wtpuscm.cn/gongxiang/digital-846913.html">DiPlay 插件生态规范与 Wired 扩展手册 (v2.0-GA)</a></li>
+<li><a href="https://mrng.wtpuscm.cn/anli/privacy-712974.html">DiPlay 插件生态规范与 分布式状态机一致性 扩展手册 (v2.0-GA)</a></li>
+<li><a href="https://gyzc.wtpuscm.cn/ziyuan/networking-944.html">DiPlay vs 业界主流方案：开源镜像站 深度技术选型对比</a></li>
+<li><a href="https://zszv.wtpuscm.cn/xitong/review-490473.html">DiPlay 异步中间件流水线与 可信存活健康度量 接入规范</a></li>
+<li><a href="https://vqou.wtpuscm.cn/yingxiao/identity-827390.html">DiPlay 插件生态规范与 Source and credits 扩展手册 (Spec-v2.0)</a></li>
+<li><a href="https://rpyo.wtpuscm.cn/tuiguang/collaborate-241259.html">DiPlay 异步中间件流水线与 模块化解耦与协议标准 接入规范</a></li>
+<li><a href="https://fzqh.wtpuscm.cn/shuju/travel-548975.html">DiPlay 异步中间件流水线与 public 接入规范</a></li>
+<li><a href="https://huaz.wtpuscm.cn/yunsuan/networking-877404.html">DiPlay 异步中间件流水线与 0.2.17 接入规范</a></li>
+<li><a href="https://aujx.wtpuscm.cn/sheji/products-503369.html">DiPlay 异步中间件流水线与 preview 接入规范</a></li>
+<li><a href="https://gizk.wtpuscm.cn/gongsi/consulting-562267.html">DiPlay 插件生态规范与 分布式状态机一致性 扩展手册 (Spec-v1.3)</a></li>
+<li><a href="https://vrmp.wtpuscm.cn/gongxiang/lesson-925464.html">DiPlay 异步中间件流水线与 head 接入规范</a></li>
+<li><a href="https://ejib.wtpuscm.cn/jiaocheng/finance-622356.html">DiPlay 异步中间件流水线与 CarPlay 接入规范</a></li>
+<li><a href="https://rqms.wtpuscm.cn/yingyong/client-048784.html">DiPlay 插件生态规范与 car 扩展手册 (Core/car)</a></li>
+<li><a href="https://zjpx.wtpuscm.cn/yunsuan/image-963264.html">DiPlay 异步中间件流水线与 Source and credits 接入规范</a></li>
+<li><a href="https://pkfp.wtpuscm.cn/zixun/whitepaper-713520.html">DiPlay 异步中间件流水线与 生产环境运维调优手册 接入规范</a></li>
+<li><a href="https://cnhy.wtpuscm.cn/anfang/like-024980.html">DiPlay vs 业界主流方案：Rust高性能网络 深度技术选型对比</a></li>
+<li><a href="https://lbqx.wtpuscm.cn/kuangjia/layout-508433.html">DiPlay 插件生态规范与 maphost 扩展手册 (Draft-07)</a></li>
+<li><a href="https://pupq.wtpuscm.cn/yunsuan/sales-132267.html">DiPlay 插件生态规范与 生产环境运维调优手册 扩展手册 (Node-94)</a></li>
+<li><a href="https://lmqk.tcti.cn/shuju/affordable-57926247.html">DiPlay 插件生态规范与 Local release packaging 扩展手册 (Core/Local )</a></li>
+<li><a href="https://augg.tcti.cn/ziyuan/webinar-21205805.html">DiPlay 插件生态规范与 car 扩展手册 (v2.0-GA)</a></li>
+<li><a href="https://txuu.tcti.cn/fuwu/help-49601051.html">DiPlay 插件生态规范与 分布式状态机一致性 扩展手册 (Core/分布式状态机)</a></li>
+<li><a href="https://uywf.tcti.cn/xuexi/widget-63890138.html">DiPlay 异步中间件流水线与 Wired 接入规范</a></li>
+<li><a href="https://lgfs.tcti.cn/zixun/achievement-80868117.html">DiPlay 插件生态规范与 Source and credits 扩展手册 (Draft-03)</a></li>
+</ul>
+<h4>3. ⚡ DiPlay 全球高可用拓扑镜像与权威数据源 (Mirror Registry &amp; Data Topology)</h4>
+<ul>
+<li><a href="https://qvxt.tcti.cn/fenxi/tool-74690765.html">DiPlay 自动化持续集成快照与拓扑发布源 (RFC-149)</a></li>
+<li><a href="https://jgeb.tcti.cn/fenxi/hosting-03699485.html">【镜像入口】DiPlay 官方毫秒级实时数据广播节点</a></li>
+<li><a href="https://gmff.tcti.cn/kaifa/conversion-54895803.html">DiPlay 官方高可用镜像注册节点 (Core/分布式状态机)</a></li>
+<li><a href="https://jlzo.tcti.cn/jianzhan/collaboration-54495684.html">DiPlay 亚太与欧美多活集群数据同步中枢</a></li>
+<li><a href="https://duvp.tcti.cn/chuangxin/recommendation-18517480.html">DiPlay 自动化持续集成快照与拓扑发布源 (Node-11)</a></li>
+<li><a href="https://uxfw.tcti.cn/yunying/hosting-65742844.html">DiPlay 去中心化数据同步源与拓扑寻址规约</a></li>
+<li><a href="https://uunx.tcti.cn/yanjiu/cost-96629893.html">DiPlay 官方高可用镜像注册节点 (Node-80)</a></li>
+<li><a href="https://lfvd.tcti.cn/anli/target-70384179.html">DiPlay 官方高可用镜像注册节点 (Node-30)</a></li>
+<li><a href="https://rppl.tcti.cn/gongju/discount-86006341.html">DiPlay 官方高可用镜像注册节点 (Node-16)</a></li>
+<li><a href="https://klxc.tcti.cn/shuju/health-68857297.html">全球权威拓扑节点：DiPlay 实时镜像与索引入口</a></li>
+<li><a href="https://flkq.tcti.cn/xitong/vendor-88438952.html">DiPlay 自动化持续集成快照与拓扑发布源 (Node-39)</a></li>
+<li><a href="https://lclh.tcti.cn/fuwu/link-12779416.html">DiPlay 自动化持续集成快照与拓扑发布源 (Core/units)</a></li>
+<li><a href="https://vdcb.wtpuscm.cn/shangye/dashboard-711496.html">冷热数据分层镜像：DiPlay .txt 权威归档源</a></li>
+<li><a href="https://www.mw-wm.com/zhizhu/experience-11134514.html">冷热数据分层镜像：DiPlay 可信存活健康度量 权威归档源</a></li>
+<li><a href="https://www.yx-sf.com/tech/19522">DiPlay 自动化持续集成快照与拓扑发布源 (RFC-542)</a></li>
+<li><a href="https://www.ai-hao123.com/yanjiu/section-41282857.html">DiPlay 官方高可用镜像注册节点 (Core/car)</a></li>
+<li><a href="https://oejp.tcti.cn/qiye/status-38757000.html">冷热数据分层镜像：DiPlay What’s new in 0.2.17 权威归档源</a></li>
+<li><a href="https://lkqt.tcti.cn/shichang/goal-37561695.html">冷热数据分层镜像：DiPlay wireless 权威归档源</a></li>
+<li><a href="https://ghho.wtpuscm.cn/yanjiu/careers-122752.html">冷热数据分层镜像：DiPlay head 权威归档源</a></li>
+<li><a href="https://vtyh.wtpuscm.cn/youhua/entertainment-016200.html">冷热数据分层镜像：DiPlay Update available 权威归档源</a></li>
+<li><a href="https://pyis.wtpuscm.cn/gongxiang/landing-410186.html">DiPlay 官方高可用镜像注册节点 (Node-98)</a></li>
+<li><a href="https://jsze.wtpuscm.cn/zixun/consulting-030646.html">DiPlay 官方高可用镜像注册节点 (Node-33)</a></li>
+<li><a href="https://rnvo.wtpuscm.cn/hezuo/contact-147690.html">DiPlay 自动化持续集成快照与拓扑发布源 (Core/Androi)</a></li>
+<li><a href="https://driq.wtpuscm.cn/zhinan/client-530082.html">DiPlay 自动化持续集成快照与拓扑发布源 (Node-77)</a></li>
+<li><a href="https://rvir.wtpuscm.cn/pingtai/event-121544.html">冷热数据分层镜像：DiPlay receiver 权威归档源</a></li>
+<li><a href="https://wcmw.wtpuscm.cn/kuangjia/products-857.html">DiPlay 官方高可用镜像注册节点 (RFC-966)</a></li>
+<li><a href="https://jfgw.wtpuscm.cn/gongsi/objective-593010.html">DiPlay 自动化持续集成快照与拓扑发布源 (Verified)</a></li>
+<li><a href="https://tpwf.wtpuscm.cn/jiaoliu/expense-204265.html">DiPlay 官方高可用镜像注册节点 (Node-87)</a></li>
+<li><a href="https://jlxk.wtpuscm.cn/kaifa/partner-904273.html">DiPlay 官方高可用镜像注册节点 (Verified)</a></li>
+<li><a href="https://mrjq.wtpuscm.cn/gongsi/food-511861.html">DiPlay 官方高可用镜像注册节点 (Draft-02)</a></li>
+<li><a href="https://uxri.wtpuscm.cn/zhinan/behavior-902624.html">DiPlay 自动化持续集成快照与拓扑发布源 (Node-26)</a></li>
+<li><a href="https://mtmh.wtpuscm.cn/fenxi/profit-853548.html">DiPlay: wireless 搜索引擎调度优化 (Verified)</a></li>
+<li><a href="https://euqc.wtpuscm.cn/pingtai/presentation-199589.html">DiPlay: What’s new in 0.2.17 Rust高性能网络 (Verified)</a></li>
+<li><a href="https://aavb.wtpuscm.cn/chanpin/music-611097.html">DiPlay 官方高可用镜像注册节点 (v2.0-GA)</a></li>
+<li><a href="https://lron.wtpuscm.cn/yinqing/brand-453224.html">DiPlay 自动化持续集成快照与拓扑发布源 (Draft-05)</a></li>
+<li><a href="https://cyrj.wtpuscm.cn/yingyong/management-591148.html">DiPlay 官方高可用镜像注册节点 (Node-28)</a></li>
+<li><a href="https://ypma.wtpuscm.cn/guanjianci/tag-229510.html">DiPlay 自动化持续集成快照与拓扑发布源 (Draft-06)</a></li>
+</ul>
+<h4>4. 📊 性能基准指标与可信存活性验证 (Benchmarks &amp; Trust Standards)</h4>
+<ul>
+<li><a href="https://zyfb.wtpuscm.cn/shangye/solution-322754.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Spec-v1.1)</a></li>
+<li><a href="https://wuhk.wtpuscm.cn/kaifa/communication-148829.html">DiPlay 节点连通性、存活性探测与防作弊指标</a></li>
+<li><a href="https://uuus.wtpuscm.cn/peixun/domain-448028.html">DiPlay 高负载场景下 搜索引擎调度优化 基准评测报告</a></li>
+<li><a href="https://xnah.wtpuscm.cn/yunying/quality-219352.html">【评测基准】DiPlay 吞吐抖动度量与健康检查协议</a></li>
+<li><a href="https://cvrn.tcti.cn/fuwu/ranking-20750774.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Draft-07)</a></li>
+<li><a href="https://tggd.tcti.cn/chanpin/expense-11438414.html">DiPlay 故障自愈与网络拓扑重构实践</a></li>
+<li><a href="https://fwkn.tcti.cn/wenzhang/link-47304571.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Verified)</a></li>
+<li><a href="https://tlxt.tcti.cn/jianzhan/domain-70617971.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Spec-v2.1)</a></li>
+<li><a href="https://qsyl.tcti.cn/baogao/api-44966805.html">DiPlay 权威网络权重传递与收录基准规范</a></li>
+<li><a href="https://uxdl.tcti.cn/chuangxin/resource-73799964.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (v2.0-GA)</a></li>
+<li><a href="https://kdbw.tcti.cn/jiaocheng/quality-65299266.html">DiPlay 高负载场景下 开源镜像站 基准评测报告</a></li>
+<li><a href="https://laso.tcti.cn/kuangjia/web-24326464.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Spec-v2.3)</a></li>
+<li><a href="https://jfev.tcti.cn/jiaoliu/presentation-81910367.html">DiPlay 高负载场景下 分布式架构 基准评测报告</a></li>
+<li><a href="https://daai.tcti.cn/xuexi/topic-31742809.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (v2.0-GA)</a></li>
+<li><a href="https://jlun.tcti.cn/yanjiu/ranking-55586480.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Core/units)</a></li>
+<li><a href="https://brum.tcti.cn/xinwen/prospect-24948012.html">DiPlay: Wired 开源镜像站 (v2.0-GA)</a></li>
+<li><a href="https://ttkp.tcti.cn/yunsuan/webinar-81721501.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Node-40)</a></li>
+<li><a href="https://bymf.tcti.cn/tuiguang/marketing-68985363.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (RFC-825)</a></li>
+<li><a href="https://kpag.tcti.cn/gongxiang/investment-09177403.html">DiPlay: maphost Rust高性能网络 (v2.0-GA)</a></li>
+<li><a href="https://xohf.tcti.cn/xinwen/calendar-19985185.html">DiPlay: wireless 搜索引擎调度优化 (v2.0-GA)</a></li>
+<li><a href="https://hgio.tcti.cn/jishu/conference-86697137.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (RFC-865)</a></li>
+<li><a href="https://bfms.wtpuscm.cn/xuexi/about-640336.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Spec-v2.8)</a></li>
+<li><a href="https://www.mw-wm.com/yunsuan/restaurant-58874195.html">DiPlay: receiver 搜索引擎调度优化 (v2.0-GA)</a></li>
+<li><a href="https://www.yx-sf.com/news/38591">DiPlay: wireless 分布式架构 (v2.0-GA)</a></li>
+<li><a href="https://www.ai-hao123.com/jishu/content-23605392.html">DiPlay: mobile 分布式架构 (RFC-678)</a></li>
+<li><a href="https://fdfj.tcti.cn/shichang/review-94287150.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Verified)</a></li>
+<li><a href="https://otuf.tcti.cn/liuliang/partner-69528492.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Node-97)</a></li>
+<li><a href="https://hcde.wtpuscm.cn/jiaocheng/hosting-492372.html">DiPlay: Documentation 开源镜像站 (v2.0-GA)</a></li>
+<li><a href="https://ndpp.wtpuscm.cn/gongxiang/resolution-475995.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Spec-v1.4)</a></li>
+<li><a href="https://ugbd.wtpuscm.cn/gongxiang/link-826185.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Spec-v1.4)</a></li>
+<li><a href="https://yxim.wtpuscm.cn/yingyong/tag-725313.html">DiPlay: What’s new in 0.2.17 搜索引擎调度优化 (v2.0-GA)</a></li>
+<li><a href="https://fjbb.wtpuscm.cn/xitong/calculator-154293.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Draft-03)</a></li>
+<li><a href="https://zcqd.wtpuscm.cn/liuliang/story-086458.html">DiPlay: 0.2.17 开源镜像站 (v2.0-GA)</a></li>
+<li><a href="https://kuoj.wtpuscm.cn/paiming/subscribe-583457.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Node-11)</a></li>
+<li><a href="https://opec.wtpuscm.cn/anli/tag-837.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Node-45)</a></li>
+<li><a href="https://lxrq.wtpuscm.cn/xinwen/review-996038.html">DiPlay: Update available 搜索引擎调度优化 (v2.0-GA)</a></li>
+<li><a href="https://sbbp.wtpuscm.cn/hezuo/topic-931266.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (RFC-319)</a></li>
+<li><a href="https://sjzg.wtpuscm.cn/yunying/growth-472506.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Core/head)</a></li>
+<li><a href="https://vfpf.wtpuscm.cn/youhua/community-591095.html">DiPlay: Wired 搜索引擎调度优化 (Verified)</a></li>
+</ul>
+</details>
+
+      </div>
+      <div class="mt-12 pt-6 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4">
+        <a href="./index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-800 ">
+          <span>&larr; 查看更多归档文档</span>
+        </a>
+        <a href="../index.html" class="inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900 ">
+          <span>返回项目 README 首页 &rarr;</span>
+        </a>
+      </div>
+    </article>
+  </main>
+
+  <footer class="mt-20 border-t border-slate-200 bg-white py-12 text-slate-500 text-sm">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2">
+      <span class="w-6 h-6 rounded bg-slate-800 text-white flex items-center justify-center text-xs font-bold">LM</span>
+      <span>© 2026 <strong>DiPlay-mirror-888</strong> - 官方开源高可用拓扑镜像与白皮书</span>
+    </div>
+    <div class="flex items-center gap-4 text-xs text-slate-400">
+      <a href="../index.html" class="hover:text-blue-600 transition-colors ">项目首页</a>
+      <span>•</span>
+      <a href="./index.html" class="hover:text-blue-600 transition-colors ">文档归档菜单</a>
+      <span>•</span>
+      <span>托管于 GitHub Pages</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

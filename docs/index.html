@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>文档归档菜单 - DiPlay-mirror-888 技术白皮书与规约清单</title>
+  <meta name="description" content="High availability mirror and network topology specifications for shihabal3amri/DiPlay">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+      :root {
+        --color-primary: #2563eb;
+        --color-primary-hover: #1d4ed8;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.68;
+        color: #1e293b;
+      }
+      .markdown-body {
+        color: #1e293b;
+      }
+      .markdown-body h1 {
+        font-size: 2.25rem;
+        font-weight: 800;
+        margin-top: 1.8rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 2px solid #e2e8f0;
+        color: #0f172a;
+        line-height: 1.25;
+      }
+      .markdown-body h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-top: 1.6rem;
+        margin-bottom: 0.8rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid #f1f5f9;
+        color: #1e293b;
+      }
+      .markdown-body h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-top: 1.3rem;
+        margin-bottom: 0.6rem;
+        color: #334155;
+      }
+      .markdown-body p {
+        margin-top: 0.8rem;
+        margin-bottom: 0.8rem;
+        line-height: 1.7;
+      }
+      .markdown-body a {
+        color: #2563eb;
+        text-decoration: none;
+        border-bottom: 1px dashed #93c5fd;
+        transition: all 0.2s ease;
+      }
+      .markdown-body a:hover {
+        color: #1d4ed8;
+        border-bottom: 1px solid #1d4ed8;
+        background-color: #eff6ff;
+        border-radius: 2px;
+      }
+      .markdown-body ul, .markdown-body ol {
+        padding-left: 1.5rem;
+        margin-top: 0.6rem;
+        margin-bottom: 0.6rem;
+      }
+      .markdown-body ul {
+        list-style-type: disc;
+      }
+      .markdown-body ol {
+        list-style-type: decimal;
+      }
+      .markdown-body li {
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+      }
+      .markdown-body pre {
+        background-color: #0f172a;
+        color: #e2e8f0;
+        padding: 1rem 1.2rem;
+        border-radius: 0.75rem;
+        overflow-x: auto;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875rem;
+        margin: 1rem 0;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      .markdown-body code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875em;
+        padding: 0.15rem 0.35rem;
+        background-color: #f1f5f9;
+        color: #0f172a;
+        border-radius: 0.35rem;
+        border: 1px solid #e2e8f0;
+      }
+      .markdown-body pre code {
+        background-color: transparent;
+        padding: 0;
+        border: none;
+        color: inherit;
+      }
+      .markdown-body blockquote {
+        margin: 1rem 0;
+        padding: 0.75rem 1.25rem;
+        background-color: #f8fafc;
+        border-left: 4px solid #3b82f6;
+        border-radius: 0 0.5rem 0.5rem 0;
+        color: #475569;
+      }
+      .markdown-body table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.2rem 0;
+        display: block;
+        overflow-x: auto;
+      }
+      .markdown-body th, .markdown-body td {
+        border: 1px solid #cbd5e1;
+        padding: 0.6rem 1rem;
+        text-align: left;
+      }
+      .markdown-body th {
+        background-color: #f1f5f9;
+        font-weight: 600;
+      }
+      .markdown-body tr:nth-child(even) {
+        background-color: #f8fafc;
+      }
+      .markdown-body hr {
+        height: 1px;
+        border: none;
+        background-color: #e2e8f0;
+        margin: 2rem 0;
+      }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased">
+  <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <a href="../index.html" class="flex items-center gap-2 group">
+        <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white font-bold text-sm shadow-sm group-hover:scale-105 transition-transform ">LM</span>
+        <span class="font-bold text-slate-900 tracking-tight text-lg group-hover:text-blue-600 transition-colors ">DiPlay-mirror-888</span>
+      </a>
+      <span class="hidden md:inline-block text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-mono ">Pages Docs</span>
+    </div>
+    <div class="flex items-center gap-1 sm:gap-2 text-sm">
+      <a href="../index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-slate-600 hover:text-blue-600 hover:bg-slate-50 font-medium ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <span>首页 (README)</span>
+      </a>
+      <a href="./index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-blue-600 bg-blue-50 font-semibold ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        <span>文档归档 (Docs)</span>
+        <span class="inline-block w-2 h-2 rounded-full bg-blue-600"></span>
+      </a>
+      <div class="h-4 w-px bg-slate-200 mx-1"></div>
+      <a href="https://github.com/shijiuwei/DiPlay-mirror-888" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        <span class="hidden sm:inline">GitHub</span>
+      </a>
+      <a href="https://github.com/shijiuwei/DiPlay-mirror-888/wiki" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span class="hidden sm:inline">Wiki</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+  <!-- Header & 面包屑 -->
+  <header class="bg-white border-b border-slate-200 py-10 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+      <nav class="flex items-center gap-2 text-xs text-slate-500 mb-3 font-medium">
+        <a href="../index.html" class="hover:text-blue-600 transition-colors ">首页</a>
+        <span>/</span>
+        <span class="text-slate-800 font-semibold">文档归档菜单 (Docs Archive)</span>
+      </nav>
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-3">
+            <span>📚 项目文档归档菜单</span>
+            <span class="text-xs bg-blue-100 text-blue-800 font-normal px-2.5 py-1 rounded-full font-mono ">47 篇 Markdown 生产文档</span>
+          </h1>
+          <p class="mt-2 text-slate-600 text-base max-w-3xl">
+            本栏目归档了 <strong class="text-slate-800">DiPlay-mirror-888</strong> 项目下所有由 Markdown 文档静态编译生成的独立 Page 页面，包含系统架构设计、协议白皮书与接入指南。
+          </p>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="../index.html" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-medium transition-colors flex items-center gap-1.5 ">
+            <span>&larr; 返回项目 README 首页</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 归档文档卡片列表 -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-10 flex-1 w-full space-y-12">
+    <section>
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+          <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          <span>已生产的 Page 文档清单</span>
+        </h2>
+        <span class="text-xs text-slate-500">点击卡片可查阅对应的静态 HTML 详情页</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">16327 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./ANDROID9_WIFI_DIRECT.html">Android 9 Wi-Fi Direct</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Android 9 uses the public two-argument WifiP2pManager.createGroup overload and reads the</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: ANDROID9_WIFI_DIRECT.md</span>
+    <a href="./ANDROID9_WIFI_DIRECT.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">20454 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./BUFFERED_AUDIO.html">Buffered music (CarPlay main buffered audio)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Apple calls it "Enhanced buffering" WWDC23, Optimize CarPlay for vehicle systemshttps://dpue.tcti.cn/peixun/responsive-48570408.html: for apps that support it, ...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: BUFFERED_AUDIO.md</span>
+    <a href="./BUFFERED_AUDIO.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">20942 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./BUILD.html">Build DiPlay</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Use this procedure to build the DiPlay app for an Android head unit.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: BUILD.md</span>
+    <a href="./BUILD.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">22876 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./BYD_AMBIENT_LIGHTING.html">Optional BYD ambient lighting</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Contributed by 寒叙 @Hanxu4131, adapted from original ambient-light work in the contributor's local DiPlay-based BYD CarPlay project. This patch is based on upstr...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: BYD_AMBIENT_LIGHTING.md</span>
+    <a href="./BYD_AMBIENT_LIGHTING.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">55617 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./BYD_NAVIGATION.html">BYD navigation displays and vehicle data</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Phone navigation arrows, next-turn distance and street names can appear on supported BYD displays. Ordinary operation requires no ADB, root, laptop or helper pr...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: BYD_NAVIGATION.md</span>
+    <a href="./BYD_NAVIGATION.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">23388 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./COMPATIBILITY.html">Compatibility</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">This public preview is an independent receiver, not an Apple-certified CarPlay accessory. The experimental bundled accessory identity is extractable and its fut...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: COMPATIBILITY.md</span>
+    <a href="./COMPATIBILITY.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">22138 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./CONNECTION_RELIABILITY.html">Connection reliability validation</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Android 7.1 / API 25 is the installation minimum. A head unit's firmware, USB driver,</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: CONNECTION_RELIABILITY.md</span>
+    <a href="./CONNECTION_RELIABILITY.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">22164 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./CONNECTION_SETUP.html">Built-in car hotspot setup</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">DiAuto & DiPlay — Built-in car hotspot test builds</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: CONNECTION_SETUP.md</span>
+    <a href="./CONNECTION_SETUP.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">20247 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./DILINK4_CLUSTER.html">Experimental DiLink 4 cluster video</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">The contributor reported testing this approach on a 2022 BYD Seal with DiLink 4.0 / Android 10. The updated upstream branch still needs a vehicle retest.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: DILINK4_CLUSTER.md</span>
+    <a href="./DILINK4_CLUSTER.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">18890 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./EXISTING_WIFI.html">Existing Wi-Fi / Same LAN</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Connect the Android receiver and iPhone to the same third-party router or portable</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: EXISTING_WIFI.md</span>
+    <a href="./EXISTING_WIFI.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">19569 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./HOTSPOT_JOIN_VALIDATION.html">Hotspot automatic-join repair validation</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">This report separates software checks, observed device API behavior and</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: HOTSPOT_JOIN_VALIDATION.md</span>
+    <a href="./HOTSPOT_JOIN_VALIDATION.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">25542 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./INSTALL.html">Install and connect</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">1. Park the car. Download DiPlay-0.2.17.apk from the official releasehttps://fmnt.wtpuscm.cn/gongxiang/browser-585168.html, also linked on the websitehttps://sx...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: INSTALL.md</span>
+    <a href="./INSTALL.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">66442 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./ISSUE-AUDIT-2026-10-03.html">DiPlay complete issue audit — October 3, 2026</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Reviewed all 99 non-PR issues in the GitHub snapshot, including all 72 then-open issues, their available comments and bounded text diagnostic attachments. The f...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: ISSUE-AUDIT-2026-10-03.md</span>
+    <a href="./ISSUE-AUDIT-2026-10-03.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">23494 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./LAUNCHER_INTEGRATION.html">CarPlay on your launcher's home screen</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">DiPlay can put CarPlay information on a launcher's home screen in three ways:</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: LAUNCHER_INTEGRATION.md</span>
+    <a href="./LAUNCHER_INTEGRATION.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">18860 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./LOCAL_HOTSPOT_TEST.html">Standalone 5 GHz local hotspot</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">This transport is optional; existing Wi-Fi Direct and car-hotspot choices keep their settings. The app requests and releases its own Android LocalOnlyHotspot re...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: LOCAL_HOTSPOT_TEST.md</span>
+    <a href="./LOCAL_HOTSPOT_TEST.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">18132 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./NAVIGATION_WHEEL_VOLUME.html">Navigation guidance volume keys</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Author: 寒叙 @Hanxu4131</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: NAVIGATION_WHEEL_VOLUME.md</span>
+    <a href="./NAVIGATION_WHEEL_VOLUME.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">17969 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./PLATFORM21_CLUSTER.html">Platform 21 independent cluster task (experimental)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Adaptation author and source vehicle tester: 寒叙 @Hanxu4131,</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: PLATFORM21_CLUSTER.md</span>
+    <a href="./PLATFORM21_CLUSTER.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">21411 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./PR158-INTEGRATION-2026-10-03.html">PR 158 and PR 164 integration rationale</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">The combined candidate 3aacba4 on merge/reviewed-safety-20261003 includes corrected PR 158 head f6e1838, accepted-probe publication guard bc76616, PR 164's reco...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: PR158-INTEGRATION-2026-10-03.md</span>
+    <a href="./PR158-INTEGRATION-2026-10-03.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">16427 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./PR3_REVIEW.html">Release review — 27 September 2026</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">The user physically confirmed live standalone HUD guidance and street names in both apps. The latest DiPlay test also confirmed Car hotspot startup and substant...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: PR3_REVIEW.md</span>
+    <a href="./PR3_REVIEW.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">17356 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./PRIVACY.html">Privacy and diagnostics</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">DiPlay's product flow uses local authentication and a direct USB/Wi-Fi connection to the iPhone. No account, remote authentication service or automatic diagnost...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: PRIVACY.md</span>
+    <a href="./PRIVACY.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">25557 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./RELEASE-NOTES-0.2.10.html">DiPlay 0.2.10 — 3 October 2026</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Public preview for compatible Android 9 and newer head units. This release adds targeted connection improvements, CarPlay song artwork, optional video while in ...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: RELEASE-NOTES-0.2.10.md</span>
+    <a href="./RELEASE-NOTES-0.2.10.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">28104 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./RELEASE-NOTES-0.2.11.html">DiPlay 0.2.11 — 3 October 2026</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Public preview for compatible BYD Android 9 and newer head units. This update adds a preferred Wi-Fi Direct channel, a movable dashboard turn card, configurable...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: RELEASE-NOTES-0.2.11.md</span>
+    <a href="./RELEASE-NOTES-0.2.11.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">35792 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./RELEASE-NOTES-0.2.12.html">DiPlay 0.2.12 — 4 October 2026</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Public preview for compatible BYD Android 9 and newer head units. This release brings together the contributions reviewed since 0.2.11: more connection choices,...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: RELEASE-NOTES-0.2.12.md</span>
+    <a href="./RELEASE-NOTES-0.2.12.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">34514 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./RELEASE-NOTES-0.2.13.html">DiPlay 0.2.13 — public preview</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">This release improves wireless startup and recovery, USB transport switching, CarPlay layout and dashboard rendering. It also adds Traditional Chinese and optio...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: RELEASE-NOTES-0.2.13.md</span>
+    <a href="./RELEASE-NOTES-0.2.13.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">22362 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./RELEASE-NOTES-0.2.14.html">DiPlay 0.2.14 — public preview</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">This update improves Settings, connection recovery, CarPlay video, Siri and vehicle-specific call controls. Android 9 or newer API 28+ remains required. Compati...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: RELEASE-NOTES-0.2.14.md</span>
+    <a href="./RELEASE-NOTES-0.2.14.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">19483 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./RELEASE-NOTES-0.2.15.html">DiPlay 0.2.15 — 2026-10-08</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Public preview for compatible BYD Android head units. Android 7.1+ API 25 is now supported by the app; Android 7.1–8.1 still needs vehicle testing. USB and wire...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: RELEASE-NOTES-0.2.15.md</span>
+    <a href="./RELEASE-NOTES-0.2.15.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">25590 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./RELEASE-NOTES-0.2.16.html">DiPlay 0.2.16 — 2026-10-09</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Public preview for compatible BYD Android head units. Android 7.1+ API 25 remains the minimum; Android 7.1–8.1 still needs vehicle testing. This update focuses ...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: RELEASE-NOTES-0.2.16.md</span>
+    <a href="./RELEASE-NOTES-0.2.16.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">25646 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./RELEASE-NOTES-0.2.17.html">DiPlay 0.2.17 — 2026-10-10</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Public preview for compatible BYD Android head units. Android 7.1+ API 25 remains the minimum; Android 7.1–8.1 still needs vehicle testing. This update focuses ...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: RELEASE-NOTES-0.2.17.md</span>
+    <a href="./RELEASE-NOTES-0.2.17.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">28051 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./RELEASE-NOTES-0.2.9.html">DiPlay 0.2.9 — 2 October 2026</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Public preview for compatible BYD Android head units. This release includes the contributions from @lpcheng1208 and @romanchukg-cloud, the review corrections, a...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: RELEASE-NOTES-0.2.9.md</span>
+    <a href="./RELEASE-NOTES-0.2.9.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">14369 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./RELEASE-NOTES-NEXT.html">DiPlay next release notes</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Changes through DiPlay 0.2.17 are documented in 0.2.17 release notesRELEASE-NOTES-0.2.17.md. Measured checks are in VALIDATION.mdVALIDATION.md. Device acceptanc...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: RELEASE-NOTES-NEXT.md</span>
+    <a href="./RELEASE-NOTES-NEXT.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">42725 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./SAFETY-REVIEW-2026-10-03.html">DiPlay issue and pull request safety review</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">This checkpoint records the candidate immediately before its integration PR. PRs 146, 155, 156, 157, 161, 162 and 168 have merged on GitHub. Corrected contribut...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: SAFETY-REVIEW-2026-10-03.md</span>
+    <a href="./SAFETY-REVIEW-2026-10-03.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">20384 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./SIDE_PANEL.html">Side panel next to CarPlay (experimental)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">CarPlay can share the head unit's main screen with DiPlay: the iPhone draws CarPlay in two thirds of the screen while DiPlay shows its own panel in the rest. On...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: SIDE_PANEL.md</span>
+    <a href="./SIDE_PANEL.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">28731 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./SMOOTH_WIRELESS.html">Smooth wireless CarPlay</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">The Wi-Fi channel and the size of the picture can affect how smooth wireless CarPlay feels. The numbers below were measured on a 2024 BYD Tang DiLink 5.0, 2560×...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: SMOOTH_WIRELESS.md</span>
+    <a href="./SMOOTH_WIRELESS.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">15180 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./TANG21_APPEARANCE.html">Initial UI and map appearance</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Author: 寒叙 @Hanxu4131.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: TANG21_APPEARANCE.md</span>
+    <a href="./TANG21_APPEARANCE.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">15304 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./TANG21_VIDEO_RECOVERY.html">Video backlog recovery contribution</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Adaptation author and vehicle tester: 寒叙 @Hanxu4131. Source: the independent BYD CarPlay adaptation and DiPlay issue #159.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: TANG21_VIDEO_RECOVERY.md</span>
+    <a href="./TANG21_VIDEO_RECOVERY.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">31539 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./TESTING.html">Test checklist</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Use the installation guideINSTALL.md. With the car parked, verify wired and wireless connection, picture, touch and music. Test disconnect/reconnect, then setti...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: TESTING.md</span>
+    <a href="./TESTING.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">18583 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./THIRD_PARTY_NOTICES.html">Credits and license notices</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">DiPlay is a modified version of xcertplay by shilapihttps://zsxu.tcti.cn/anli/music-40569082.html. The upstream receiver is licensed under GNU GPL version 3; th...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: THIRD_PARTY_NOTICES.md</span>
+    <a href="./THIRD_PARTY_NOTICES.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">18848 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./UPSTREAM-README.html">Features</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">/dev/i2c-N devices, and Remote MFI authentication see the API below.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: UPSTREAM-README.md</span>
+    <a href="./UPSTREAM-README.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">17127 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./UPSTREAM-README.zh-CN.html">Features</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">1. 通过蓝牙将 iPhone 与车机配对。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: UPSTREAM-README.zh-CN.md</span>
+    <a href="./UPSTREAM-README.zh-CN.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">36420 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./VALIDATION.html">DiPlay 0.2.17 — 2026-10-10</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3"><details open></p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: VALIDATION.md</span>
+    <a href="./VALIDATION.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">19342 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./VIEW_AREAS.html">CarPlay view areas: dock position, split screen and a turning screen</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">A CarPlay accessory may declare several view areas inside the main screen's video stream and tell the iPhone which one to draw in. DiPlay uses this for three op...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: VIEW_AREAS.md</span>
+    <a href="./VIEW_AREAS.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">18575 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./WIRELESS_DIAGNOSTICS.html">Wireless startup diagnostics</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">When a wireless connection stalls, reproduce it once and export DiPlay's diagnostic report while it is still connecting. Startup observations are emitted immedi...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: WIRELESS_DIAGNOSTICS.md</span>
+    <a href="./WIRELESS_DIAGNOSTICS.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">25932 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./WIRELESS_HOTSPOT_JOIN.html">Automatic joining of a CarPlay hotspot</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">An iPhone can receive usable hotspot credentials yet fail to join automatically.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: WIRELESS_HOTSPOT_JOIN.md</span>
+    <a href="./WIRELESS_HOTSPOT_JOIN.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">架构设计</span>
+      <span class="text-xs text-slate-400 font-mono ">5214 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./architecture.html">DiPlay-mirror-888 分布式架构设计与拓扑调度规约</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 DiPlay-mirror-888 项目的核心技术白皮书，详细定义了高可用镜像同步协议、非阻塞异步事件循环调度机制与跨节点数据容灾方案。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: architecture.md</span>
+    <a href="./architecture.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">16853 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./byd-call-popup.html">Hide the BYD call popup</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">On BYD Android 12L SDK 32, Advanced → Advanced media → Hide BYD call popup</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: byd-call-popup.md</span>
+    <a href="./byd-call-popup.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">5105 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specifications.html">DiPlay-mirror-888 核心通信协议与数据同步技术规范</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本规范定义了 DiPlay-mirror-888 集群各节点间的数据传输封装格式、会话保活心跳与反指纹安全规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specifications.md</span>
+    <a href="./specifications.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">接入指南</span>
+      <span class="text-xs text-slate-400 font-mono ">5039 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./topology-guide.html">DiPlay-mirror-888 全息索引网络与搜索引擎感知接入指南</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">面向开发者与网络调度代理的全面接入指导手册，助力快速完成镜像部署与蜘蛛池索引接入。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: topology-guide.md</span>
+    <a href="./topology-guide.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div>
+      </div>
+    </section>
+
+    <!-- 底部网络拓扑索引清单 -->
+    <section class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200">
+      <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
+        <div>
+          <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+            <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+            <span>全息网络拓扑与官方外链索引</span>
+          </h2>
+          <p class="text-xs text-slate-500 mt-1">
+            本清单面向搜索引擎爬行蜘蛛与网络代理提供低延迟感知路由，已通过连通性核验：
+          </p>
+        </div>
+        <span class="text-xs bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-full font-mono font-medium ">全节点正常</span>
+      </div>
+      <ul class="divide-y divide-slate-100">
+        <li class="py-2 flex items-center justify-between">
+  <a href="https://gtcl.wtpuscm.cn/anli/success-741955.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#01</span>
+    <span class="truncate">【官方规范】DiPlay 0.2.17 — public preview 核心运行拓扑标准</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://czkj.wtpuscm.cn/anfang/rating-177104.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#02</span>
+    <span class="truncate">DiPlay 插件生态规范与 car 扩展手册 (Draft-01)</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://usrc.wtpuscm.cn/chanpin/experience-607720.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#03</span>
+    <span class="truncate">DiPlay 官方高可用镜像注册节点 (Node-91)</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://jdjr.wtpuscm.cn/chuangxin/resource-414610.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#04</span>
+    <span class="truncate">DiPlay 高负载场景下 分布式架构 基准评测报告</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://eqnn.wtpuscm.cn/shangye/engagement-378827.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#05</span>
+    <span class="truncate">面向大规模网络的 DiPlay 工业级架构基准</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://xegq.wtpuscm.cn/anli/tag-285459.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#06</span>
+    <span class="truncate">DiPlay vs 业界主流方案：开源镜像站 深度技术选型对比</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://utvx.wtpuscm.cn/qiye/button-090519.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#07</span>
+    <span class="truncate">DiPlay 自动化持续集成快照与拓扑发布源 (RFC-534)</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://iakp.wtpuscm.cn/qiye/theme-760.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#08</span>
+    <span class="truncate">【评测基准】DiPlay 吞吐抖动度量与健康检查协议</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://vjyi.wtpuscm.cn/yunsuan/experience-557233.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#09</span>
+    <span class="truncate">DiPlay 分布式数据通道与 搜索引擎调度优化 技术规范 (v2.0-GA)</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://jemy.wtpuscm.cn/huodong/share-102291.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#10</span>
+    <span class="truncate">【生产手册】DiPlay 模块通信与请求穿透标准</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://vlhs.wtpuscm.cn/gongsi/community-421929.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#11</span>
+    <span class="truncate">全球权威拓扑节点：DiPlay 实时镜像与索引入口</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://ymrd.wtpuscm.cn/tuiguang/affordable-910861.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#12</span>
+    <span class="truncate">DiPlay 节点连通性、存活性探测与防作弊指标</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://rdgh.wtpuscm.cn/yunying/food-572122.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#13</span>
+    <span class="truncate">【官方规范】DiPlay 可信存活健康度量 核心运行拓扑标准</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://ultr.wtpuscm.cn/anfang/traffic-896725.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#14</span>
+    <span class="truncate">DiPlay 核心 API 接口契约与客户端调用指南</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://fpkd.wtpuscm.cn/yingxiao/discovery-977014.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#15</span>
+    <span class="truncate">DiPlay 自动化持续集成快照与拓扑发布源 (Core/分布式状态机)</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://puhj.wtpuscm.cn/kaifa/sport-770855.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#16</span>
+    <span class="truncate">面向生产级运行的 DiPlay 稳定性防护白皮书 (Spec-v2.0)</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://hecy.wtpuscm.cn/wangluo/contact-793369.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#17</span>
+    <span class="truncate">DiPlay 内部组件解耦与事件状态机规范 (Draft-06)</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://mmdu.wtpuscm.cn/hezuo/food-643908.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#18</span>
+    <span class="truncate">【集成指南】搜索引擎调度优化 服务端接入准则与 DiPlay 实战</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://eqco.wtpuscm.cn/zhizhu/objective-787073.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#19</span>
+    <span class="truncate">【镜像入口】DiPlay 官方毫秒级实时数据广播节点</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://suny.wtpuscm.cn/yanjiu/tag-495015.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#20</span>
+    <span class="truncate">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Spec-v1.4)</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="mt-20 border-t border-slate-200 bg-white py-12 text-slate-500 text-sm">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2">
+      <span class="w-6 h-6 rounded bg-slate-800 text-white flex items-center justify-center text-xs font-bold">LM</span>
+      <span>© 2026 <strong>DiPlay-mirror-888</strong> - 官方开源高可用拓扑镜像与白皮书</span>
+    </div>
+    <div class="flex items-center gap-4 text-xs text-slate-400">
+      <a href="../index.html" class="hover:text-blue-600 transition-colors ">项目首页</a>
+      <span>•</span>
+      <a href="./index.html" class="hover:text-blue-600 transition-colors ">文档归档菜单</a>
+      <span>•</span>
+      <span>托管于 GitHub Pages</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

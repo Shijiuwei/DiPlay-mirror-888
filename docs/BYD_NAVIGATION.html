@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BYD navigation displays and vehicle data - DiPlay-mirror-888 文档归档</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+      :root {
+        --color-primary: #2563eb;
+        --color-primary-hover: #1d4ed8;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.68;
+        color: #1e293b;
+      }
+      .markdown-body {
+        color: #1e293b;
+      }
+      .markdown-body h1 {
+        font-size: 2.25rem;
+        font-weight: 800;
+        margin-top: 1.8rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 2px solid #e2e8f0;
+        color: #0f172a;
+        line-height: 1.25;
+      }
+      .markdown-body h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-top: 1.6rem;
+        margin-bottom: 0.8rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid #f1f5f9;
+        color: #1e293b;
+      }
+      .markdown-body h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-top: 1.3rem;
+        margin-bottom: 0.6rem;
+        color: #334155;
+      }
+      .markdown-body p {
+        margin-top: 0.8rem;
+        margin-bottom: 0.8rem;
+        line-height: 1.7;
+      }
+      .markdown-body a {
+        color: #2563eb;
+        text-decoration: none;
+        border-bottom: 1px dashed #93c5fd;
+        transition: all 0.2s ease;
+      }
+      .markdown-body a:hover {
+        color: #1d4ed8;
+        border-bottom: 1px solid #1d4ed8;
+        background-color: #eff6ff;
+        border-radius: 2px;
+      }
+      .markdown-body ul, .markdown-body ol {
+        padding-left: 1.5rem;
+        margin-top: 0.6rem;
+        margin-bottom: 0.6rem;
+      }
+      .markdown-body ul {
+        list-style-type: disc;
+      }
+      .markdown-body ol {
+        list-style-type: decimal;
+      }
+      .markdown-body li {
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+      }
+      .markdown-body pre {
+        background-color: #0f172a;
+        color: #e2e8f0;
+        padding: 1rem 1.2rem;
+        border-radius: 0.75rem;
+        overflow-x: auto;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875rem;
+        margin: 1rem 0;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      .markdown-body code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875em;
+        padding: 0.15rem 0.35rem;
+        background-color: #f1f5f9;
+        color: #0f172a;
+        border-radius: 0.35rem;
+        border: 1px solid #e2e8f0;
+      }
+      .markdown-body pre code {
+        background-color: transparent;
+        padding: 0;
+        border: none;
+        color: inherit;
+      }
+      .markdown-body blockquote {
+        margin: 1rem 0;
+        padding: 0.75rem 1.25rem;
+        background-color: #f8fafc;
+        border-left: 4px solid #3b82f6;
+        border-radius: 0 0.5rem 0.5rem 0;
+        color: #475569;
+      }
+      .markdown-body table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.2rem 0;
+        display: block;
+        overflow-x: auto;
+      }
+      .markdown-body th, .markdown-body td {
+        border: 1px solid #cbd5e1;
+        padding: 0.6rem 1rem;
+        text-align: left;
+      }
+      .markdown-body th {
+        background-color: #f1f5f9;
+        font-weight: 600;
+      }
+      .markdown-body tr:nth-child(even) {
+        background-color: #f8fafc;
+      }
+      .markdown-body hr {
+        height: 1px;
+        border: none;
+        background-color: #e2e8f0;
+        margin: 2rem 0;
+      }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased">
+  <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <a href="../index.html" class="flex items-center gap-2 group">
+        <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white font-bold text-sm shadow-sm group-hover:scale-105 transition-transform ">LM</span>
+        <span class="font-bold text-slate-900 tracking-tight text-lg group-hover:text-blue-600 transition-colors ">DiPlay-mirror-888</span>
+      </a>
+      <span class="hidden md:inline-block text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-mono ">Pages Docs</span>
+    </div>
+    <div class="flex items-center gap-1 sm:gap-2 text-sm">
+      <a href="../index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-slate-600 hover:text-blue-600 hover:bg-slate-50 font-medium ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <span>首页 (README)</span>
+      </a>
+      <a href="./index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-blue-600 bg-blue-50 font-semibold ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        <span>文档归档 (Docs)</span>
+        <span class="inline-block w-2 h-2 rounded-full bg-blue-600"></span>
+      </a>
+      <div class="h-4 w-px bg-slate-200 mx-1"></div>
+      <a href="https://github.com/shijiuwei/DiPlay-mirror-888" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        <span class="hidden sm:inline">GitHub</span>
+      </a>
+      <a href="https://github.com/shijiuwei/DiPlay-mirror-888/wiki" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span class="hidden sm:inline">Wiki</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+  <!-- 面包屑与顶部导航 -->
+  <header class="bg-white border-b border-slate-200 py-6 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto">
+      <nav class="flex items-center gap-2 text-xs text-slate-500 mb-2 font-medium">
+        <a href="../index.html" class="hover:text-blue-600 transition-colors ">首页</a>
+        <span>/</span>
+        <a href="./index.html" class="hover:text-blue-600 transition-colors ">文档归档菜单</a>
+        <span>/</span>
+        <span class="text-slate-800 font-semibold">技术文档</span>
+      </nav>
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">BYD navigation displays and vehicle data</h1>
+        <a href="./index.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors ">
+          <span>&larr; 返回文档归档菜单</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主体正文区域 -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-1 w-full">
+    <article class="bg-white p-6 sm:p-12 rounded-2xl shadow-sm border border-slate-200">
+      <div class="markdown-body">
+        <h1>BYD navigation displays and vehicle data</h1>
+<p>Phone navigation arrows, next-turn distance and street names can appear on supported BYD displays. Ordinary operation requires no ADB, root, laptop or helper process. The map app must provide structured navigation metadata; compatibility is not guaranteed for every map app or version.</p>
+<h2>Validated windshield path</h2>
+<p>Live guidance and street names were physically confirmed in both DiAuto and DiPlay on DiLink5.1 / Android13, firmware <code>BYD-AUTO/IVI/IVI:13/TP1A.220624.014/eng.build20260722.221155:user/release-keys</code>. The standalone output is restricted to that firmware and the verified stock receiver version10601004/signing certificate. Other firmware is not implicitly enabled by this result. Existing cluster/SOME-IP outputs remain available on supported factory services; the DiPlay contributor independently reported DiLink5.0 cluster/HUD operation.</p>
+<p>The app sends navigation-only broadcasts to the stock ClusterDebug receiver as its normal Android UID. Vendor output runs outside phone control callbacks. Street text uses the installed HAL's UTF-16LE chunk protocol, capped at48 UTF-16 units without splitting a surrogate pair. Output logs exclude street text.</p>
+<p>Normal route end, disconnect, disabling navigation output and stale guidance trigger cleanup. Force-stop/process kill may leave the last instruction visible until the app opens again; a recovery journal handles that next launch. There is no guaranteed process-independent expiry. Run only one projection app at a time.</p>
+<p>Enable BYD navigation in settings. In DiAuto it is opt-in under Navigation; in DiPlay it is enabled by default when available. Debug-only receivers/demos require Android's DUMP permission and are absent from release manifests. Development starter and vendor-access experiments are not part of the production navigation path.</p>
+<h2>DiLink 3.0 cluster guidance and map (experimental, needs ADB)</h2>
+<p>DiLink 3.0 head units (Android 10, Qualcomm 6125, "1for2" cluster) have no SOME/IP service and ship the stock AMap adapter as <code>com.example.amapservice</code> instead of <code>com.byd.amapservice</code>. DiPlay sends it the same navigation broadcasts. That adapter shows preformatted text rather than the numeric extras, so DiPlay also sends <code>SEG_REMAIN_DIS_AUTO</code> ("250 m"), <code>ROUTE_REMAIN_DIS_AUTO</code> ("5.4 km"), <code>ROUTE_REMAIN_TIME_AUTO</code> ("10 min") and <code>ETA_TEXT</code> ("15:55"); without them the cluster shows -1. The cluster keeps its stock view until it is switched, so DiPlay also runs, through its adb shell, the calls the stock ClusterDebug app uses (<code>service call AutoContainer 2 i32 1000 i32 &lt;command&gt; s16 ""</code>):</p>
+<ul>
+<li>While CarPlay guidance is active: 39, "simple navigation", for the native turn card.</li>
+<li>While "CarPlay map on dashboard" shows its map window on the cluster: 17, "half-screen projection", sent 1 s after 16, "full-screen projection". After 18 the cluster ignores 17 on its own and its projection area stays empty; sending 16 first brings it back. The map window uses DiLink 3's projection display, <code>fission_bg_xdjaVirtualSurface</code> (1920x720, owned by <code>com.xdja.containerservice</code>). The map takes priority over the turn card.</li>
+<li>When both end: 18, "projection off", only if DiPlay changed the mode.</li>
+</ul>
+<p>Approve DiPlay's ADB access once with "Check ADB access"; without it the broadcasts are still sent but the cluster keeps its stock view. The DiLink 5 "Dashboard map only in Small and Full navi" option does not apply: DiLink 3 does not report the wheel-menu mode.</p>
+<p>Projection entry validates the replies from 16 and 17 separately. A refused or missing reply,
+interrupted delay, or withdrawn map request attempts 18 immediately so full-screen projection
+does not remain active while waiting for the normal retry. The recovery marker is durable before
+16; failed restoration retains it and blocks new output until stock mode is restored.</p>
+<p>The projection display does not exist after the car starts until the cluster has projected once. When DiPlay opens with BYD navigation on and the display is missing, it runs 16 (projection on), 35 (Di4.0 mode, which creates the display) and 18, as BYD DashCast does; the cluster shows an empty projection area for about six seconds. The display then stays until the car restarts. The map window selects this display by its exact name and one of two observed sizes: 1920x720 uses the measured DiLink 4.0 stream, while the 1280x480 surface reported by one DiLink 3 car gets a generic stream sized to that display. Recognition of the smaller surface still needs an on-car map-output test; other 8:3 sizes are not automatically selected. If a CarPlay session started before the display existed, DiPlay shows the map window when the display appears and reconnects once so the iPhone sends the cluster stream.</p>
+<p>Basis: on a BYD Han EV (GCC, DiLink 3.0 / Android 10), over shell: 16 then 35 created <code>fission_bg_xdjaVirtualSurface</code> (display 1, 1920x720, <code>FLAG_PRESENTATION</code>, not private, owner <code>com.xdja.containerservice</code>), and an ordinary app launched there appeared in the cluster's projection area with speed and readouts still visible (17 and 16 looked the same); 18 restored the gauges and the display remained. A broadcast with these extras followed by 39 showed the turn arrow, road, distances and ETA on the cluster; the windshield HUD showed nothing. The windshield HUD stayed blank in every test while driving, in both 39 and 18 cluster layouts. This was true even though the adapter wrote the instrument CAN guidance registers, including remaining time and ETA (those parse only from Chinese-format text such as "10分钟" and "预计今天15:55到达", which the cluster then shows in Chinese, so DiPlay keeps English text). The car reports a W-HUD (<code>SET_HUD_CONFIG</code> 1) with HUD navigation enabled (<code>SET_DYNAMIC_NAVI_FUNCTION_STATUS_FEEDBACK</code> 1), but its settings page shows only the ADAS option. DiPlay therefore claims no HUD guidance on DiLink 3. DiPlay's own map window there is not yet confirmed. A force-stopped DiPlay can leave the cluster switched until DiPlay next restores it.</p>
+<h2>CarPlay map on the instrument cluster (experimental)</h2>
+<p>DiPlay can ask the iPhone for CarPlay's second, instrument-cluster screen and show it in the BYD cluster's map area. The iPhone renders this map itself; DiPlay decodes the stream onto the cluster projection display. No root or persistent helper is needed. The optional DiLink 5.1 automatic mode described below needs a one-time permission setup.</p>
+<p>Validated on DiLink5.0 / Android12, firmware <code>BYD-AUTO/DiLink5.0/DiLink5.0:12/SKQ1.230128.001/eng.build.20251111.182747:user/release-keys</code>, with Apple Maps on iOS 27:</p>
+<ul>
+<li>Turn on "CarPlay map on dashboard" under BYD navigation. The switch appears only when a cluster projection display is visible to the app.</li>
+<li>In the cluster's own steering-wheel menu, choose "Full screen navi" or "Small screen navi". "Turn on by navi" shows arrows only, even during CarPlay navigation.</li>
+<li>The cluster's speed readout stays visible. "Small screen navi" crops the same picture on the cluster side; Android does not report that crop.</li>
+<li>The car marker is placed through CarPlay's safe area: the centre of the panel (x 35–64 %, y 16–75 %), measured with a calibration grid to be clear of BYD's own readouts in both Full and Small screen navi. "Car marker · horizontal" (Left 40 % … Right 40 %) and "Car marker · vertical" (Up 30 % … Down 30 %) move it from there in 10 % steps of the panel. Near a panel edge the safe area shrinks so the marker stays at its centre.</li>
+<li>"Dashboard shows" picks which of the cluster contents the iPhone offers in <code>altScreenURLs</code> DiPlay asks for: Map (<code>maps:/car/instrumentcluster/map</code>, default), Turn card (<code>…/instructioncard</code>) or Map with turn card (<code>maps:/car/instrumentcluster</code>). On the tested car the turn card fit the Small screen navi window well and streamed only 0–5 kbit/s against 0.3–4 Mbit/s for the map. The iPhone lays out the map, the car marker and the iOS glass turn card inside the same safe area, so the position settings below move whichever is shown; they are labelled "Car marker" or "Turn card" to match. The glass card cannot be moved on its own: it is painted into the dashboard video, not a separate Android view.</li>
+<li>Switching "Dashboard shows" between the iPhone's own contents applies at once, without reconnecting: DiPlay sends <code>showUI</code> with the new URL and <code>forceKeyFrame</code> for the cluster screen (<code>{"uuid": &lt;alt screen UUID&gt;, "url": …}</code>), the same commands as the map pause below. On the contributor's Tang lab build the dashboard switched within a second; without a route the turn card shows Apple Maps' pinned places. A paused map stays paused and comes back with the new content. Failed delivery falls back to reconnecting for the current selection. A recreated cluster stream starts at its initial URL, then reapplies the live selection after SETUP/event readiness; wheel zoom follows delivered content. A replacement phone in the retained connection inherits the last delivered or safely retained paused selection. Switching between Map and DiPlay's own card uses the existing live overlay update; a different URL involving that overlay, or the DiLink 5.1 layout, reconnects.</li>
+<li>"Dashboard map size" (or "Turn card size") sets the stream size, which the cluster scales up to the panel: Standard (100 %, sharpest), Larger (83 %, 1600x600, default) or Largest (67 %). Apple Maps ignores the reported physical size on the cluster, so resolution is the only way to change the map's scale.</li>
+</ul>
+<p>How it works: the iPhone lists the cluster content it offers in its <code>/info</code> request (<code>altScreenURLs</code>). DiPlay declares a second display of the cluster's size with no input devices and <code>initialURL=maps:/car/instrumentcluster/map</code>; without an initial URL the iPhone streams only a black frame. BYD exposes the cluster projection area as public presentation displays owned by <code>com.byd.containerservice</code>. The stock map's display (<code>fission_bg_XDJAScreenProjection</code>) is hidden from third-party apps, but its <code>shared_…_0</code> sibling is composited on top of it, so DiPlay shows a <code>Presentation</code> there.</p>
+<p>Limits: the cluster window belongs to the CarPlay screen, so it stops while that screen is closed and the session runs in the background. Other map apps and other firmware are untested.</p>
+<p>The optional centre-screen map card mirrors that same dashboard stream. <strong>Keep the home-screen map in sync with the dashboard</strong> (on by default) shows the card. Turn it off to hide the home-screen card so only the instrument cluster shows the dashboard map. This does not change what CarPlay draws on the main screen.</p>
+<h3>DiLink 5.1 theme profile</h3>
+<p>The exact Android 13 firmware <code>BYD-AUTO/IVI/IVI:13/TP1A.220624.014/eng.build20260722.221155:user/release-keys</code> has a separate profile for its measured 1920×720 cluster. Other firmware retains the original PR display selection, renderer and settings.</p>
+<ul>
+<li>Map uses shared display <code>_0</code>, with a 1920×480 viewport at y=144 and contrast bands behind the instrument readouts.</li>
+<li>Scenario and Simple use shared display <code>_1</code>, with a 600×720 side viewport at x=1320. Everything outside the side map is transparent. No white mini-map shading is added.</li>
+<li>The iPhone sends one continuous 1920×720 map. DiPlay crops it at native scale into each viewport, centered horizontally and aligned to the bottom to retain the vehicle marker. Theme changes do not restart CarPlay. The side crop shows less surrounding map area than a separately negotiated portrait stream.</li>
+<li>The two rendering surfaces remain alive when cards close. Window opacity controls visibility, and direct decoder surface handoffs preserve its video reference frames.</li>
+</ul>
+<p>Enable <strong>Follow instrument theme and map card</strong> to follow the stock cluster activities. Android Usage Access is required because BYD's theme API is signature-protected. This firmware has no working Usage Access settings page, so the owner must approve one-time ADB setup. For the HUD Test package:</p>
+<pre><code class="language-sh">adb shell appops set com.shihab.diplay.hudtest GET_USAGE_STATS allow
+</code></pre>
+<p>Open <strong>Settings → BYD navigation → Automatic map setup · ADB</strong> for the guided setup, available even when automatic mode is off. It shows the command for the installed package, offers a copy button, explains multiple-device ADB selection, and displays the current permission status. After running the command on your computer, tap <strong>Check and enable</strong> to verify permission and enable both the cluster map and automatic following. If permission is still missing, the guide stays open with instructions; an active CarPlay session reconnects once after successful setup. The copy button copies to the car clipboard, so the command is also displayed for typing on your computer. To revoke it, substitute <code>default</code> for <code>allow</code>. Without access or a recognized active theme, automatic mode hides the overlay. Manual mode remains available but cannot follow card visibility. If no current theme can be inferred after startup, select a different theme once to produce a fresh event.</p>
+<p>Only the four stock full-map, mini-map, Scenario and Simple activity events are processed locally. Closing the mini-map card hides the side overlay; Map theme selects the full layer. Merely moving focus to a head-unit app does not hide a still-visible cluster activity. See <a href="https://bpnt.wtpuscm.cn/keji/project-347144.html">Android's UsageStatsManager documentation</a> for the permission model.</p>
+<h3>Dashboard map only in Small and Full navi (optional, needs ADB)</h3>
+<p>The iPhone draws and streams the cluster map for the whole session, even while the cluster shows no projection: in Off and "Turn on by navi" the cluster draws arrows only (in "Turn on by navi" the stock map even removes its own cluster window). With "Dashboard map only in Small and Full navi" turned on, DiPlay reads the mode the driver picked on the wheel every second and, while it is Off or "Turn on by navi", sends <code>stopUI</code> for the alt screen (<code>{"type": "stopUI", "params": {"uuid": &lt;alt screen UUID&gt;}}</code>). When the driver picks Small or Full screen navi it sends <code>showUI</code> with the map URL (<code>{"uuid", "url": "maps:/car/instrumentcluster/map"}</code>) and <code>forceKeyFrame</code> for the same UUID. CarKit handles both as car-initiated commands (<code>_handleStopUIWithParameters:</code> / <code>_handleShowUIWithParameters:</code>); the stream stays up, so nothing reconnects.</p>
+<p>Measured on the car: after <code>stopUI</code> the cluster stream carried no frames at all while the main screen went on as usual; after a switch on the wheel <code>showUI</code> went out about 0.6 s later and the map was back within a second. If the mode cannot be read (no ADB access), DiPlay keeps the map streaming as without the setting.</p>
+<p>Ordinary apps cannot read the mode: BYD's <code>INSTRUMENT_NAVI_TYPE</code> needs a BYD signature. The adb shell reads it through the <code>autoservice</code> binder (instrument device 1007, feature <code>0x40C03032</code>): <code>service call autoservice 5 i32 1007 i32 1086337074</code> → <code>Parcel(00000000 0000000N)</code>, N = 1 Off, 2 Turn on by navi, 3 Small screen navi, 4 Full screen navi. (The shell can also set it through <code>INSTRUMENT_NAVI_TYPE_SET</code>, <code>0x4C10A018</code>, with <code>service call autoservice 6 …</code>; DiPlay does not change the mode.)</p>
+<p>DiPlay runs the read through the head unit's own adbd on <code>127.0.0.1:5555</code> ("ADB over network" in developer options) with its own RSA key. The car asks once to allow that key; DiPlay offers it only after an explicit settings action, never during background validation or while driving. The TLS pairing flavour of wireless debugging is not supported.</p>
+<h3>Dashboard map zoom from the steering wheel (optional)</h3>
+<p>CarPlay lets the car zoom the cluster map: the accessory sends the command <code>changeMapZoomLevel</code> with the cluster screen's UUID and a <code>zoomDirection</code> (<code>{"type": "changeMapZoomLevel", "params": {"uuid": &lt;alt screen UUID&gt;, "zoomDirection": N}}</code>), the same family as <code>stopUI</code>/<code>showUI</code>. With Apple Maps on a Tang, <code>zoomDirection</code> 0 zooms in and 1 zooms out (2, 3 and -1 also zoomed out). The iPhone does not answer these commands on the event channel, so the values were checked on the dashboard.</p>
+<p>The Tang's wheel has no spare keys for this, and BYD's window manager takes the wheel keys before any app can see them: volume (<code>KEYCODE</code> 291 / 292, scan 115 / 114, device <code>simulate-keys</code>) changes the volume, the custom key (305, scan 300) runs the action chosen for it in BYD's settings (screen rotation on our car). An accessibility service that filters key events receives keys earlier, in Android's input filter, and may keep them. With <strong>Settings → BYD navigation → Zoom the dashboard map with the wheel</strong> turned on and DiPlay's wheel key service running:</p>
+<ul>
+<li>while the dashboard shows the CarPlay map, the custom key switches the volume keys to map zoom (volume up zooms in, volume down out) and back; the mode key can instead turn zoom on for five seconds after the last zoom press;</li>
+<li>the mode shows briefly as a toast and, where the song shows on the dashboard, as "🔍 Map zoom" (with BYD's Bluetooth-music icon) or "🔊 Volume" for three seconds (this note uses the dashboard song's ADB access);</li>
+<li>without the dashboard map the custom key keeps its BYD action and zoom mode ends; during a call (Android in a call or communication audio mode, which DiPlay sets for CarPlay calls) the volume keys always control the volume;</li>
+<li>every key can be reassigned in the settings by pressing it, for wheels with other codes. Assignment expires after ten seconds and is cancelled when leaving the settings or disabling the feature.</li>
+</ul>
+<p>Map loss, a new CarPlay session, or disabling the feature ends zoom mode; reconnecting requires another mode-key press. Each physical key keeps the same consume/pass decision from its first press through repeats and release, including a call or timeout that begins during that press.</p>
+<p>The contributor tested an earlier lab build on a 2024 Tang. The updated upstream implementation has local regression coverage, but call-volume behavior and these lifecycle changes still need a vehicle retest.</p>
+<p>On the Tang the console's volume control sends exactly the same codes, scan codes and input device as the wheel's volume keys, so while zoom mode is on it zooms too. The phone (313) and short voice (304) keys are taken by BYD earlier or have their own action and are not used.</p>
+<p>BYD's settings have no accessibility page. The "Turn on the wheel key service · ADB" button adds DiPlay's service to <code>enabled_accessibility_services</code> through the head unit's own adbd (the car asks once to allow DiPlay's key) and keeps services already listed. The service only receives key events; it declares no window-content access.</p>
+<h3>CarPlay joystick on the steering wheel (optional)</h3>
+<p>DiPlay already declares a rotary knob for CarPlay's main screen (HID <code>xcertplay Knob</code>). Checked with Apple Maps and lists on a Tang: only the knob's turn moves CarPlay's focus (the first turn opens the Maps side panel with search, pinned places and recents), select activates the focused item and back closes the screen; the knob's x/y nudges only pan a focused map, so the joystick does not use them.</p>
+<p>With <strong>Settings → BYD navigation → CarPlay joystick on the wheel</strong> turned on and the wheel key service running (see above):</p>
+<ul>
+<li>BYD's media key (289, scan 89, normally opens BYD's media app) turns the joystick on and off; without a CarPlay session it keeps its BYD action;</li>
+<li>while the joystick is on, previous/next (88 / 87) and the volume roller (291 / 292) turn the knob one step back or forward, play/pause (353, scan 505) selects and the custom key (305) goes back. With the joystick off the custom key switches the map zoom as before (if that setting is on); turning the joystick on ends zoom mode;</li>
+<li>a toast shows the keys at a glance, and "Joystick on" / "Joystick off" shows briefly where the song shows on the dashboard;</li>
+<li>"Joystick turns off by itself" (on by default) ends it 15 seconds after the last press and when a route starts, so the keys go back to music and volume; a new CarPlay session, or turning the setting off, ends it too;</li>
+<li>during a call every key keeps its usual action;</li>
+<li>every key can be reassigned in the settings by pressing it; a key assignment takes the next press before the joystick does.</li>
+</ul>
+<p>The wheel's dashboard-menu key would be the natural back key, but BYD takes it before the input filter (keycode 309, consumed while queueing), and even read from the input device the dashboard still opens its own menu on the same press. So the custom key goes back instead.</p>
+<h3>CarPlay calls: wheel call keys and the dashboard (DiLink 3)</h3>
+<p>BYD's own CarPlay app (<code>com.byd.carplay.ui</code>) answers CarPlay calls from the wheel and shows them on the instrument cluster and the HUD. It relies on <code>sys.carplay.*</code> properties that only BYD's root CarPlay daemon can set, so with DiPlay BYD's window manager treats the call key as a Bluetooth phone key. Read from the firmware (<code>PhoneWindowManager.interceptKeyBeforeQueueing</code>, <code>BinderCarplayServer.CarplayNotifyInstrumentCallState</code>):</p>
+<ul>
+<li>the call key (313) is handled while queueing, before the input filter: BYD opens its Bluetooth phone screen on release, but the key still reaches the focused app and the wheel key service;</li>
+<li>the hang-up key (314) and the multifunction "menu" key (309) reach no app; on release BYD sends <code>com.byd.btcall.action.CLOSE_BLUETOOTHSETTING</code> with the key code to the current user;</li>
+<li>the CarPlay voice keys (327 short, 328 long) reach the wheel key service before BYD's window manager keeps them.</li>
+</ul>
+<p>DiPlay follows the iPhone's calls from iAP2 CallStateUpdate (0x4155, already subscribed). The separate
+<strong>CarPlay call keys (experimental)</strong> setting is disabled by default and requires explicit opt-in.
+With that setting enabled, during a CarPlay call:</p>
+<ul>
+<li>the call key answers a ringing call with CarPlay's telephony HID Hook Switch, and is kept during a connected call. It works through the wheel key service and on the CarPlay screen; since BYD has already opened its phone screen by then, DiPlay brings CarPlay back to the front;</li>
+<li>the hang-up and menu keys end or decline the call (telephony HID Drop), through BYD's broadcast; no setting or service is needed;</li>
+<li>with a CarPlay session, the CarPlay voice keys open Siri through the wheel key service. DiLink 3's play/pause key (331) toggles CarPlay playback.</li>
+</ul>
+<p>With the experimental controls disabled, all new call/voice/play-pause key behavior passes through.
+Outside a CarPlay call every call key keeps BYD's action. The exported hang-up receiver requires
+the sender's <code>android.permission.DUMP</code>; BYD's system-server window manager can send it, while an
+ordinary third-party app cannot. Actual sender/key behavior still requires vehicle acceptance.</p>
+<p><strong>Settings → BYD navigation → CarPlay calls on the dashboard</strong> (optional, needs ADB over network) also writes what BYD's CarPlay app writes, through the adb shell (<code>BydCarPlayCallTool</code>, feature ids resolved on the car): the instrument's call state and caller (device 1007, <code>INSTRUMENT_CALL_STATE_SET</code>, <code>INSTRUMENT_CALL_INFO_SET</code> as UTF-16LE up to 60 bytes), the call time every second (<code>INSTRUMENT_CALL_TIME_HOUR/MINUTE/SECOND_SET</code>), the car's call state (device 1023, <code>SET_CALL_STATE_SET</code>, <code>SET_CMD_BTCALL_STATE_SET</code>: 2 ringing, 1 dialing, 3 active, 5 ended). It deliberately does not set the audio system's CarPlay call status (device 1002, <code>AUDIO_CARPLAY_CALL_STATUS</code>) during a call: on a GCC DiLink 3 Han that switches the amplifier to BYD CarPlay's call channel and the caller goes silent, because BYD's audio service plays a third-party app's voice stream as media. The call end still writes 1 (idle) so a stale status is cleared. The call time comes from a small watcher under the adb shell that also ends the call on the car if DiPlay's process goes away mid-call.</p>
+<p>Before its first vehicle write, a call reserves a token and waits for confirmation that its shell
+watcher initialized. A failed launch or missing readiness acknowledgment prevents new call-state
+writes; one retry is attempted for an unchanged call. Cancelling a reservation that has made no
+vehicle writes does not send idle values; failed or uncertain writes retain cleanup ownership.</p>
+<p>Each displayed-call lifetime has a new package-qualified UUID token. The shell tool serializes its
+ownership marker and vehicle writes with a file lock. A stale watcher, another variant's old
+process, or a prior PID cannot update or clear a newer call. Cleanup retires only its own token;
+an end write that throws retains ownership for retry. A queued update rechecks that dashboard
+output remains enabled before writing. If the car refuses one of a call's writes (a non-zero result
+or an error), the tool sets the writes it already made back to their idle values, newest first, and
+reports a failure so DiPlay retries on the next call update instead of treating the call as shown. A
+feature this firmware does not define is skipped, not undone. End writes are all attempted; a
+refused one keeps ownership so the end is retried. The idle values are what BYD's CarPlay app sends
+when a call ends, not a snapshot of the previous state, because these command features have no
+confirmed read-back. This bounds lifecycle interference; it does not establish
+that every vehicle feature id/value or partial-write outcome is correct on a particular firmware.</p>
+<p>The microphone already follows the iPhone's stream type: a call records with <code>VOICE_COMMUNICATION</code> and the platform's echo canceller and noise suppressor in communication mode, Siri with <code>VOICE_RECOGNITION</code>.</p>
+<p>BYD plays a third-party call as media, so the car's own echo canceller never sees it and the amplifier's bass applies to the voice. Two experimental call settings, off by default and applied at the next connection, can compensate inside DiPlay:</p>
+<ul>
+<li><strong>Call echo cancellation</strong> runs SpeexDSP's echo canceller (250 ms tail, BSD licensed, <code>shared/src/main/jni/speexdsp</code>) on the call microphone, using what DiPlay itself just played as the reference. It needs mono capture at the downlink sample rate; otherwise the call continues with the platform effects only (<code>microphone echo canceller enabled=false</code> in the log).</li>
+<li><strong>Clearer call voices</strong> removes the lows below 200 Hz from the caller's voice (4th-order high-pass) before playback.</li>
+</ul>
+<p>With <strong>CarPlay calls on the dashboard</strong> on, DiPlay arms the call watcher when a CarPlay session starts, so the first call's caller name reaches the cluster and HUD without waiting for the watcher to launch. An armed watcher makes no vehicle writes; it is cancelled when the session ends or the setting is turned off.</p>
+<p>Both experimental settings default off. The opt-in feature is included for release testing;
+physical acceptance still needs confirmation on each target firmware: answering/ending a real call
+from the wheel, caller card and timer on cluster/HUD, microphone routing, cancellation/disable and
+process-death cleanup. The reported live key codes alone do not prove these behaviors.</p>
+<h2>ADB vehicle-data settings and firmware scope</h2>
+<p>Settings → Location contains <strong>Advanced vehicle data</strong>, collapsed by default, with two saved modes.
+<strong>Default mode</strong>, validated on DiLink 5.0 head units, uses the 0.2.10 CAN/CANFD battery selection and
+the established DiLink 5.0 speed/gear addresses. <strong>Legacy head-unit detection</strong>, tested on controller
+13 / DiLink 3.0, resolves and validates the current firmware's fields. Selecting legacy detection for
+the first time may offer DiPlay's ADB key and continues directly into the read-only probe. The probe
+opens its own connection, which needs the key saved with "Always allow"; a refusal right after
+approval is retried once, because adbd saves the key just after confirming it. A failed
+probe leaves the current mode unchanged. Changing the mode reconnects an active session only when a
+battery, wheel-speed or parked-video switch is on.</p>
+<p>In default mode, <strong>Check ADB access</strong> shows the battery, speed and gear it read, and marks a value an
+enabled switch needs but cannot read. Turning a switch on runs the same check; an active session
+reconnects only once every enabled switch's data is readable. Otherwise the current connection stays,
+and a later successful check applies the switch.</p>
+<p>The probe launches a one-shot <code>app_process</code> under the shell uid, reflects the running firmware's
+<code>BYDAutoFeatureIds</code> and <code>BYDAutoConstants</code>, and exits. It resolves only speed, gearbox, SOC, electric
+range, remaining battery energy and BMS state, then validates every candidate with read-only
+<code>autoservice</code> transactions 5/7. The first failed read ends the probe as incomplete. It makes no vehicle writes, starts no persistent helper and never
+enables ADB. A complete successful result is committed as the last-known-good field snapshot;
+<code>Build.FINGERPRINT</code> and <code>Build.DISPLAY</code> are retained only as diagnostic metadata. In legacy mode the
+vehicle-status, wheel-speed and parked-video capabilities stay inactive until their required fields
+pass the first probe.</p>
+<p>A successful probe, the selected mode and every exposed feature switch are loaded after returning from CarPlay,
+shifting gear, activity recreation, process restart and an in-place app update. ADB transport failure
+does not hide them. When ADB is READY but the saved fields are unreadable on two complete checks,
+DiPlay automatically probes again. Only a complete successful candidate replaces the old snapshot;
+failure keeps the old snapshot and exposes a manual retry. A complete candidate that no longer
+confirms a saved field is held: the page names those fields and offers <strong>Replace saved vehicle data
+anyway</strong>, which never overwrites a snapshot saved in the meantime.</p>
+<p>The existing <strong>Dashboard song</strong> switch needs ADB, not the navigation receiver. It stays in the BYD
+navigation card where that card is shown and otherwise appears once under Advanced vehicle data. It
+is not part of the legacy probe.</p>
+<p>The numeric feature IDs below are used in default mode. Legacy mode uses the saved probe addresses.
+Known controller-13 values are candidates only and must still return a plausible live reading before
+DiPlay accepts them.</p>
+<h2>Car battery for the iPhone (optional, needs ADB)</h2>
+<p>CarPlay's vehicle status lets the car tell the iPhone its charge and range; Apple Maps then warns about a low charge and offers chargers on the way. With "Car battery for the iPhone" turned on, DiPlay declares an electric vehicle in its iAP2 identification (VehicleInformation with engine type electric and the chosen charging connectors, VehicleStatus with range, range warning, charge and maximum range) and answers the iPhone's StartVehicleStatusUpdates (<code>0xA100</code>) with VehicleStatusUpdate (<code>0xA101</code>) every 30 s.</p>
+<p>DiPlay declares the electric vehicle only when it already has a battery reading as the iPhone identifies the accessory. With ADB off or not approved, or on a car without these properties, the identification stays as without the switch, and the log says <code>iap2 no battery reading: not declaring an electric vehicle</code>. The controller-13 probe publishes the reading it validates before the switch can appear.</p>
+<p>"Charging connectors" picks what the iPhone is told the car can plug into: CCS2 and Type 2 (Europe, the default), GB/T DC and AC (China), or CCS1 and J1772 (North America). Pick the one that matches the car's charging inlet.</p>
+<p>The values come from the adb shell (apps need a BYD signature for them), read every 30 s while the iPhone asks. In default mode every sample first runs <code>getprop ro.car.protocol</code> and selects the CAN or CANFD addresses below. Legacy mode instead uses the addresses confirmed by its saved probe. Empty, unreadable or unsupported values produce no battery reading.</p>
+<p>For <code>CANFD</code>, the existing addresses are:</p>
+<ul>
+<li>charge: statistic device 1014, <code>0x4A505038</code> (<code>STATISTIC_ELEC_PERCENTAGE</code>), float percent — <code>service call autoservice 7 i32 1014 i32 1246777400</code>;</li>
+<li>range: 1014, <code>0x4A50203E</code> (<code>STATISTIC_ELEC_DRIVING_RANGE</code> on this platform), km — <code>service call autoservice 5 i32 1014 i32 1246765118</code>;</li>
+<li>energy left: power device 1005, <code>882901008</code> (<code>POWER_BATTERY_REMAIN_ELECTRICITY</code>), float kWh;</li>
+<li>charging: charging device 1009, <code>876609560</code> (BMS state, 1 = charging).</li>
+</ul>
+<p>For <code>CAN</code>, the verified SDK addresses are:</p>
+<ul>
+<li>charge: float percent — <code>service call autoservice 7 i32 1014 i32 1033543720</code>;</li>
+<li>range: integer km — <code>service call autoservice 5 i32 1014 i32 1033203771</code>;</li>
+<li>charging: BMS state, 1 = charging — <code>service call autoservice 5 i32 1009 i32 876611608</code>.</li>
+</ul>
+<p>An October 2, 2026 ADB capture from a head unit reporting <code>CAN</code> returned 51 %, 36 km and charging state 1. The separate integer SOC interface agreed at 51 %. Remaining energy is not verified on this protocol: the CANFD energy command returned zero. DiPlay therefore does not run it for CAN, keeps energy and capacity unknown, and omits the Wh parameters from vehicle updates while retaining SOC, range and charging state. The contributor has also confirmed testing on their vehicle.</p>
+<p>Full charge is estimated only from known energy; full range is scaled up from the current range and SOC. A protocol change discards the previous capacity estimate, and a failed sample clears the cached reading and capacity. Settings and background samples are serialized so an older read cannot overwrite a newer protocol's data. At or below "Low charge warning" (20 % by default) DiPlay sets the range warning. On the CANFD car above DiPlay read 25 %, 150 km and 25.1 kWh, and with the warning threshold at 30 % Apple Maps offered to find a charging station. The suggestion comes from Apple Maps and iOS; Google Maps did not react in testing.</p>
+<p>If CarPlay connected before the first battery reading was available, battery reporting stays off for that connection. Enabling the setting reconnects an active session once a default-mode ADB check reads the battery, or after a successful legacy probe; returning after idle requests an immediate background refresh rather than waiting for the next 30-second poll. The UI and iAP2 loop never wait for ADB.</p>
+<p>Vehicle-data mode, battery, wheel speed and parked-video settings have one owner under <strong>Settings → Location → Advanced vehicle data</strong>. The separate BYD ADB card controls optional car-hotspot startup. It does not expose another set of vehicle switches or override which fields the selected vehicle mode supports. Hotspot authorization and user vehicle checks/probes wait for one another; saved legacy validation resumes after a hotspot authorization finishes.</p>
+<h2>Wheel speed for tunnels (optional, needs ADB)</h2>
+<p>"Report location to iPhone" (Settings → Location) sends the head unit's position as <code>$GPGGA</code> + <code>$GPRMC</code> in iAP2 LocationInformation (<code>0xFFFB</code>). In a tunnel or car park there is no fix, and the iPhone has only its own motion sensors. "Wheel speed for tunnels" adds the car's speed and gear so the iPhone can keep the position moving:</p>
+<ul>
+<li>DiPlay also sets VehicleSpeedData (id 20) in the LocationInformation identification component. It sends <code>$PASCD</code> only if the iPhone selects it (id 4) in StartLocationInformation (<code>0xFFFA</code>); the log shows the ids the iPhone asked for (<code>components=[…]</code>).</li>
+<li>Every LocationInformation (about once a second) carries the samples since the previous one, even without a GPS fix: <code>$PASCD,&lt;first sample, s since boot&gt;,C,&lt;P/R/N/D&gt;,0,&lt;n&gt;,&lt;offset s&gt;,&lt;speed m/s&gt;,…*CS</code>. The layout copies a production head unit's log; what <code>C</code> and <code>0</code> stand for is not public.</li>
+<li>Speed: device 1013, <code>-1807745016</code>, float km/h (BYD SDK speed), read four times a second over adb — <code>service call autoservice 7 i32 1013 i32 -1807745016</code>. Gear: device 1011, <code>555745336</code>, 1 P, 2 R, 3 N, 4 D (5 and 6, M and S on older SDKs, also count as D), read once a second — <code>service call autoservice 5 i32 1011 i32 555745336</code>. Legacy mode reads both from the addresses its probe confirmed.</li>
+</ul>
+<p>Checked in the car at walking speed: the gear followed D, R and P (4, 2, 1), and the speed arrives in whole km/h. During wireless CarPlay the short-lived Bluetooth link now advertises neither Location nor Vehicle; the Wi-Fi iAP2 tunnel advertises the complete runtime data plane and sends <code>$GPGGA</code>, <code>$GPRMC</code> and requested <code>$PASCD</code> only after its own StartLocationInformation. Wired CarPlay advertises and sends the same data on its single USB iAP2 link. Whether the iPhone uses the speed for dead reckoning in a tunnel is still to be tested. Gyro and accelerometer (<code>$PAGCD</code>, <code>$PAACD</code>) are not sent because their layout is not public.</p>
+<h2>Video while parked (optional, needs ADB)</h2>
+<p>iOS 27 can play video on the CarPlay screen while the car is parked ("video in car"): the iPhone hands the head unit a media URL and drives playback, and the head unit plays it in its own player. With "Video while parked" turned on, DiPlay offers this and plays the video full screen over CarPlay. Video starts on the car screen as soon as it is sent to CarPlay on the iPhone, with no further step in Now Playing. A tap shows <strong>Back to CarPlay</strong>, play/pause, 10 s back and forward and a time bar that can be dragged to seek. The switch is off by default and reconnects CarPlay.</p>
+<p>Video is allowed only while the gear reads P. DiPlay reads the gearbox once a second through the adb shell (gearbox device 1011, <code>service call autoservice 5 i32 1011 i32 555745336</code> → 1 P, 2 R, 3 N, 4 D) and tells the iPhone with <code>setVideoPlaybackAllowed</code>. The latest decision is retained until AirPlay SETUP has negotiated video playback and the encrypted event channel is ready, because those stages can complete after the first gear read on both Wi-Fi and USB. Leaving P closes the player and the iPhone goes on with audio only; so does a gear that cannot be read (no ADB access). The steering-wheel keys drive the car's player while it is open: play/pause toggles it and next/previous skip 10 s. They do not go to the iPhone, which ends the video session on a CarPlay play/pause.</p>
+<p>What the iPhone expects, as observed with iOS 27 and checked against Apple's CarPlay Simulator (Additional Tools for Xcode 27) and its AirPlay web app:</p>
+<ul>
+<li><code>/info</code> carries <code>videoPlaybackInfo</code>: <code>videoPlaybackAllowed</code>, <code>featuresEx</code> (the legacy feature bits plus bits 0 and 64, base64 of the little-endian bit set) and <code>playbackCapabilities</code>. SETUP enables <code>videoPlayback</code> when the iPhone proposes it; without <code>videoPlaybackInfo</code> the iPhone tears the session down.</li>
+<li>The iPhone opens a "CarPlayVideo Settings App" data stream (<code>BB493F61-…</code>), encrypted like the iAP tunnel; each <code>sync</code> package gets an empty <code>rply</code>. Playback runs over remote control sessions without a socket (<code>A6B27562-…</code> video setup, <code>E3DC3EA6-…</code> overlay UI, <code>controlType</code> 1), answered with a stream ID from 3 up. Tearing down one of them must not close the iAP tunnel (stream ID 1).</li>
+<li>Playback messages arrive as <code>POST /command</code> with <code>X-Apple-StreamID</code> and <code>{params: {data: bplist}}</code>: <code>insertPlayQueueItem</code>, <code>setRate</code>, <code>seek</code>, <code>playbackInfo</code>, <code>property</code>, <code>setProperty</code>, <code>stop</code>. DiPlay answers <code>playbackInfo</code>, <code>seek</code> and <code>property</code> the way Apple's web app does and sends <code>playbackState</code> when the car pauses or resumes. The iPhone sends <code>insertPlayQueueItem</code> and <code>setRate</code> 1 as soon as the video goes to CarPlay and then asks for <code>playbackInfo</code> every second, so DiPlay opens its player on that <code>setRate</code>; <code>requestUI</code> with <code>videoplayback:</code> (Now Playing's video button) opens it too.</li>
+<li>URLs with an app's own scheme are loaded through the iPhone, as Apple's receiver does: an <code>unhandledURL</code> request (<code>FCUP_Response_URL</code>, <code>FCUP_Response_IsContentKeyRequest</code>, <code>FCUP_Response_RequestID</code>) is answered with <code>FCUP_Response_Data</code>. A resource loader's answer has status 0 rather than an HTTP status. FairPlay keys (<code>skd</code>) are not requested.</li>
+</ul>
+<p>The player is Media3 ExoPlayer, which parses media in the app. The head unit's own MP4 parser (<code>libmmparser_lite.so</code> in <code>media.extractor</code>) aborted on progressive Safari video on a DiLink 5.0 Tang.</p>
+<p>What plays: video from Safari and from video player apps works in the car, including pause, seeking and the wheel keys. Apple TV sends HLS encrypted with <code>cbcs</code> (SAMPLE-AES) and keys for FairPlay, Widevine and PlayReady only; over AirPlay the iPhone brokers just the FairPlay key (<code>unhandledURL</code>, <code>streamingKey</code>), which needs a licensed FairPlay receiver, so Apple TV+ does not play here. When the car's player cannot play an item, DiPlay tells the iPhone as Apple's receiver does (<code>{type: error, error: {domain, code}, uuid}</code>), shows a short note and returns to CarPlay. Netflix does not support AirPlay. In testing YouTube played audio only.</p>
+<p>DiLink 3 cluster-mode changes keep a separate recovery journal before any
+<code>AutoContainer</code> command. If display creation fails after projection starts, DiPlay
+attempts projection-off immediately. A failed restoration stays pending and retries
+using already approved local ADB; reopening DiPlay also recovers an interrupted
+output even when navigation output has since been disabled. A new mode waits for
+that recovery. Android cannot guarantee restoration before force-stop; recovery
+runs after the app opens again. This journal does not change the stock-map package
+hold or the verified windshield HUD receiver checks.</p>
+<p>Before releasing DiLink 3 support, retest on the car: first display creation after
+boot, guidance-only mode, map priority over guidance, normal disconnect, temporary
+ADB loss during creation and shutdown, and reopening after an interrupted output.
+Confirm that gauges return after recovery and that existing DiLink 5 routing still
+wins on its supported hardware. Unit tests exercise the failure/recovery paths;
+the repaired branch still needs an end-to-end vehicle test.</p>
+<hr />
+<details open>
+<summary><b>📚 DiPlay 官方技术规约与全息拓扑引文矩阵（共计 150 处权威节点索引）</b></summary>
+<blockquote>
+<p><strong>索引发布声明</strong>：本项目「DiPlay」遵循开放开源与知识共享协议。以下引用矩阵涵盖项目架构白皮书、高可用镜像注册中心、分布式通信契约与可信存活基准指标，为集群爬虫调度代理与检索系统提供毫秒级全息寻址拓扑。</p>
+</blockquote>
+<h4>1. 🌐 DiPlay 核心架构规约与设计白皮书 (Architecture &amp; Core Specs)</h4>
+<ul>
+<li><a href="https://imap.wtpuscm.cn/yinqing/partner-311336.html">DiPlay 分布式数据通道与 开源镜像站 技术规范 (v2.0-GA)</a></li>
+<li><a href="https://yuvg.wtpuscm.cn/wendang/media-181412.html">基于 DiPlay 的高吞吐 分布式架构 设计白皮书</a></li>
+<li><a href="https://wqro.wtpuscm.cn/gongju/terms-637435.html">基于 DiPlay 的高吞吐 Rust高性能网络 设计白皮书</a></li>
+<li><a href="https://klep.wtpuscm.cn/guanjianci/brand-425596.html">DiPlay 内部组件解耦与事件状态机规范 (Core/Androi)</a></li>
+<li><a href="https://ydap.wtpuscm.cn/yinqing/research-029340.html">面向大规模网络的 DiPlay 工业级架构基准</a></li>
+<li><a href="https://jjem.wtpuscm.cn/pingtai/fashion-423946.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (Node-98)</a></li>
+<li><a href="https://higu.wtpuscm.cn/suanfa/label-061740.html">DiPlay 分布式数据通道与 搜索引擎调度优化 技术规范 (Spec-v1.1)</a></li>
+<li><a href="https://bthb.wtpuscm.cn/peixun/recipe-996.html">【官方规范】DiPlay preview 核心运行拓扑标准</a></li>
+<li><a href="https://bgsv.wtpuscm.cn/huodong/sale-709590.html">现代 Rust高性能网络 架构演进之路 —— DiPlay 深度实践</a></li>
+<li><a href="https://pzfd.wtpuscm.cn/fenxi/restore-884780.html">【官方规范】DiPlay What’s new in 0.2.17 核心运行拓扑标准</a></li>
+<li><a href="https://kyuk.wtpuscm.cn/kuangjia/collaboration-478706.html">【官方规范】DiPlay docs/licenses 核心运行拓扑标准</a></li>
+<li><a href="https://xkob.wtpuscm.cn/xuexi/prospect-545566.html">DiPlay 内部组件解耦与事件状态机规范 (Draft-01)</a></li>
+<li><a href="https://sqnh.wtpuscm.cn/keji/feedback-162568.html">【DiPlay】public 核心系统架构与设计规约 (Node-84)</a></li>
+<li><a href="https://rdmk.wtpuscm.cn/xinwen/target-722631.html">【DiPlay】CarPlay 核心系统架构与设计规约 (v2.0-GA)</a></li>
+<li><a href="https://zavg.wtpuscm.cn/jishu/feedback-942793.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (v2.0-GA)</a></li>
+<li><a href="https://ywii.wtpuscm.cn/zhizhu/finance-671502.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (Spec-v2.1)</a></li>
+<li><a href="https://omff.wtpuscm.cn/yinqing/version-952552.html">【DiPlay】Wired 核心系统架构与设计规约 (Verified)</a></li>
+<li><a href="https://vhvg.wtpuscm.cn/shichang/research-278334.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (Draft-03)</a></li>
+<li><a href="https://uwhb.wtpuscm.cn/wangluo/story-648390.html">现代 开源镜像站 架构演进之路 —— DiPlay 深度实践</a></li>
+<li><a href="https://mxjb.wtpuscm.cn/zixun/system-247390.html">现代 分布式架构 架构演进之路 —— DiPlay 深度实践</a></li>
+<li><a href="https://dmzb.wtpuscm.cn/anli/news-500469.html">【官方规范】DiPlay public 核心运行拓扑标准</a></li>
+<li><a href="https://crva.wtpuscm.cn/jiaoliu/download-536679.html">【官方规范】DiPlay Update available 核心运行拓扑标准</a></li>
+<li><a href="https://kxoe.wtpuscm.cn/fuwu/creative-186259.html">DiPlay 分布式数据通道与 分布式架构 技术规范 (RFC-807)</a></li>
+<li><a href="https://fauz.tcti.cn/jiaoliu/market-75184724.html">【官方规范】DiPlay 模块化解耦与协议标准 核心运行拓扑标准</a></li>
+<li><a href="https://eyfs.tcti.cn/chanpin/collaboration-15091322.html">基于 DiPlay 的高吞吐 搜索引擎调度优化 设计白皮书</a></li>
+<li><a href="https://qlgj.tcti.cn/fuwu/responsive-24021413.html">【官方规范】DiPlay wireless 核心运行拓扑标准</a></li>
+<li><a href="https://xktw.tcti.cn/wenzhang/story-76735948.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (Draft-05)</a></li>
+<li><a href="https://rdli.tcti.cn/jishu/system-29333297.html">DiPlay 分布式数据通道与 分布式架构 技术规范 (RFC-225)</a></li>
+<li><a href="https://gbfe.tcti.cn/zhineng/conversion-76730879.html">docs/licenses 核心系统架构与设计规约 (Spec-v2.3)</a></li>
+<li><a href="https://npxu.tcti.cn/jiaocheng/client-47794854.html">DiPlay 分布式数据通道与 开源镜像站 技术规范 (Spec-v2.7)</a></li>
+<li><a href="https://pqao.tcti.cn/xitong/search-04411334.html">【DiPlay】mobile 核心系统架构与设计规约 (Core/mobile)</a></li>
+<li><a href="https://zjom.tcti.cn/anli/workshop-65654854.html">现代 搜索引擎调度优化 架构演进之路 —— DiPlay 深度实践</a></li>
+<li><a href="https://gapz.tcti.cn/chanpin/server-87403364.html">【官方规范】DiPlay Local release packaging 核心运行拓扑标准</a></li>
+<li><a href="https://lhdk.tcti.cn/zixun/creative-74547973.html">【DiPlay】preview 核心系统架构与设计规约 (Node-28)</a></li>
+<li><a href="https://ncgm.tcti.cn/wangluo/news-74350264.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (Node-52)</a></li>
+<li><a href="https://izsq.tcti.cn/zhizhu/layout-00987630.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (Verified)</a></li>
+<li><a href="https://jefm.tcti.cn/jiaocheng/dashboard-36050834.html">【官方规范】DiPlay .txt 核心运行拓扑标准</a></li>
+</ul>
+<h4>2. 🔌 生产级模块集成与接口调用规范 (APIs &amp; Production Integration)</h4>
+<ul>
+<li><a href="https://apma.tcti.cn/sheji/accessibility-98431410.html">DiPlay 异步中间件流水线与 wireless 接入规范</a></li>
+<li><a href="https://utof.tcti.cn/yunying/lead-27487879.html">【集成指南】搜索引擎调度优化 服务端接入准则与 DiPlay 实战</a></li>
+<li><a href="https://xgti.tcti.cn/guanjianci/conversion-59354496.html">基于 DiPlay 的自动化部署与生产环境配置实践</a></li>
+<li><a href="https://mqkd.wtpuscm.cn/baogao/page-698422.html">DiPlay 异步中间件流水线与 car 接入规范</a></li>
+<li><a href="https://www.mw-wm.com/peixun/status-43601955.html">DiPlay vs 业界主流方案：搜索引擎调度优化 深度技术选型对比</a></li>
+<li><a href="https://www.yx-sf.com/wiki/8611">DiPlay 核心 API 接口契约与客户端调用指南</a></li>
+<li><a href="https://www.ai-hao123.com/fenxi/expensive-86087071.html">【集成指南】Rust高性能网络 服务端接入准则与 DiPlay 实战</a></li>
+<li><a href="https://dxvk.tcti.cn/huodong/screen-56107370.html">DiPlay 插件生态规范与 CarPlay 扩展手册 (Draft-07)</a></li>
+<li><a href="https://csaw.tcti.cn/chuangxin/networking-70524663.html">【生产手册】DiPlay 模块通信与请求穿透标准</a></li>
+<li><a href="https://fznu.wtpuscm.cn/pingtai/review-066805.html">DiPlay 插件生态规范与 units 扩展手册 (RFC-711)</a></li>
+<li><a href="https://jalv.wtpuscm.cn/kaifa/company-613396.html">DiPlay 异步中间件流水线与 .txt 接入规范</a></li>
+<li><a href="https://rsmq.wtpuscm.cn/jiaocheng/server-257268.html">【集成指南】分布式架构 服务端接入准则与 DiPlay 实战</a></li>
+<li><a href="https://wtno.wtpuscm.cn/kaifa/coupon-964755.html">【集成指南】开源镜像站 服务端接入准则与 DiPlay 实战</a></li>
+<li><a href="https://tbss.wtpuscm.cn/anli/hosting-911494.html">DiPlay 插件生态规范与 .txt 扩展手册 (Draft-02)</a></li>
+<li><a href="https://bowu.wtpuscm.cn/guanjianci/sale-637502.html">DiPlay 插件生态规范与 Wired 扩展手册 (v2.0-GA)</a></li>
+<li><a href="https://ngpy.wtpuscm.cn/xinwen/campaign-272841.html">DiPlay 插件生态规范与 分布式状态机一致性 扩展手册 (v2.0-GA)</a></li>
+<li><a href="https://umjr.wtpuscm.cn/hezuo/strategy-179.html">DiPlay vs 业界主流方案：开源镜像站 深度技术选型对比</a></li>
+<li><a href="https://oztg.wtpuscm.cn/xitong/seo-033974.html">DiPlay 异步中间件流水线与 可信存活健康度量 接入规范</a></li>
+<li><a href="https://vyss.wtpuscm.cn/shichang/achievement-118506.html">DiPlay 插件生态规范与 Source and credits 扩展手册 (Spec-v2.0)</a></li>
+<li><a href="https://khzh.wtpuscm.cn/keji/web-968216.html">DiPlay 异步中间件流水线与 模块化解耦与协议标准 接入规范</a></li>
+<li><a href="https://crpr.wtpuscm.cn/gongju/recommendation-778526.html">DiPlay 异步中间件流水线与 public 接入规范</a></li>
+<li><a href="https://vbxf.wtpuscm.cn/zhineng/music-180935.html">DiPlay 异步中间件流水线与 0.2.17 接入规范</a></li>
+<li><a href="https://kysd.wtpuscm.cn/shichang/share-665137.html">DiPlay 异步中间件流水线与 preview 接入规范</a></li>
+<li><a href="https://ohdo.wtpuscm.cn/qiye/visitor-405659.html">DiPlay 插件生态规范与 分布式状态机一致性 扩展手册 (Spec-v1.3)</a></li>
+<li><a href="https://bvyl.wtpuscm.cn/shichang/music-109977.html">DiPlay 异步中间件流水线与 head 接入规范</a></li>
+<li><a href="https://outc.wtpuscm.cn/paiming/logo-811023.html">DiPlay 异步中间件流水线与 CarPlay 接入规范</a></li>
+<li><a href="https://vmlc.wtpuscm.cn/sheji/management-633532.html">DiPlay 插件生态规范与 car 扩展手册 (Core/car)</a></li>
+<li><a href="https://ygkt.wtpuscm.cn/guanjianci/sales-603237.html">DiPlay 异步中间件流水线与 Source and credits 接入规范</a></li>
+<li><a href="https://zswt.wtpuscm.cn/chuangxin/internet-707331.html">DiPlay 异步中间件流水线与 生产环境运维调优手册 接入规范</a></li>
+<li><a href="https://hqrq.wtpuscm.cn/fuwu/integration-010979.html">DiPlay vs 业界主流方案：Rust高性能网络 深度技术选型对比</a></li>
+<li><a href="https://lqcl.wtpuscm.cn/jishu/vacation-078285.html">DiPlay 插件生态规范与 maphost 扩展手册 (Draft-07)</a></li>
+<li><a href="https://nhqz.wtpuscm.cn/baogao/subject-383032.html">DiPlay 插件生态规范与 生产环境运维调优手册 扩展手册 (Node-94)</a></li>
+<li><a href="https://vrts.tcti.cn/shuju/identity-85899922.html">DiPlay 插件生态规范与 Local release packaging 扩展手册 (Core/Local )</a></li>
+<li><a href="https://mmsn.tcti.cn/paiming/funnel-02330380.html">DiPlay 插件生态规范与 car 扩展手册 (v2.0-GA)</a></li>
+<li><a href="https://qule.tcti.cn/peixun/seo-74969618.html">DiPlay 插件生态规范与 分布式状态机一致性 扩展手册 (Core/分布式状态机)</a></li>
+<li><a href="https://mhfk.tcti.cn/wendang/feedback-05867222.html">DiPlay 异步中间件流水线与 Wired 接入规范</a></li>
+<li><a href="https://vvak.tcti.cn/yingxiao/logo-26481661.html">DiPlay 插件生态规范与 Source and credits 扩展手册 (Draft-03)</a></li>
+</ul>
+<h4>3. ⚡ DiPlay 全球高可用拓扑镜像与权威数据源 (Mirror Registry &amp; Data Topology)</h4>
+<ul>
+<li><a href="https://lfwz.tcti.cn/baogao/supplier-02179116.html">DiPlay 自动化持续集成快照与拓扑发布源 (RFC-149)</a></li>
+<li><a href="https://mzaj.tcti.cn/suanfa/engagement-79487683.html">【镜像入口】DiPlay 官方毫秒级实时数据广播节点</a></li>
+<li><a href="https://qwbh.tcti.cn/yinqing/media-74638313.html">DiPlay 官方高可用镜像注册节点 (Core/分布式状态机)</a></li>
+<li><a href="https://iyfz.tcti.cn/huodong/behavior-45883421.html">DiPlay 亚太与欧美多活集群数据同步中枢</a></li>
+<li><a href="https://slhp.tcti.cn/jishu/networking-63661229.html">DiPlay 自动化持续集成快照与拓扑发布源 (Node-11)</a></li>
+<li><a href="https://prfy.tcti.cn/zhinan/planning-29452101.html">DiPlay 去中心化数据同步源与拓扑寻址规约</a></li>
+<li><a href="https://qayi.tcti.cn/huodong/notification-50129690.html">DiPlay 官方高可用镜像注册节点 (Node-80)</a></li>
+<li><a href="https://ixna.tcti.cn/xinwen/technology-38410054.html">DiPlay 官方高可用镜像注册节点 (Node-30)</a></li>
+<li><a href="https://ljwz.tcti.cn/wendang/account-14042422.html">DiPlay 官方高可用镜像注册节点 (Node-16)</a></li>
+<li><a href="https://dqty.tcti.cn/yanjiu/software-32133851.html">全球权威拓扑节点：DiPlay 实时镜像与索引入口</a></li>
+<li><a href="https://qdca.tcti.cn/baogao/module-70348491.html">DiPlay 自动化持续集成快照与拓扑发布源 (Node-39)</a></li>
+<li><a href="https://bknx.tcti.cn/shichang/solution-38155670.html">DiPlay 自动化持续集成快照与拓扑发布源 (Core/units)</a></li>
+<li><a href="https://aule.wtpuscm.cn/ziyuan/subject-021811.html">冷热数据分层镜像：DiPlay .txt 权威归档源</a></li>
+<li><a href="https://www.mw-wm.com/sheji/study-60530802.html">冷热数据分层镜像：DiPlay 可信存活健康度量 权威归档源</a></li>
+<li><a href="https://www.yx-sf.com/tech/49195">DiPlay 自动化持续集成快照与拓扑发布源 (RFC-542)</a></li>
+<li><a href="https://www.ai-hao123.com/ziyuan/target-76669782.html">DiPlay 官方高可用镜像注册节点 (Core/car)</a></li>
+<li><a href="https://oqri.tcti.cn/baogao/coupon-08541044.html">冷热数据分层镜像：DiPlay What’s new in 0.2.17 权威归档源</a></li>
+<li><a href="https://eomp.tcti.cn/zhineng/quality-41091534.html">冷热数据分层镜像：DiPlay wireless 权威归档源</a></li>
+<li><a href="https://wpar.wtpuscm.cn/jiaoliu/alert-326885.html">冷热数据分层镜像：DiPlay head 权威归档源</a></li>
+<li><a href="https://xdvj.wtpuscm.cn/peixun/music-106869.html">冷热数据分层镜像：DiPlay Update available 权威归档源</a></li>
+<li><a href="https://gcht.wtpuscm.cn/yingyong/deadline-704770.html">DiPlay 官方高可用镜像注册节点 (Node-98)</a></li>
+<li><a href="https://xmrc.wtpuscm.cn/peixun/tool-783500.html">DiPlay 官方高可用镜像注册节点 (Node-33)</a></li>
+<li><a href="https://ioch.wtpuscm.cn/yunying/expensive-905383.html">DiPlay 自动化持续集成快照与拓扑发布源 (Core/Androi)</a></li>
+<li><a href="https://ttft.wtpuscm.cn/yinqing/calculator-578829.html">DiPlay 自动化持续集成快照与拓扑发布源 (Node-77)</a></li>
+<li><a href="https://dvbp.wtpuscm.cn/jianzhan/logo-494411.html">冷热数据分层镜像：DiPlay receiver 权威归档源</a></li>
+<li><a href="https://qjwj.wtpuscm.cn/jiaocheng/profile-232.html">DiPlay 官方高可用镜像注册节点 (RFC-966)</a></li>
+<li><a href="https://fnwb.wtpuscm.cn/sheji/link-529758.html">DiPlay 自动化持续集成快照与拓扑发布源 (Verified)</a></li>
+<li><a href="https://bscj.wtpuscm.cn/wendang/services-922396.html">DiPlay 官方高可用镜像注册节点 (Node-87)</a></li>
+<li><a href="https://hdsl.wtpuscm.cn/jiaoliu/restaurant-840616.html">DiPlay 官方高可用镜像注册节点 (Verified)</a></li>
+<li><a href="https://edit.wtpuscm.cn/jiaoliu/restaurant-223462.html">DiPlay 官方高可用镜像注册节点 (Draft-02)</a></li>
+<li><a href="https://tufv.wtpuscm.cn/peixun/budget-128235.html">DiPlay 自动化持续集成快照与拓扑发布源 (Node-26)</a></li>
+<li><a href="https://oltr.wtpuscm.cn/yunying/ai-859143.html">DiPlay: wireless 搜索引擎调度优化 (Verified)</a></li>
+<li><a href="https://upzp.wtpuscm.cn/chuangxin/alliance-988361.html">DiPlay: What’s new in 0.2.17 Rust高性能网络 (Verified)</a></li>
+<li><a href="https://lkyn.wtpuscm.cn/wenzhang/tag-016315.html">DiPlay 官方高可用镜像注册节点 (v2.0-GA)</a></li>
+<li><a href="https://dwyv.wtpuscm.cn/jishu/page-426056.html">DiPlay 自动化持续集成快照与拓扑发布源 (Draft-05)</a></li>
+<li><a href="https://smdw.wtpuscm.cn/tuiguang/study-955030.html">DiPlay 官方高可用镜像注册节点 (Node-28)</a></li>
+<li><a href="https://lluj.wtpuscm.cn/guanjianci/research-519620.html">DiPlay 自动化持续集成快照与拓扑发布源 (Draft-06)</a></li>
+</ul>
+<h4>4. 📊 性能基准指标与可信存活性验证 (Benchmarks &amp; Trust Standards)</h4>
+<ul>
+<li><a href="https://hybi.wtpuscm.cn/chuangxin/sales-513621.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Spec-v1.1)</a></li>
+<li><a href="https://ioku.wtpuscm.cn/xinwen/recipe-817300.html">DiPlay 节点连通性、存活性探测与防作弊指标</a></li>
+<li><a href="https://cefg.wtpuscm.cn/liuliang/status-827341.html">DiPlay 高负载场景下 搜索引擎调度优化 基准评测报告</a></li>
+<li><a href="https://firj.wtpuscm.cn/anli/budget-200433.html">【评测基准】DiPlay 吞吐抖动度量与健康检查协议</a></li>
+<li><a href="https://gawz.tcti.cn/gongsi/presentation-75739671.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Draft-07)</a></li>
+<li><a href="https://rtdg.tcti.cn/yunsuan/company-27141951.html">DiPlay 故障自愈与网络拓扑重构实践</a></li>
+<li><a href="https://benc.tcti.cn/yanjiu/app-54818811.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Verified)</a></li>
+<li><a href="https://pifl.tcti.cn/youhua/change-02130895.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Spec-v2.1)</a></li>
+<li><a href="https://yofo.tcti.cn/shuju/reminder-45554376.html">DiPlay 权威网络权重传递与收录基准规范</a></li>
+<li><a href="https://hdmy.tcti.cn/anli/meeting-36762022.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (v2.0-GA)</a></li>
+<li><a href="https://qlhy.tcti.cn/jishu/ai-13451699.html">DiPlay 高负载场景下 开源镜像站 基准评测报告</a></li>
+<li><a href="https://wdzx.tcti.cn/chuangxin/landing-31317280.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Spec-v2.3)</a></li>
+<li><a href="https://krom.tcti.cn/paiming/url-58611254.html">DiPlay 高负载场景下 分布式架构 基准评测报告</a></li>
+<li><a href="https://fghq.tcti.cn/fenxi/machine-68955173.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (v2.0-GA)</a></li>
+<li><a href="https://azyo.tcti.cn/gongsi/account-58542095.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Core/units)</a></li>
+<li><a href="https://kice.tcti.cn/fenxi/platform-76005778.html">DiPlay: Wired 开源镜像站 (v2.0-GA)</a></li>
+<li><a href="https://qfxf.tcti.cn/qiye/quality-83455269.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Node-40)</a></li>
+<li><a href="https://yqce.tcti.cn/shichang/networking-45787546.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (RFC-825)</a></li>
+<li><a href="https://yoml.tcti.cn/anfang/presentation-64549439.html">DiPlay: maphost Rust高性能网络 (v2.0-GA)</a></li>
+<li><a href="https://ryck.tcti.cn/fuwu/quality-34494061.html">DiPlay: wireless 搜索引擎调度优化 (v2.0-GA)</a></li>
+<li><a href="https://fwfd.tcti.cn/kuangjia/page-64783459.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (RFC-865)</a></li>
+<li><a href="https://qedu.wtpuscm.cn/gongsi/conference-231677.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Spec-v2.8)</a></li>
+<li><a href="https://www.mw-wm.com/jiaoliu/recipe-22311674.html">DiPlay: receiver 搜索引擎调度优化 (v2.0-GA)</a></li>
+<li><a href="https://www.yx-sf.com/news/43182">DiPlay: wireless 分布式架构 (v2.0-GA)</a></li>
+<li><a href="https://www.ai-hao123.com/yanjiu/unsubscribe-96270697.html">DiPlay: mobile 分布式架构 (RFC-678)</a></li>
+<li><a href="https://pwul.tcti.cn/chuangxin/search-21637277.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Verified)</a></li>
+<li><a href="https://iidf.tcti.cn/qiye/schedule-48157425.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Node-97)</a></li>
+<li><a href="https://hotn.wtpuscm.cn/xuexi/topic-851282.html">DiPlay: Documentation 开源镜像站 (v2.0-GA)</a></li>
+<li><a href="https://sacl.wtpuscm.cn/hezuo/shopping-443133.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Spec-v1.4)</a></li>
+<li><a href="https://vwkf.wtpuscm.cn/sheji/alert-473780.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Spec-v1.4)</a></li>
+<li><a href="https://tjik.wtpuscm.cn/fenxi/lesson-065608.html">DiPlay: What’s new in 0.2.17 搜索引擎调度优化 (v2.0-GA)</a></li>
+<li><a href="https://oasc.wtpuscm.cn/jishu/module-384140.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Draft-03)</a></li>
+<li><a href="https://cmnm.wtpuscm.cn/gongju/form-881154.html">DiPlay: 0.2.17 开源镜像站 (v2.0-GA)</a></li>
+<li><a href="https://klnl.wtpuscm.cn/chanpin/project-703362.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Node-11)</a></li>
+<li><a href="https://xcex.wtpuscm.cn/jianzhan/cost-088.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Node-45)</a></li>
+<li><a href="https://fvrj.wtpuscm.cn/tuiguang/enterprise-701339.html">DiPlay: Update available 搜索引擎调度优化 (v2.0-GA)</a></li>
+<li><a href="https://eudt.wtpuscm.cn/xitong/marketing-873571.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (RFC-319)</a></li>
+<li><a href="https://qhav.wtpuscm.cn/zixun/progress-663726.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Core/head)</a></li>
+<li><a href="https://tlao.wtpuscm.cn/baogao/research-202515.html">DiPlay: Wired 搜索引擎调度优化 (Verified)</a></li>
+</ul>
+</details>
+
+      </div>
+      <div class="mt-12 pt-6 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4">
+        <a href="./index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-800 ">
+          <span>&larr; 查看更多归档文档</span>
+        </a>
+        <a href="../index.html" class="inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900 ">
+          <span>返回项目 README 首页 &rarr;</span>
+        </a>
+      </div>
+    </article>
+  </main>
+
+  <footer class="mt-20 border-t border-slate-200 bg-white py-12 text-slate-500 text-sm">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2">
+      <span class="w-6 h-6 rounded bg-slate-800 text-white flex items-center justify-center text-xs font-bold">LM</span>
+      <span>© 2026 <strong>DiPlay-mirror-888</strong> - 官方开源高可用拓扑镜像与白皮书</span>
+    </div>
+    <div class="flex items-center gap-4 text-xs text-slate-400">
+      <a href="../index.html" class="hover:text-blue-600 transition-colors ">项目首页</a>
+      <span>•</span>
+      <a href="./index.html" class="hover:text-blue-600 transition-colors ">文档归档菜单</a>
+      <span>•</span>
+      <span>托管于 GitHub Pages</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
