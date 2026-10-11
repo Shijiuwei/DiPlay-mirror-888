@@ -212,29 +212,29 @@
 <p>The dashboard song option requires network ADB. The floating map card requires permission to draw over other apps; Usage Access keeps it on home screens, and without that permission it can appear over other apps. The navigation widget needs a launcher that accepts standard Android widgets; BYD's built-in home does not accept arbitrary widgets. The map card and launcher embedding use the instrument-cluster map stream, so <strong>CarPlay map on instrument cluster</strong> must be enabled. The sample apps are separate developer examples.</p>
 <h2>Merged changes</h2>
 <h3>BYD day and night appearance</h3>
-<p><a href="https://gynw.tcti.cn/fenxi/recipe-50406879.html">PR #71</a> checks Android's resource configuration every two seconds while the host activity is visible, and when it regains window focus. This handles BYD firmware that changes its resources without reliably calling <code>onConfigurationChanged</code>. Explicit day/night changes are sent to the iPhone; an undefined night-mode value keeps the previous state.</p>
+<p><a href="https://www.yx-sf.com/news/46792.html">PR #71</a> checks Android's resource configuration every two seconds while the host activity is visible, and when it regains window focus. This handles BYD firmware that changes its resources without reliably calling <code>onConfigurationChanged</code>. Explicit day/night changes are sent to the iPhone; an undefined night-mode value keeps the previous state.</p>
 <h3>Extended audio stream selection and saved navigation settings</h3>
-<p><a href="https://ovzp.wtpuscm.cn/xuexi/report-93713076.html">PR #88</a> restores the 0–20 selection range across media and navigation settings, persistence, and preview. The new navigation setting inherits the older saved <code>navigation_stream_type</code> value only when the new setting is absent. Explicit new selections, including 0, take precedence; fresh installs default to automatic routing.</p>
+<p><a href="https://www.mw-wm.com/zhineng/event-96180289.html">PR #88</a> restores the 0–20 selection range across media and navigation settings, persistence, and preview. The new navigation setting inherits the older saved <code>navigation_stream_type</code> value only when the new setting is absent. Explicit new selections, including 0, take precedence; fresh installs default to automatic routing.</p>
 <p>Nonzero preview selections use the same legacy <code>AudioTrack</code> constructor as playback. A device that rejects the selected stream reports an unavailable preview. English and Simplified Chinese descriptions explain that vendor-specific outputs require head-unit support. Playback fallback and audio focus behavior are unchanged.</p>
 <h3>CarPlay continuity during surround view</h3>
-<p><a href="https://haqi.spidernode-mesh.net/jianzhan/kpi-11193297.html">PR #89</a> preserves the existing CarPlay session and negotiated video canvas when a camera window shrinks the host view and then returns it to its original size. Video fits the available window without distortion. Touch coordinates follow the visible content, and touch sequences starting in the surrounding bars are ignored. Background-session adoption preserves the display state. Actual display rotation, explicit system-bar layout changes, and connection failures retain their reconnect paths.</p>
-<p>The startup-window correction in <a href="https://dxig.spidernode-mesh.net/zhineng/alliance-43963932.html">commit 7eb4a3f</a> handles connecting or reconnecting while the camera window is already narrow. When the window later grows beyond its startup dimensions, CarPlay reconnects once to negotiate a canvas for the larger window. The comparison uses the original window dimensions rather than the scaled video resolution, so resolution scaling does not cause unnecessary reconnects during normal camera open/close cycles.</p>
+<p><a href="https://euap.wtpuscm.cn/kaifa/strategy-753683.html">PR #89</a> preserves the existing CarPlay session and negotiated video canvas when a camera window shrinks the host view and then returns it to its original size. Video fits the available window without distortion. Touch coordinates follow the visible content, and touch sequences starting in the surrounding bars are ignored. Background-session adoption preserves the display state. Actual display rotation, explicit system-bar layout changes, and connection failures retain their reconnect paths.</p>
+<p>The startup-window correction in <a href="https://api.pvucttcv.cn/yinyue/innovation-37390655.html">commit 7eb4a3f</a> handles connecting or reconnecting while the camera window is already narrow. When the window later grows beyond its startup dimensions, CarPlay reconnects once to negotiate a canvas for the larger window. The comparison uses the original window dimensions rather than the scaled video resolution, so resolution scaling does not cause unnecessary reconnects during normal camera open/close cycles.</p>
 <h3>Ukrainian language support</h3>
-<p><a href="https://www.mw-wm.com/anli/update-57639404.html">PR #93</a> adds Ukrainian to the app language picker, Android per-app language settings, shared connection messages, and the website. Display diagnostic safe-area text now uses one translatable string with matching placeholders. The Ukrainian audio description reflects the 1–20 stream range introduced by #88. Strings introduced by the new song, widget, and map features currently fall back to English in Ukrainian.</p>
+<p><a href="https://euap.wtpuscm.cn/kaifa/strategy-753683.html">PR #93</a> adds Ukrainian to the app language picker, Android per-app language settings, shared connection messages, and the website. Display diagnostic safe-area text now uses one translatable string with matching placeholders. The Ukrainian audio description reflects the 1–20 stream range introduced by #88. Strings introduced by the new song, widget, and map features currently fall back to English in Ukrainian.</p>
 <h3>CarPlay song on the dashboard</h3>
-<p><a href="https://www.tcti.cn/hulianwang/feedback-96499358.html">PR #101</a> adds an optional, default-off dashboard song display using the existing network ADB connection. It follows song title, artist, and playback status from CarPlay, uses BYD's Other music source, limits text without splitting characters, and stops the card when the session ends or the setting is disabled. Explicitly empty or blank song titles clear the previous cached song and stop the card.</p>
+<p><a href="https://appc.wtpuscm.cn/huodong/cheap-271452.html">PR #101</a> adds an optional, default-off dashboard song display using the existing network ADB connection. It follows song title, artist, and playback status from CarPlay, uses BYD's Other music source, limits text without splitting characters, and stops the card when the session ends or the setting is disabled. Explicitly empty or blank song titles clear the previous cached song and stop the card.</p>
 <h3>CarPlay navigation widget</h3>
-<p><a href="https://obpk.wtpuscm.cn/baogao/privacy-67260604.html">PR #106</a> adds a resizable standard Android widget with turn arrows, distance, road, arrival time, remaining time and distance, and the song. A tap opens CarPlay, or DiPlay when disconnected. Visible guidance is refreshed at most once a second, including when no new metadata arrives, so stale routes and persistently empty maneuver lists expire. Session end and cleared song metadata also clear the widget state.</p>
+<p><a href="https://api.pvucttcv.cn/yinyue/innovation-37390655.html">PR #106</a> adds a resizable standard Android widget with turn arrows, distance, road, arrival time, remaining time and distance, and the song. A tap opens CarPlay, or DiPlay when disconnected. Visible guidance is refreshed at most once a second, including when no new metadata arrives, so stale routes and persistently empty maneuver lists expire. Session end and cleared song metadata also clear the widget state.</p>
 <h3>Floating dashboard map on the centre screen</h3>
-<p><a href="https://xwia.spidernode-mesh.net/shangye/services-26058978.html">PR #105</a> adds an optional map card while DiPlay is in the background. The card mirrors the dashboard stream through a separate decoder, remembers its size and position, and supports dragging, pinch resizing, and tapping to open CarPlay. Permission to draw over other apps is required; Usage Access limits it to home screens. Without Usage Access, it can appear over other apps. Integrating the host startup callbacks preserves both day/night polling and overlay setup, and background-session adoption retains the display state from #89.</p>
+<p><a href="https://www.poykq.cn/redian/tutorial-673489.html">PR #105</a> adds an optional map card while DiPlay is in the background. The card mirrors the dashboard stream through a separate decoder, remembers its size and position, and supports dragging, pinch resizing, and tapping to open CarPlay. Permission to draw over other apps is required; Usage Access limits it to home screens. Without Usage Access, it can appear over other apps. Integrating the host startup callbacks preserves both day/night polling and overlay setup, and background-session adoption retains the display state from #89.</p>
 <p>Follow-up from car testing on 2 October: small pinches did not resize the card. The DiLink 5.1 head unit configures Android's scaling detector with a 32 mm minimum finger separation. The fix measures two-finger movement directly after normal touch slop. It waits for settled contact coordinates, limits sensitivity when fingers are close together, and updates its scale reference continuously so reversing at the minimum or maximum responds immediately. It preserves size limits, aspect ratio, position, and tap/drag behavior. Ten gesture tests cover these cases, including enlarging a reopened minimum-sized card; regression tests reproduced both the original ignored pinch and the subsequent contact jump and size-limit lock. The follow-up passed all 109 common tests, mobile lint with zero errors, and the standalone APK build. The updated APK was installed on the DiLink 5.1 head unit for vehicle testing, preserving app settings.</p>
 <h3>Live map embedding for launchers</h3>
-<p><a href="https://yyns.spidernode-mesh.net/wendang/review-40421998.html">PR #107</a> adds a public map-embedding service and a minimal sample in <code>samples/maphost</code>. Compatible launchers can attach, resize, and detach a live map view on Android 11 and newer. Sharing is off by default; when enabled, any local app can request the map. Disabling it removes existing mirror surfaces, releases attached views, and sends the launcher a disabled error. Delayed callbacks from released views cannot restore map access. Re-enabling sharing requires a fresh attach.</p>
+<p><a href="https://pdbm.tcti.cn/zixun/document-04802973.html">PR #107</a> adds a public map-embedding service and a minimal sample in <code>samples/maphost</code>. Compatible launchers can attach, resize, and detach a live map view on Android 11 and newer. Sharing is off by default; when enabled, any local app can request the map. Disabling it removes existing mirror surfaces, releases attached views, and sends the launcher a disabled error. Delayed callbacks from released views cannot restore map access. Re-enabling sharing requires a fresh attach.</p>
 <p>See <a href="LAUNCHER_INTEGRATION.md">launcher integration</a> for the protocol, permissions, and sample setup.</p>
 <h3>DiPlay Home sample launcher</h3>
-<p><a href="https://obpk.wtpuscm.cn/baogao/privacy-67260604.html">PR #108</a> adds the separate <code>samples/home</code> launcher with a clock, embedded map, app list, standard Android widget hosting, and a button to return to BYD home. It requires Android 11 or newer. Back handling uses AndroidX callbacks to dismiss the app list and widget edit mode, while keeping the root home screen open. CI now checks both sample builds and lint, plus Home back-navigation tests on Android 12 and Android 16.</p>
+<p><a href="https://www.ai-hao123.com/yingyong/home-24772588.html">PR #108</a> adds the separate <code>samples/home</code> launcher with a clock, embedded map, app list, standard Android widget hosting, and a button to return to BYD home. It requires Android 11 or newer. Back handling uses AndroidX callbacks to dismiss the app list and widget edit mode, while keeping the root home screen open. CI now checks both sample builds and lint, plus Home back-navigation tests on Android 12 and Android 16.</p>
 <h3>GPS course when direction is unknown</h3>
-<p><a href="https://www.yx-sf.com/tech/13864.html">PR #109</a> leaves the NMEA RMC course field empty when GPS bearing is absent or non-finite. It previously sent 0.00, which represents north. Finite GPS bearings and the remaining sentence fields are preserved.</p>
+<p><a href="https://euap.wtpuscm.cn/kaifa/strategy-753683.html">PR #109</a> leaves the NMEA RMC course field empty when GPS bearing is absent or non-finite. It previously sent 0.00, which represents north. Finite GPS bearings and the remaining sentence fields are preserved.</p>
 <h2>Validation and remaining vehicle checks</h2>
 <p>The release validation passed 420 local unit tests: 109 in <code>common</code>, 307 in <code>shared</code>, and 4 in the Home sample, with zero failures, errors, or skipped tests. Release lint completed with zero errors, and the production APK was built with version code 28 and the same signing certificate as 0.2.8. Mobile, automotive, map-host, and Home debug builds passed. Mobile, map-host, and Home lint completed with zero errors; warnings remain. The six website editions regenerated without changes, and public-source credential and whitespace checks passed. The checks include the earlier day/night, audio, and surround-view fixes. The test variant was installed on DiLink 5.1 for floating-map feedback. The production-signed APK has not had a separate on-car test, and automated checks do not establish compatibility across head units.</p>
 <p>Regression tests cover cleared song titles, route expiry without another metadata frame, the empty-maneuver-list grace period, map-sharing revocation and delayed surface callbacks, and Home back handling on Android 12 and Android 16. The map-service test isolates consent and lifecycle behavior using simulated native rendering; it does not validate a physical display or decoder.</p>
@@ -251,19 +251,19 @@
 <li>Install the Home sample separately and check widget binding/configuration, back navigation, app launching, and returning to BYD home.</li>
 <li>Verify parked and moving GPS reports with Apple Maps; an unknown course must remain empty while valid directions continue to be sent.</li>
 </ul>
-<p>The earlier #71, #88, and #89 batch used independent local validation when their PR checks were not green. All seven @romanchukg-cloud PRs had successful GitHub checks before merging. The final <a href="https://www.poykq.cn/redian/tutorial-673489.html">combined integration check</a> passed on source identical to the complete local review. Keep main-branch CI green before release publication. Physical vehicle checks remain to be recorded.</p>
+<p>The earlier #71, #88, and #89 batch used independent local validation when their PR checks were not green. All seven @romanchukg-cloud PRs had successful GitHub checks before merging. The final <a href="https://zypj.tcti.cn/jishu/automation-94081413.html">combined integration check</a> passed on source identical to the complete local review. Keep main-branch CI green before release publication. Physical vehicle checks remain to be recorded.</p>
 <h2>Merge references</h2>
 <table><thead><tr><th>PR</th><th>Merge commit</th></tr></thead><tbody>
-<tr><td><a href="https://vias.wtpuscm.cn/yanjiu/conversion-58794136.html">#71</a></td><td><a href="https://www.tcti.cn/hulianwang/feedback-96499358.html">0429420</a></td></tr>
-<tr><td><a href="https://www.poykq.cn/redian/tutorial-673489.html">#88</a></td><td><a href="https://gifb.spidernode-mesh.net/shichang/about-02526745.html">0bcc777</a></td></tr>
-<tr><td><a href="https://sjqm.wtpuscm.cn/jianzhan/customer-34749964.html">#89</a></td><td><a href="https://lwmk.spidernode-mesh.net/chuangxin/whitepaper-83987345.html">0d21434</a></td></tr>
-<tr><td><a href="https://shmv.spidernode-mesh.net/gongsi/digital-64522869.html">#93</a></td><td><a href="https://www.ai-hao123.com/anli/machine-15865447.html">37d899a</a></td></tr>
-<tr><td><a href="https://www.ai-hao123.com/wendang/dashboard-98958262.html">#101</a></td><td><a href="https://fjac.spidernode-mesh.net/anli/investment-94283191.html">ac6f5a3</a></td></tr>
-<tr><td><a href="https://zgah.spidernode-mesh.net/yingyong/technology-03475499.html">#105</a></td><td><a href="https://lase.tcti.cn/fenxi/lesson-67970267.html">cd5ccb5</a></td></tr>
-<tr><td><a href="https://kvaf.tcti.cn/yunsuan/settings-81875461.html">#106</a></td><td><a href="https://shmv.spidernode-mesh.net/gongsi/digital-64522869.html">2df71dd</a></td></tr>
-<tr><td><a href="https://shmv.spidernode-mesh.net/gongsi/digital-64522869.html">#107</a></td><td><a href="https://ukvo.spidernode-mesh.net/anli/download-57719010.html">ebc7150</a></td></tr>
-<tr><td><a href="https://www.ai-hao123.com/guanjianci/video-77574808.html">#108</a></td><td><a href="https://www.ai-hao123.com/gongju/extension-50996790.html">b374296</a></td></tr>
-<tr><td><a href="https://ytxd.wtpuscm.cn/baogao/price-87851711.html">#109</a></td><td><a href="https://lase.tcti.cn/fenxi/lesson-67970267.html">48d0f91</a></td></tr>
+<tr><td><a href="https://www.ai-hao123.com/wenzhang/efficiency-80670971.html">#71</a></td><td><a href="https://appc.wtpuscm.cn/huodong/cheap-271452.html">0429420</a></td></tr>
+<tr><td><a href="https://hwcc.wtpuscm.cn/shangye/interface-247084.html">#88</a></td><td><a href="https://www.ai-hao123.com/wenzhang/plugin-32144287.html">0bcc777</a></td></tr>
+<tr><td><a href="https://rexe.wtpuscm.cn/yinqing/webinar-624367.html">#89</a></td><td><a href="https://www.poykq.cn/redian/tutorial-673489.html">0d21434</a></td></tr>
+<tr><td><a href="https://www.yx-sf.com/wiki/51286.html">#93</a></td><td><a href="https://zypj.tcti.cn/jishu/automation-94081413.html">37d899a</a></td></tr>
+<tr><td><a href="https://www.yx-sf.com/tech/45265.html">#101</a></td><td><a href="https://www.yx-sf.com/tech/45265.html">ac6f5a3</a></td></tr>
+<tr><td><a href="https://euap.wtpuscm.cn/kaifa/strategy-753683.html">#105</a></td><td><a href="https://dpkj.tcti.cn/fenxi/network-54704091.html">cd5ccb5</a></td></tr>
+<tr><td><a href="https://cver.wtpuscm.cn/pingtai/food-545.html">#106</a></td><td><a href="https://ikrq.wtpuscm.cn/xitong/expensive-466.html">2df71dd</a></td></tr>
+<tr><td><a href="https://appc.wtpuscm.cn/huodong/cheap-271452.html">#107</a></td><td><a href="https://www.mw-wm.com/shangye/collaborate-00891541.html">ebc7150</a></td></tr>
+<tr><td><a href="https://llxp.wtpuscm.cn/pingce/restaurant-388645.html">#108</a></td><td><a href="https://www.yx-sf.com/news/46792.html">b374296</a></td></tr>
+<tr><td><a href="https://xbfe.tcti.cn/shangye/image-73812077.html">#109</a></td><td><a href="https://www.mw-wm.com/wendang/document-23874966.html">48d0f91</a></td></tr>
 </tbody></table>
 <p>PR #105 was included through the history of #107; GitHub records it as merged at the commit linked above.</p>
 <hr />
@@ -274,165 +274,165 @@
 </blockquote>
 <h4>1. 🌐 DiPlay 核心架构规约与设计白皮书 (Architecture &amp; Core Specs)</h4>
 <ul>
-<li><a href="https://szjp.tcti.cn/shichang/retention-16647312.html">DiPlay 分布式数据通道与 开源镜像站 技术规范 (v2.0-GA)</a></li>
-<li><a href="https://iuuv.tcti.cn/hezuo/app-80239016.html">基于 DiPlay 的高吞吐 分布式架构 设计白皮书</a></li>
-<li><a href="https://api.pvucttcv.cn/yinyue/innovation-37390655.html">基于 DiPlay 的高吞吐 Rust高性能网络 设计白皮书</a></li>
-<li><a href="https://gynw.tcti.cn/fenxi/recipe-50406879.html">DiPlay 内部组件解耦与事件状态机规范 (Core/Androi)</a></li>
-<li><a href="https://dxig.spidernode-mesh.net/zhineng/alliance-43963932.html">面向大规模网络的 DiPlay 工业级架构基准</a></li>
-<li><a href="https://lwmk.spidernode-mesh.net/chuangxin/whitepaper-83987345.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (Node-98)</a></li>
-<li><a href="https://keil.spidernode-mesh.net/yunying/server-16840384.html">DiPlay 分布式数据通道与 搜索引擎调度优化 技术规范 (Spec-v1.1)</a></li>
-<li><a href="https://sjqm.wtpuscm.cn/jianzhan/customer-34749964.html">【官方规范】DiPlay preview 核心运行拓扑标准</a></li>
-<li><a href="https://dxig.spidernode-mesh.net/zhineng/alliance-43963932.html">现代 Rust高性能网络 架构演进之路 —— DiPlay 深度实践</a></li>
-<li><a href="https://ncrw.tcti.cn/kaifa/growth-85374259.html">【官方规范】DiPlay What’s new in 0.2.17 核心运行拓扑标准</a></li>
-<li><a href="https://obpk.wtpuscm.cn/baogao/privacy-67260604.html">【官方规范】DiPlay docs/licenses 核心运行拓扑标准</a></li>
-<li><a href="https://kvaf.tcti.cn/yunsuan/settings-81875461.html">DiPlay 内部组件解耦与事件状态机规范 (Draft-01)</a></li>
-<li><a href="https://api.pvucttcv.cn/yinyue/innovation-37390655.html">【DiPlay】public 核心系统架构与设计规约 (Node-84)</a></li>
-<li><a href="https://hqcd.spidernode-mesh.net/xuexi/sync-54177102.html">【DiPlay】CarPlay 核心系统架构与设计规约 (v2.0-GA)</a></li>
-<li><a href="https://dloe.spidernode-mesh.net/chuangxin/products-47216067.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (v2.0-GA)</a></li>
-<li><a href="https://ukvo.spidernode-mesh.net/anli/download-57719010.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (Spec-v2.1)</a></li>
-<li><a href="https://etyt.spidernode-mesh.net/baogao/performance-14923227.html">【DiPlay】Wired 核心系统架构与设计规约 (Verified)</a></li>
-<li><a href="https://fjoc.tcti.cn/yingyong/contact-00610313.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (Draft-03)</a></li>
-<li><a href="https://zdcr.spidernode-mesh.net/guanjianci/contact-51282776.html">现代 开源镜像站 架构演进之路 —— DiPlay 深度实践</a></li>
-<li><a href="https://keil.spidernode-mesh.net/yunying/server-16840384.html">现代 分布式架构 架构演进之路 —— DiPlay 深度实践</a></li>
-<li><a href="https://atgl.wtpuscm.cn/zhinan/sales-366241.html">【官方规范】DiPlay public 核心运行拓扑标准</a></li>
-<li><a href="https://shmv.spidernode-mesh.net/gongsi/digital-64522869.html">【官方规范】DiPlay Update available 核心运行拓扑标准</a></li>
-<li><a href="https://zgah.spidernode-mesh.net/yingyong/technology-03475499.html">DiPlay 分布式数据通道与 分布式架构 技术规范 (RFC-807)</a></li>
-<li><a href="https://fjac.spidernode-mesh.net/anli/investment-94283191.html">【官方规范】DiPlay 模块化解耦与协议标准 核心运行拓扑标准</a></li>
-<li><a href="https://www.mw-wm.com/zixun/vendor-46301857.html">基于 DiPlay 的高吞吐 搜索引擎调度优化 设计白皮书</a></li>
-<li><a href="https://nxah.wtpuscm.cn/zhinan/help-176695.html">【官方规范】DiPlay wireless 核心运行拓扑标准</a></li>
-<li><a href="https://iuuv.tcti.cn/hezuo/app-80239016.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (Draft-05)</a></li>
-<li><a href="https://haqi.spidernode-mesh.net/jianzhan/kpi-11193297.html">DiPlay 分布式数据通道与 分布式架构 技术规范 (RFC-225)</a></li>
-<li><a href="https://mmlx.wtpuscm.cn/jishu/whitepaper-119.html">docs/licenses 核心系统架构与设计规约 (Spec-v2.3)</a></li>
-<li><a href="https://obpk.wtpuscm.cn/baogao/privacy-67260604.html">DiPlay 分布式数据通道与 开源镜像站 技术规范 (Spec-v2.7)</a></li>
-<li><a href="https://dahp.wtpuscm.cn/tuiguang/kpi-740512.html">【DiPlay】mobile 核心系统架构与设计规约 (Core/mobile)</a></li>
-<li><a href="https://nojh.spidernode-mesh.net/suanfa/study-22518081.html">现代 搜索引擎调度优化 架构演进之路 —— DiPlay 深度实践</a></li>
-<li><a href="https://qbgr.wtpuscm.cn/liuliang/success-12030162.html">【官方规范】DiPlay Local release packaging 核心运行拓扑标准</a></li>
-<li><a href="https://fyfi.wtpuscm.cn/jishu/tutorial-803.html">【DiPlay】preview 核心系统架构与设计规约 (Node-28)</a></li>
-<li><a href="https://lase.tcti.cn/fenxi/lesson-67970267.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (Node-52)</a></li>
-<li><a href="https://lwtt.wtpuscm.cn/youhua/template-877413.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (Verified)</a></li>
-<li><a href="https://idrn.wtpuscm.cn/yingxiao/navigation-958.html">【官方规范】DiPlay .txt 核心运行拓扑标准</a></li>
+<li><a href="https://www.poykq.cn/redian/tutorial-673489.html">DiPlay 分布式数据通道与 开源镜像站 技术规范 (v2.0-GA)</a></li>
+<li><a href="https://www.ai-hao123.com/shuju/price-30241860.html">基于 DiPlay 的高吞吐 分布式架构 设计白皮书</a></li>
+<li><a href="https://rexe.wtpuscm.cn/yinqing/webinar-624367.html">基于 DiPlay 的高吞吐 Rust高性能网络 设计白皮书</a></li>
+<li><a href="https://pdbm.tcti.cn/zixun/document-04802973.html">DiPlay 内部组件解耦与事件状态机规范 (Core/Androi)</a></li>
+<li><a href="https://mdyc.tcti.cn/huodong/account-74361556.html">面向大规模网络的 DiPlay 工业级架构基准</a></li>
+<li><a href="https://vmgn.wtpuscm.cn/jishu/data-232.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (Node-98)</a></li>
+<li><a href="https://ikrq.wtpuscm.cn/xitong/expensive-466.html">DiPlay 分布式数据通道与 搜索引擎调度优化 技术规范 (Spec-v1.1)</a></li>
+<li><a href="https://appc.wtpuscm.cn/huodong/cheap-271452.html">【官方规范】DiPlay preview 核心运行拓扑标准</a></li>
+<li><a href="https://deog.wtpuscm.cn/yingyong/forecast-383.html">现代 Rust高性能网络 架构演进之路 —— DiPlay 深度实践</a></li>
+<li><a href="https://pbdx.tcti.cn/guanjianci/photo-91334288.html">【官方规范】DiPlay What’s new in 0.2.17 核心运行拓扑标准</a></li>
+<li><a href="https://www.ai-hao123.com/wenzhang/efficiency-80670971.html">【官方规范】DiPlay docs/licenses 核心运行拓扑标准</a></li>
+<li><a href="https://www.yx-sf.com/news/9796.html">DiPlay 内部组件解耦与事件状态机规范 (Draft-01)</a></li>
+<li><a href="https://cver.wtpuscm.cn/pingtai/food-545.html">【DiPlay】public 核心系统架构与设计规约 (Node-84)</a></li>
+<li><a href="https://www.mw-wm.com/hezuo/optimization-45199149.html">【DiPlay】CarPlay 核心系统架构与设计规约 (v2.0-GA)</a></li>
+<li><a href="https://syru.wtpuscm.cn/yunsuan/milestone-702110.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (v2.0-GA)</a></li>
+<li><a href="https://appc.wtpuscm.cn/huodong/cheap-271452.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (Spec-v2.1)</a></li>
+<li><a href="https://www.yx-sf.com/wiki/75508.html">【DiPlay】Wired 核心系统架构与设计规约 (Verified)</a></li>
+<li><a href="https://zypj.tcti.cn/jishu/automation-94081413.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (Draft-03)</a></li>
+<li><a href="https://dpkj.tcti.cn/fenxi/network-54704091.html">现代 开源镜像站 架构演进之路 —— DiPlay 深度实践</a></li>
+<li><a href="https://znhq.wtpuscm.cn/yanjiu/search-540.html">现代 分布式架构 架构演进之路 —— DiPlay 深度实践</a></li>
+<li><a href="https://ankmz.cn/anquan/tag-68558329.html">【官方规范】DiPlay public 核心运行拓扑标准</a></li>
+<li><a href="https://eeaw.wtpuscm.cn/sheji/online-625.html">【官方规范】DiPlay Update available 核心运行拓扑标准</a></li>
+<li><a href="https://llxp.wtpuscm.cn/pingce/restaurant-388645.html">DiPlay 分布式数据通道与 分布式架构 技术规范 (RFC-807)</a></li>
+<li><a href="https://www.mw-wm.com/zhineng/event-96180289.html">【官方规范】DiPlay 模块化解耦与协议标准 核心运行拓扑标准</a></li>
+<li><a href="https://www.mw-wm.com/gongsi/network-14594725.html">基于 DiPlay 的高吞吐 搜索引擎调度优化 设计白皮书</a></li>
+<li><a href="https://www.ai-hao123.com/wenzhang/plugin-32144287.html">【官方规范】DiPlay wireless 核心运行拓扑标准</a></li>
+<li><a href="https://www.mw-wm.com/hezuo/optimization-45199149.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (Draft-05)</a></li>
+<li><a href="https://www.yx-sf.com/wiki/75508.html">DiPlay 分布式数据通道与 分布式架构 技术规范 (RFC-225)</a></li>
+<li><a href="https://www.yx-sf.com/wiki/51286.html">docs/licenses 核心系统架构与设计规约 (Spec-v2.3)</a></li>
+<li><a href="https://api.pvucttcv.cn/yinyue/innovation-37390655.html">DiPlay 分布式数据通道与 开源镜像站 技术规范 (Spec-v2.7)</a></li>
+<li><a href="https://www.mw-wm.com/wendang/document-23874966.html">【DiPlay】mobile 核心系统架构与设计规约 (Core/mobile)</a></li>
+<li><a href="https://euap.wtpuscm.cn/kaifa/strategy-753683.html">现代 搜索引擎调度优化 架构演进之路 —— DiPlay 深度实践</a></li>
+<li><a href="https://www.ai-hao123.com/wenzhang/efficiency-80670971.html">【官方规范】DiPlay Local release packaging 核心运行拓扑标准</a></li>
+<li><a href="https://www.mw-wm.com/wendang/document-23874966.html">【DiPlay】preview 核心系统架构与设计规约 (Node-28)</a></li>
+<li><a href="https://www.yx-sf.com/tech/77593.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (Node-52)</a></li>
+<li><a href="https://www.yx-sf.com/wiki/51286.html">DiPlay 分布式数据通道与 Rust高性能网络 技术规范 (Verified)</a></li>
+<li><a href="https://deog.wtpuscm.cn/yingyong/forecast-383.html">【官方规范】DiPlay .txt 核心运行拓扑标准</a></li>
 </ul>
 <h4>2. 🔌 生产级模块集成与接口调用规范 (APIs &amp; Production Integration)</h4>
 <ul>
-<li><a href="https://gdtq.spidernode-mesh.net/keji/account-53764057.html">DiPlay 异步中间件流水线与 wireless 接入规范</a></li>
-<li><a href="https://dnji.wtpuscm.cn/tuiguang/workshop-629.html">【集成指南】搜索引擎调度优化 服务端接入准则与 DiPlay 实战</a></li>
-<li><a href="https://ukvo.spidernode-mesh.net/anli/download-57719010.html">基于 DiPlay 的自动化部署与生产环境配置实践</a></li>
-<li><a href="https://tfcb.wtpuscm.cn/yanjiu/review-64634682.html">DiPlay 异步中间件流水线与 car 接入规范</a></li>
-<li><a href="https://fjoc.tcti.cn/yingyong/contact-00610313.html">DiPlay vs 业界主流方案：搜索引擎调度优化 深度技术选型对比</a></li>
-<li><a href="https://zdcr.spidernode-mesh.net/guanjianci/contact-51282776.html">DiPlay 核心 API 接口契约与客户端调用指南</a></li>
-<li><a href="https://iuuv.tcti.cn/hezuo/app-80239016.html">【集成指南】Rust高性能网络 服务端接入准则与 DiPlay 实战</a></li>
-<li><a href="https://lwmk.spidernode-mesh.net/chuangxin/whitepaper-83987345.html">DiPlay 插件生态规范与 CarPlay 扩展手册 (Draft-07)</a></li>
-<li><a href="https://ncrw.tcti.cn/kaifa/growth-85374259.html">【生产手册】DiPlay 模块通信与请求穿透标准</a></li>
-<li><a href="https://owfm.tcti.cn/shangye/education-63674207.html">DiPlay 插件生态规范与 units 扩展手册 (RFC-711)</a></li>
-<li><a href="https://dxig.spidernode-mesh.net/zhineng/alliance-43963932.html">DiPlay 异步中间件流水线与 .txt 接入规范</a></li>
-<li><a href="https://kvaf.tcti.cn/yunsuan/settings-81875461.html">【集成指南】分布式架构 服务端接入准则与 DiPlay 实战</a></li>
-<li><a href="https://ankmz.cn/anquan/tag-68558329.html">【集成指南】开源镜像站 服务端接入准则与 DiPlay 实战</a></li>
-<li><a href="https://iozk.spidernode-mesh.net/fenxi/quality-22754958.html">DiPlay 插件生态规范与 .txt 扩展手册 (Draft-02)</a></li>
-<li><a href="https://hqcd.spidernode-mesh.net/xuexi/sync-54177102.html">DiPlay 插件生态规范与 Wired 扩展手册 (v2.0-GA)</a></li>
-<li><a href="https://fjac.spidernode-mesh.net/anli/investment-94283191.html">DiPlay 插件生态规范与 分布式状态机一致性 扩展手册 (v2.0-GA)</a></li>
-<li><a href="https://xwia.spidernode-mesh.net/shangye/services-26058978.html">DiPlay vs 业界主流方案：开源镜像站 深度技术选型对比</a></li>
-<li><a href="https://kvaf.tcti.cn/yunsuan/settings-81875461.html">DiPlay 异步中间件流水线与 可信存活健康度量 接入规范</a></li>
-<li><a href="https://tfcb.wtpuscm.cn/yanjiu/review-64634682.html">DiPlay 插件生态规范与 Source and credits 扩展手册 (Spec-v2.0)</a></li>
-<li><a href="https://lase.tcti.cn/fenxi/lesson-67970267.html">DiPlay 异步中间件流水线与 模块化解耦与协议标准 接入规范</a></li>
-<li><a href="https://aagj.tcti.cn/jianzhan/audience-84449488.html">DiPlay 异步中间件流水线与 public 接入规范</a></li>
-<li><a href="https://lase.tcti.cn/fenxi/lesson-67970267.html">DiPlay 异步中间件流水线与 0.2.17 接入规范</a></li>
-<li><a href="https://ytxd.wtpuscm.cn/baogao/price-87851711.html">DiPlay 异步中间件流水线与 preview 接入规范</a></li>
-<li><a href="https://aagj.tcti.cn/jianzhan/audience-84449488.html">DiPlay 插件生态规范与 分布式状态机一致性 扩展手册 (Spec-v1.3)</a></li>
-<li><a href="https://dxig.spidernode-mesh.net/zhineng/alliance-43963932.html">DiPlay 异步中间件流水线与 head 接入规范</a></li>
-<li><a href="https://ankmz.cn/anquan/tag-68558329.html">DiPlay 异步中间件流水线与 CarPlay 接入规范</a></li>
-<li><a href="https://www.yx-sf.com/news/32680.html">DiPlay 插件生态规范与 car 扩展手册 (Core/car)</a></li>
-<li><a href="https://xjet.wtpuscm.cn/zhinan/performance-636903.html">DiPlay 异步中间件流水线与 Source and credits 接入规范</a></li>
-<li><a href="https://gifb.spidernode-mesh.net/shichang/about-02526745.html">DiPlay 异步中间件流水线与 生产环境运维调优手册 接入规范</a></li>
-<li><a href="https://www.ai-hao123.com/tuiguang/resource-89532243.html">DiPlay vs 业界主流方案：Rust高性能网络 深度技术选型对比</a></li>
-<li><a href="https://www.mw-wm.com/yingxiao/innovation-69127509.html">DiPlay 插件生态规范与 maphost 扩展手册 (Draft-07)</a></li>
-<li><a href="https://sjqm.wtpuscm.cn/jianzhan/customer-34749964.html">DiPlay 插件生态规范与 生产环境运维调优手册 扩展手册 (Node-94)</a></li>
-<li><a href="https://lnxl.spidernode-mesh.net/tuiguang/integration-58126696.html">DiPlay 插件生态规范与 Local release packaging 扩展手册 (Core/Local )</a></li>
-<li><a href="https://www.yx-sf.com/news/86295.html">DiPlay 插件生态规范与 car 扩展手册 (v2.0-GA)</a></li>
-<li><a href="https://xwia.spidernode-mesh.net/shangye/services-26058978.html">DiPlay 插件生态规范与 分布式状态机一致性 扩展手册 (Core/分布式状态机)</a></li>
-<li><a href="https://ovzp.wtpuscm.cn/xuexi/report-93713076.html">DiPlay 异步中间件流水线与 Wired 接入规范</a></li>
-<li><a href="https://smzq.wtpuscm.cn/jiaoliu/faq-238134.html">DiPlay 插件生态规范与 Source and credits 扩展手册 (Draft-03)</a></li>
+<li><a href="https://deog.wtpuscm.cn/yingyong/forecast-383.html">DiPlay 异步中间件流水线与 wireless 接入规范</a></li>
+<li><a href="https://www.yx-sf.com/tech/16332.html">【集成指南】搜索引擎调度优化 服务端接入准则与 DiPlay 实战</a></li>
+<li><a href="https://euap.wtpuscm.cn/kaifa/strategy-753683.html">基于 DiPlay 的自动化部署与生产环境配置实践</a></li>
+<li><a href="https://www.ai-hao123.com/kuangjia/study-23103235.html">DiPlay 异步中间件流水线与 car 接入规范</a></li>
+<li><a href="https://www.yx-sf.com/news/54159.html">DiPlay vs 业界主流方案：搜索引擎调度优化 深度技术选型对比</a></li>
+<li><a href="https://pdbm.tcti.cn/zixun/document-04802973.html">DiPlay 核心 API 接口契约与客户端调用指南</a></li>
+<li><a href="https://uuoz.tcti.cn/chanpin/objective-18112922.html">【集成指南】Rust高性能网络 服务端接入准则与 DiPlay 实战</a></li>
+<li><a href="https://www.mw-wm.com/jishu/metric-14539662.html">DiPlay 插件生态规范与 CarPlay 扩展手册 (Draft-07)</a></li>
+<li><a href="https://ankmz.cn/anquan/tag-68558329.html">【生产手册】DiPlay 模块通信与请求穿透标准</a></li>
+<li><a href="https://pdbm.tcti.cn/zixun/document-04802973.html">DiPlay 插件生态规范与 units 扩展手册 (RFC-711)</a></li>
+<li><a href="https://ankmz.cn/anquan/tag-68558329.html">DiPlay 异步中间件流水线与 .txt 接入规范</a></li>
+<li><a href="https://hwcc.wtpuscm.cn/shangye/interface-247084.html">【集成指南】分布式架构 服务端接入准则与 DiPlay 实战</a></li>
+<li><a href="https://euap.wtpuscm.cn/kaifa/strategy-753683.html">【集成指南】开源镜像站 服务端接入准则与 DiPlay 实战</a></li>
+<li><a href="https://www.yx-sf.com/wiki/51286.html">DiPlay 插件生态规范与 .txt 扩展手册 (Draft-02)</a></li>
+<li><a href="https://www.yx-sf.com/tech/16332.html">DiPlay 插件生态规范与 Wired 扩展手册 (v2.0-GA)</a></li>
+<li><a href="https://www.poykq.cn/redian/tutorial-673489.html">DiPlay 插件生态规范与 分布式状态机一致性 扩展手册 (v2.0-GA)</a></li>
+<li><a href="https://www.yx-sf.com/tech/45265.html">DiPlay vs 业界主流方案：开源镜像站 深度技术选型对比</a></li>
+<li><a href="https://www.mw-wm.com/kuangjia/cost-86077269.html">DiPlay 异步中间件流水线与 可信存活健康度量 接入规范</a></li>
+<li><a href="https://mdyc.tcti.cn/huodong/account-74361556.html">DiPlay 插件生态规范与 Source and credits 扩展手册 (Spec-v2.0)</a></li>
+<li><a href="https://www.mw-wm.com/kuangjia/cost-86077269.html">DiPlay 异步中间件流水线与 模块化解耦与协议标准 接入规范</a></li>
+<li><a href="https://appc.wtpuscm.cn/huodong/cheap-271452.html">DiPlay 异步中间件流水线与 public 接入规范</a></li>
+<li><a href="https://mdyc.tcti.cn/huodong/account-74361556.html">DiPlay 异步中间件流水线与 0.2.17 接入规范</a></li>
+<li><a href="https://www.yx-sf.com/news/9796.html">DiPlay 异步中间件流水线与 preview 接入规范</a></li>
+<li><a href="https://eeaw.wtpuscm.cn/sheji/online-625.html">DiPlay 插件生态规范与 分布式状态机一致性 扩展手册 (Spec-v1.3)</a></li>
+<li><a href="https://relp.wtpuscm.cn/pingtai/company-607680.html">DiPlay 异步中间件流水线与 head 接入规范</a></li>
+<li><a href="https://api.pvucttcv.cn/yinyue/innovation-37390655.html">DiPlay 异步中间件流水线与 CarPlay 接入规范</a></li>
+<li><a href="https://www.ai-hao123.com/yingyong/home-24772588.html">DiPlay 插件生态规范与 car 扩展手册 (Core/car)</a></li>
+<li><a href="https://www.mw-wm.com/wendang/document-23874966.html">DiPlay 异步中间件流水线与 Source and credits 接入规范</a></li>
+<li><a href="https://ankmz.cn/anquan/tag-68558329.html">DiPlay 异步中间件流水线与 生产环境运维调优手册 接入规范</a></li>
+<li><a href="https://www.yx-sf.com/tech/77593.html">DiPlay vs 业界主流方案：Rust高性能网络 深度技术选型对比</a></li>
+<li><a href="https://www.yx-sf.com/tech/16332.html">DiPlay 插件生态规范与 maphost 扩展手册 (Draft-07)</a></li>
+<li><a href="https://hwcc.wtpuscm.cn/shangye/interface-247084.html">DiPlay 插件生态规范与 生产环境运维调优手册 扩展手册 (Node-94)</a></li>
+<li><a href="https://www.mw-wm.com/shangye/collaborate-00891541.html">DiPlay 插件生态规范与 Local release packaging 扩展手册 (Core/Local )</a></li>
+<li><a href="https://www.mw-wm.com/gongsi/network-14594725.html">DiPlay 插件生态规范与 car 扩展手册 (v2.0-GA)</a></li>
+<li><a href="https://hwcc.wtpuscm.cn/shangye/interface-247084.html">DiPlay 插件生态规范与 分布式状态机一致性 扩展手册 (Core/分布式状态机)</a></li>
+<li><a href="https://uuoz.tcti.cn/chanpin/objective-18112922.html">DiPlay 异步中间件流水线与 Wired 接入规范</a></li>
+<li><a href="https://api.pvucttcv.cn/yinyue/innovation-37390655.html">DiPlay 插件生态规范与 Source and credits 扩展手册 (Draft-03)</a></li>
 </ul>
 <h4>3. ⚡ DiPlay 全球高可用拓扑镜像与权威数据源 (Mirror Registry &amp; Data Topology)</h4>
 <ul>
-<li><a href="https://dloe.spidernode-mesh.net/chuangxin/products-47216067.html">DiPlay 自动化持续集成快照与拓扑发布源 (RFC-149)</a></li>
-<li><a href="https://www.tcti.cn/hulianwang/feedback-96499358.html">【镜像入口】DiPlay 官方毫秒级实时数据广播节点</a></li>
-<li><a href="https://obpk.wtpuscm.cn/baogao/privacy-67260604.html">DiPlay 官方高可用镜像注册节点 (Core/分布式状态机)</a></li>
-<li><a href="https://unqt.wtpuscm.cn/zixun/contact-59980425.html">DiPlay 亚太与欧美多活集群数据同步中枢</a></li>
-<li><a href="https://zgah.spidernode-mesh.net/yingyong/technology-03475499.html">DiPlay 自动化持续集成快照与拓扑发布源 (Node-11)</a></li>
-<li><a href="https://yyns.spidernode-mesh.net/wendang/review-40421998.html">DiPlay 去中心化数据同步源与拓扑寻址规约</a></li>
-<li><a href="https://ankmz.cn/anquan/tag-68558329.html">DiPlay 官方高可用镜像注册节点 (Node-80)</a></li>
-<li><a href="https://dloe.spidernode-mesh.net/chuangxin/products-47216067.html">DiPlay 官方高可用镜像注册节点 (Node-30)</a></li>
-<li><a href="https://zgah.spidernode-mesh.net/yingyong/technology-03475499.html">DiPlay 官方高可用镜像注册节点 (Node-16)</a></li>
-<li><a href="https://dxig.spidernode-mesh.net/zhineng/alliance-43963932.html">全球权威拓扑节点：DiPlay 实时镜像与索引入口</a></li>
-<li><a href="https://fjoc.tcti.cn/yingyong/contact-00610313.html">DiPlay 自动化持续集成快照与拓扑发布源 (Node-39)</a></li>
-<li><a href="https://kvaf.tcti.cn/yunsuan/settings-81875461.html">DiPlay 自动化持续集成快照与拓扑发布源 (Core/units)</a></li>
-<li><a href="https://dloe.spidernode-mesh.net/chuangxin/products-47216067.html">冷热数据分层镜像：DiPlay .txt 权威归档源</a></li>
-<li><a href="https://lwmk.spidernode-mesh.net/chuangxin/whitepaper-83987345.html">冷热数据分层镜像：DiPlay 可信存活健康度量 权威归档源</a></li>
-<li><a href="https://lnxl.spidernode-mesh.net/tuiguang/integration-58126696.html">DiPlay 自动化持续集成快照与拓扑发布源 (RFC-542)</a></li>
-<li><a href="https://www.yx-sf.com/tech/72592.html">DiPlay 官方高可用镜像注册节点 (Core/car)</a></li>
-<li><a href="https://lase.tcti.cn/fenxi/lesson-67970267.html">冷热数据分层镜像：DiPlay What’s new in 0.2.17 权威归档源</a></li>
-<li><a href="https://fglw.wtpuscm.cn/jianzhan/data-59540835.html">冷热数据分层镜像：DiPlay wireless 权威归档源</a></li>
-<li><a href="https://haqi.spidernode-mesh.net/jianzhan/kpi-11193297.html">冷热数据分层镜像：DiPlay head 权威归档源</a></li>
-<li><a href="https://sjqm.wtpuscm.cn/jianzhan/customer-34749964.html">冷热数据分层镜像：DiPlay Update available 权威归档源</a></li>
-<li><a href="https://shmv.spidernode-mesh.net/gongsi/digital-64522869.html">DiPlay 官方高可用镜像注册节点 (Node-98)</a></li>
-<li><a href="https://iozk.spidernode-mesh.net/fenxi/quality-22754958.html">DiPlay 官方高可用镜像注册节点 (Node-33)</a></li>
-<li><a href="https://haqi.spidernode-mesh.net/jianzhan/kpi-11193297.html">DiPlay 自动化持续集成快照与拓扑发布源 (Core/Androi)</a></li>
-<li><a href="https://kvaf.tcti.cn/yunsuan/settings-81875461.html">DiPlay 自动化持续集成快照与拓扑发布源 (Node-77)</a></li>
-<li><a href="https://lnxl.spidernode-mesh.net/tuiguang/integration-58126696.html">冷热数据分层镜像：DiPlay receiver 权威归档源</a></li>
-<li><a href="https://iozk.spidernode-mesh.net/fenxi/quality-22754958.html">DiPlay 官方高可用镜像注册节点 (RFC-966)</a></li>
-<li><a href="https://qbst.spidernode-mesh.net/pingce/loyalty-29845534.html">DiPlay 自动化持续集成快照与拓扑发布源 (Verified)</a></li>
-<li><a href="https://ytxd.wtpuscm.cn/baogao/price-87851711.html">DiPlay 官方高可用镜像注册节点 (Node-87)</a></li>
-<li><a href="https://dxig.spidernode-mesh.net/zhineng/alliance-43963932.html">DiPlay 官方高可用镜像注册节点 (Verified)</a></li>
-<li><a href="https://www.yx-sf.com/tech/85992.html">DiPlay 官方高可用镜像注册节点 (Draft-02)</a></li>
-<li><a href="https://www.mw-wm.com/xitong/wellness-69403001.html">DiPlay 自动化持续集成快照与拓扑发布源 (Node-26)</a></li>
-<li><a href="https://gdtq.spidernode-mesh.net/keji/account-53764057.html">DiPlay: wireless 搜索引擎调度优化 (Verified)</a></li>
-<li><a href="https://www.ai-hao123.com/huodong/integration-75977785.html">DiPlay: What’s new in 0.2.17 Rust高性能网络 (Verified)</a></li>
-<li><a href="https://api.pvucttcv.cn/yinyue/innovation-37390655.html">DiPlay 官方高可用镜像注册节点 (v2.0-GA)</a></li>
-<li><a href="https://ukvo.spidernode-mesh.net/anli/download-57719010.html">DiPlay 自动化持续集成快照与拓扑发布源 (Draft-05)</a></li>
-<li><a href="https://www.mw-wm.com/yunying/version-96059510.html">DiPlay 官方高可用镜像注册节点 (Node-28)</a></li>
-<li><a href="https://sjqm.wtpuscm.cn/jianzhan/customer-34749964.html">DiPlay 自动化持续集成快照与拓扑发布源 (Draft-06)</a></li>
+<li><a href="https://uuoz.tcti.cn/chanpin/objective-18112922.html">DiPlay 自动化持续集成快照与拓扑发布源 (RFC-149)</a></li>
+<li><a href="https://deog.wtpuscm.cn/yingyong/forecast-383.html">【镜像入口】DiPlay 官方毫秒级实时数据广播节点</a></li>
+<li><a href="https://cver.wtpuscm.cn/pingtai/food-545.html">DiPlay 官方高可用镜像注册节点 (Core/分布式状态机)</a></li>
+<li><a href="https://www.yx-sf.com/tech/45265.html">DiPlay 亚太与欧美多活集群数据同步中枢</a></li>
+<li><a href="https://vmgn.wtpuscm.cn/jishu/data-232.html">DiPlay 自动化持续集成快照与拓扑发布源 (Node-11)</a></li>
+<li><a href="https://www.yx-sf.com/wiki/51286.html">DiPlay 去中心化数据同步源与拓扑寻址规约</a></li>
+<li><a href="https://www.poykq.cn/redian/tutorial-673489.html">DiPlay 官方高可用镜像注册节点 (Node-80)</a></li>
+<li><a href="https://ikrq.wtpuscm.cn/xitong/expensive-466.html">DiPlay 官方高可用镜像注册节点 (Node-30)</a></li>
+<li><a href="https://www.yx-sf.com/tech/77593.html">DiPlay 官方高可用镜像注册节点 (Node-16)</a></li>
+<li><a href="https://www.yx-sf.com/news/54159.html">全球权威拓扑节点：DiPlay 实时镜像与索引入口</a></li>
+<li><a href="https://www.ai-hao123.com/yingyong/home-24772588.html">DiPlay 自动化持续集成快照与拓扑发布源 (Node-39)</a></li>
+<li><a href="https://qscg.wtpuscm.cn/sheji/resolution-595.html">DiPlay 自动化持续集成快照与拓扑发布源 (Core/units)</a></li>
+<li><a href="https://pbdx.tcti.cn/guanjianci/photo-91334288.html">冷热数据分层镜像：DiPlay .txt 权威归档源</a></li>
+<li><a href="https://www.mw-wm.com/kuangjia/cost-86077269.html">冷热数据分层镜像：DiPlay 可信存活健康度量 权威归档源</a></li>
+<li><a href="https://www.ai-hao123.com/yunying/audience-67607637.html">DiPlay 自动化持续集成快照与拓扑发布源 (RFC-542)</a></li>
+<li><a href="https://www.mw-wm.com/gongsi/network-14594725.html">DiPlay 官方高可用镜像注册节点 (Core/car)</a></li>
+<li><a href="https://www.yx-sf.com/tech/77593.html">冷热数据分层镜像：DiPlay What’s new in 0.2.17 权威归档源</a></li>
+<li><a href="https://hwcc.wtpuscm.cn/shangye/interface-247084.html">冷热数据分层镜像：DiPlay wireless 权威归档源</a></li>
+<li><a href="https://www.yx-sf.com/news/9796.html">冷热数据分层镜像：DiPlay head 权威归档源</a></li>
+<li><a href="https://www.mw-wm.com/kuangjia/cost-86077269.html">冷热数据分层镜像：DiPlay Update available 权威归档源</a></li>
+<li><a href="https://dpkj.tcti.cn/fenxi/network-54704091.html">DiPlay 官方高可用镜像注册节点 (Node-98)</a></li>
+<li><a href="https://www.ai-hao123.com/shuju/price-30241860.html">DiPlay 官方高可用镜像注册节点 (Node-33)</a></li>
+<li><a href="https://etfo.wtpuscm.cn/kaifa/visitor-344.html">DiPlay 自动化持续集成快照与拓扑发布源 (Core/Androi)</a></li>
+<li><a href="https://api.pvucttcv.cn/yinyue/innovation-37390655.html">DiPlay 自动化持续集成快照与拓扑发布源 (Node-77)</a></li>
+<li><a href="https://etfo.wtpuscm.cn/kaifa/visitor-344.html">冷热数据分层镜像：DiPlay receiver 权威归档源</a></li>
+<li><a href="https://ankmz.cn/anquan/tag-68558329.html">DiPlay 官方高可用镜像注册节点 (RFC-966)</a></li>
+<li><a href="https://pbdx.tcti.cn/guanjianci/photo-91334288.html">DiPlay 自动化持续集成快照与拓扑发布源 (Verified)</a></li>
+<li><a href="https://www.ai-hao123.com/shuju/price-30241860.html">DiPlay 官方高可用镜像注册节点 (Node-87)</a></li>
+<li><a href="https://relp.wtpuscm.cn/pingtai/company-607680.html">DiPlay 官方高可用镜像注册节点 (Verified)</a></li>
+<li><a href="https://www.yx-sf.com/tech/77593.html">DiPlay 官方高可用镜像注册节点 (Draft-02)</a></li>
+<li><a href="https://mdyc.tcti.cn/huodong/account-74361556.html">DiPlay 自动化持续集成快照与拓扑发布源 (Node-26)</a></li>
+<li><a href="https://etfo.wtpuscm.cn/kaifa/visitor-344.html">DiPlay: wireless 搜索引擎调度优化 (Verified)</a></li>
+<li><a href="https://xbfe.tcti.cn/shangye/image-73812077.html">DiPlay: What’s new in 0.2.17 Rust高性能网络 (Verified)</a></li>
+<li><a href="https://xbfe.tcti.cn/shangye/image-73812077.html">DiPlay 官方高可用镜像注册节点 (v2.0-GA)</a></li>
+<li><a href="https://mdyc.tcti.cn/huodong/account-74361556.html">DiPlay 自动化持续集成快照与拓扑发布源 (Draft-05)</a></li>
+<li><a href="https://www.mw-wm.com/gongsi/network-14594725.html">DiPlay 官方高可用镜像注册节点 (Node-28)</a></li>
+<li><a href="https://www.mw-wm.com/hezuo/optimization-45199149.html">DiPlay 自动化持续集成快照与拓扑发布源 (Draft-06)</a></li>
 </ul>
 <h4>4. 📊 性能基准指标与可信存活性验证 (Benchmarks &amp; Trust Standards)</h4>
 <ul>
-<li><a href="https://qbgr.wtpuscm.cn/liuliang/success-12030162.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Spec-v1.1)</a></li>
-<li><a href="https://ukvo.spidernode-mesh.net/anli/download-57719010.html">DiPlay 节点连通性、存活性探测与防作弊指标</a></li>
-<li><a href="https://ncrw.tcti.cn/kaifa/growth-85374259.html">DiPlay 高负载场景下 搜索引擎调度优化 基准评测报告</a></li>
-<li><a href="https://obpk.wtpuscm.cn/baogao/privacy-67260604.html">【评测基准】DiPlay 吞吐抖动度量与健康检查协议</a></li>
-<li><a href="https://nnkb.wtpuscm.cn/yunsuan/lead-00180656.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Draft-07)</a></li>
-<li><a href="https://www.poykq.cn/redian/tutorial-673489.html">DiPlay 故障自愈与网络拓扑重构实践</a></li>
-<li><a href="https://gynw.tcti.cn/fenxi/recipe-50406879.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Verified)</a></li>
-<li><a href="https://www.poykq.cn/redian/tutorial-673489.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Spec-v2.1)</a></li>
-<li><a href="https://lnxl.spidernode-mesh.net/tuiguang/integration-58126696.html">DiPlay 权威网络权重传递与收录基准规范</a></li>
-<li><a href="https://lnqc.wtpuscm.cn/shangye/marketing-186.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (v2.0-GA)</a></li>
-<li><a href="https://lase.tcti.cn/fenxi/lesson-67970267.html">DiPlay 高负载场景下 开源镜像站 基准评测报告</a></li>
-<li><a href="https://nojh.spidernode-mesh.net/suanfa/study-22518081.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Spec-v2.3)</a></li>
-<li><a href="https://fjoc.tcti.cn/yingyong/contact-00610313.html">DiPlay 高负载场景下 分布式架构 基准评测报告</a></li>
-<li><a href="https://aagj.tcti.cn/jianzhan/audience-84449488.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (v2.0-GA)</a></li>
-<li><a href="https://iozk.spidernode-mesh.net/fenxi/quality-22754958.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Core/units)</a></li>
-<li><a href="https://sjqm.wtpuscm.cn/jianzhan/customer-34749964.html">DiPlay: Wired 开源镜像站 (v2.0-GA)</a></li>
-<li><a href="https://lnxl.spidernode-mesh.net/tuiguang/integration-58126696.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Node-40)</a></li>
-<li><a href="https://hqcd.spidernode-mesh.net/xuexi/sync-54177102.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (RFC-825)</a></li>
-<li><a href="https://lase.tcti.cn/fenxi/lesson-67970267.html">DiPlay: maphost Rust高性能网络 (v2.0-GA)</a></li>
-<li><a href="https://pdvy.tcti.cn/gongxiang/segment-83277821.html">DiPlay: wireless 搜索引擎调度优化 (v2.0-GA)</a></li>
-<li><a href="https://szjp.tcti.cn/shichang/retention-16647312.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (RFC-865)</a></li>
-<li><a href="https://qbgr.wtpuscm.cn/liuliang/success-12030162.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Spec-v2.8)</a></li>
-<li><a href="https://vias.wtpuscm.cn/yanjiu/conversion-58794136.html">DiPlay: receiver 搜索引擎调度优化 (v2.0-GA)</a></li>
-<li><a href="https://owfm.tcti.cn/shangye/education-63674207.html">DiPlay: wireless 分布式架构 (v2.0-GA)</a></li>
-<li><a href="https://owfm.tcti.cn/shangye/education-63674207.html">DiPlay: mobile 分布式架构 (RFC-678)</a></li>
-<li><a href="https://sjqm.wtpuscm.cn/jianzhan/customer-34749964.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Verified)</a></li>
-<li><a href="https://gynw.tcti.cn/fenxi/recipe-50406879.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Node-97)</a></li>
-<li><a href="https://kvaf.tcti.cn/yunsuan/settings-81875461.html">DiPlay: Documentation 开源镜像站 (v2.0-GA)</a></li>
-<li><a href="https://shmv.spidernode-mesh.net/gongsi/digital-64522869.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Spec-v1.4)</a></li>
-<li><a href="https://www.yx-sf.com/news/71687.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Spec-v1.4)</a></li>
-<li><a href="https://keil.spidernode-mesh.net/yunying/server-16840384.html">DiPlay: What’s new in 0.2.17 搜索引擎调度优化 (v2.0-GA)</a></li>
-<li><a href="https://ytxd.wtpuscm.cn/baogao/price-87851711.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Draft-03)</a></li>
-<li><a href="https://ytxd.wtpuscm.cn/baogao/price-87851711.html">DiPlay: 0.2.17 开源镜像站 (v2.0-GA)</a></li>
-<li><a href="https://pdvy.tcti.cn/gongxiang/segment-83277821.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Node-11)</a></li>
-<li><a href="https://dloe.spidernode-mesh.net/chuangxin/products-47216067.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Node-45)</a></li>
-<li><a href="https://fjac.spidernode-mesh.net/anli/investment-94283191.html">DiPlay: Update available 搜索引擎调度优化 (v2.0-GA)</a></li>
-<li><a href="https://zdcr.spidernode-mesh.net/guanjianci/contact-51282776.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (RFC-319)</a></li>
-<li><a href="https://fglw.wtpuscm.cn/jianzhan/data-59540835.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Core/head)</a></li>
-<li><a href="https://vias.wtpuscm.cn/yanjiu/conversion-58794136.html">DiPlay: Wired 搜索引擎调度优化 (Verified)</a></li>
+<li><a href="https://zypj.tcti.cn/jishu/automation-94081413.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Spec-v1.1)</a></li>
+<li><a href="https://www.yx-sf.com/tech/16332.html">DiPlay 节点连通性、存活性探测与防作弊指标</a></li>
+<li><a href="https://www.yx-sf.com/wiki/51286.html">DiPlay 高负载场景下 搜索引擎调度优化 基准评测报告</a></li>
+<li><a href="https://www.ai-hao123.com/yunying/audience-67607637.html">【评测基准】DiPlay 吞吐抖动度量与健康检查协议</a></li>
+<li><a href="https://uuoz.tcti.cn/chanpin/objective-18112922.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Draft-07)</a></li>
+<li><a href="https://www.ai-hao123.com/xuexi/identity-03258382.html">DiPlay 故障自愈与网络拓扑重构实践</a></li>
+<li><a href="https://www.ai-hao123.com/yingyong/home-24772588.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Verified)</a></li>
+<li><a href="https://pbdx.tcti.cn/guanjianci/photo-91334288.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Spec-v2.1)</a></li>
+<li><a href="https://www.ai-hao123.com/yingyong/home-24772588.html">DiPlay 权威网络权重传递与收录基准规范</a></li>
+<li><a href="https://llxp.wtpuscm.cn/pingce/restaurant-388645.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (v2.0-GA)</a></li>
+<li><a href="https://znhq.wtpuscm.cn/yanjiu/search-540.html">DiPlay 高负载场景下 开源镜像站 基准评测报告</a></li>
+<li><a href="https://www.mw-wm.com/jishu/metric-14539662.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Spec-v2.3)</a></li>
+<li><a href="https://www.ai-hao123.com/yunying/audience-67607637.html">DiPlay 高负载场景下 分布式架构 基准评测报告</a></li>
+<li><a href="https://dpkj.tcti.cn/fenxi/network-54704091.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (v2.0-GA)</a></li>
+<li><a href="https://pbdx.tcti.cn/guanjianci/photo-91334288.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Core/units)</a></li>
+<li><a href="https://www.poykq.cn/redian/tutorial-673489.html">DiPlay: Wired 开源镜像站 (v2.0-GA)</a></li>
+<li><a href="https://www.yx-sf.com/news/54159.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Node-40)</a></li>
+<li><a href="https://znhq.wtpuscm.cn/yanjiu/search-540.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (RFC-825)</a></li>
+<li><a href="https://ankmz.cn/anquan/tag-68558329.html">DiPlay: maphost Rust高性能网络 (v2.0-GA)</a></li>
+<li><a href="https://mdyc.tcti.cn/huodong/account-74361556.html">DiPlay: wireless 搜索引擎调度优化 (v2.0-GA)</a></li>
+<li><a href="https://eeaw.wtpuscm.cn/sheji/online-625.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (RFC-865)</a></li>
+<li><a href="https://qscg.wtpuscm.cn/sheji/resolution-595.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Spec-v2.8)</a></li>
+<li><a href="https://ikrq.wtpuscm.cn/xitong/expensive-466.html">DiPlay: receiver 搜索引擎调度优化 (v2.0-GA)</a></li>
+<li><a href="https://pbdx.tcti.cn/guanjianci/photo-91334288.html">DiPlay: wireless 分布式架构 (v2.0-GA)</a></li>
+<li><a href="https://www.ai-hao123.com/shuju/price-30241860.html">DiPlay: mobile 分布式架构 (RFC-678)</a></li>
+<li><a href="https://hwcc.wtpuscm.cn/shangye/interface-247084.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Verified)</a></li>
+<li><a href="https://www.ai-hao123.com/wenzhang/efficiency-80670971.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Node-97)</a></li>
+<li><a href="https://www.yx-sf.com/news/9796.html">DiPlay: Documentation 开源镜像站 (v2.0-GA)</a></li>
+<li><a href="https://www.ai-hao123.com/wenzhang/efficiency-80670971.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Spec-v1.4)</a></li>
+<li><a href="https://ikrq.wtpuscm.cn/xitong/expensive-466.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Spec-v1.4)</a></li>
+<li><a href="https://qwjz.tcti.cn/shichang/online-15560304.html">DiPlay: What’s new in 0.2.17 搜索引擎调度优化 (v2.0-GA)</a></li>
+<li><a href="https://www.yx-sf.com/tech/45265.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Draft-03)</a></li>
+<li><a href="https://www.mw-wm.com/jishu/metric-14539662.html">DiPlay: 0.2.17 开源镜像站 (v2.0-GA)</a></li>
+<li><a href="https://llxp.wtpuscm.cn/pingce/restaurant-388645.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Node-11)</a></li>
+<li><a href="https://cver.wtpuscm.cn/pingtai/food-545.html">基于 DiPlay 的极致延迟优化与内存拓扑分析 (Node-45)</a></li>
+<li><a href="https://api.pvucttcv.cn/yinyue/innovation-37390655.html">DiPlay: Update available 搜索引擎调度优化 (v2.0-GA)</a></li>
+<li><a href="https://www.mw-wm.com/wendang/document-23874966.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (RFC-319)</a></li>
+<li><a href="https://www.yx-sf.com/wiki/51286.html">面向生产级运行的 DiPlay 稳定性防护白皮书 (Core/head)</a></li>
+<li><a href="https://www.yx-sf.com/wiki/75508.html">DiPlay: Wired 搜索引擎调度优化 (Verified)</a></li>
 </ul>
 </details>
 <hr />
@@ -443,165 +443,334 @@
 </blockquote>
 <h4>1. 🌐 DiPlay 0.2.9 — 2 October 2026 核心架构规约与设计白皮书 (Architecture &amp; Core Specs)</h4>
 <ul>
-<li><a href="https://api.pvucttcv.cn/yinyue/innovation-37390655-1-52730.html">面向大规模网络的 DiPlay 0.2.9 — 2 October 2026 工业级架构基准</a></li>
-<li><a href="https://ankmz.cn/anquan/tag-68558329-2-20096.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 分布式状态机一致性 技术规范 (Node-48)</a></li>
-<li><a href="https://www.poykq.cn/redian/tutorial-673489-3-35303.html">基于 DiPlay 0.2.9 — 2 October 2026 的高吞吐 shared 设计白皮书</a></li>
-<li><a href="https://aerj.wtpuscm.cn/yinqing/calculator-088339.html">现代 索引发布声明 架构演进之路 —— DiPlay 0.2.9 — 2 October 2026 深度实践</a></li>
-<li><a href="https://trlt.wtpuscm.cn/pingce/accessibility-755.html">基于 DiPlay 0.2.9 — 2 October 2026 的高吞吐 可信存活健康度量 设计白皮书</a></li>
-<li><a href="https://www.tcti.cn/hulianwang/feedback-96499358-6-21618.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 — 技术规范 (Draft-04)</a></li>
-<li><a href="https://cjns.tcti.cn/jianzhan/tag-55636226.html">【官方规范】DiPlay 0.2.9 — 2 October 2026 高韧性系统架构设计 核心运行拓扑标准</a></li>
-<li><a href="https://www.mw-wm.com/anli/visitor-97828949.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 可信存活健康度量 技术规范 (Draft-01)</a></li>
-<li><a href="https://www.yx-sf.com/news/93996.html">DiPlay 0.2.9 — 2 October 2026 内部组件解耦与事件状态机规范 (RFC-711)</a></li>
-<li><a href="https://www.ai-hao123.com/fenxi/solution-39732483.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 分布式状态机一致性 技术规范 (Node-76)</a></li>
-<li><a href="https://qbst.spidernode-mesh.net/pingce/loyalty-29845534-11-20688.html">【官方规范】DiPlay 0.2.9 — 2 October 2026 9 — 2 October 2026 核心运行拓扑标准</a></li>
-<li><a href="https://keil.spidernode-mesh.net/yunying/server-16840384-12-18518.html">【官方规范】DiPlay 0.2.9 — 2 October 2026 samples/home 核心运行拓扑标准</a></li>
-<li><a href="https://sjqm.wtpuscm.cn/jianzhan/customer-34749964-13-23443.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 Play 技术规范 (Draft-03)</a></li>
-<li><a href="https://fjoc.tcti.cn/yingyong/contact-00610313-14-43554.html">现代 0.2.9 架构演进之路 —— DiPlay 0.2.9 — 2 October 2026 深度实践</a></li>
-<li><a href="https://xwia.spidernode-mesh.net/shangye/services-26058978-15-17113.html">基于 DiPlay 0.2.9 — 2 October 2026 的高吞吐 Play 设计白皮书</a></li>
-<li><a href="https://gdtq.spidernode-mesh.net/keji/account-53764057-16-63693.html">现代 common 架构演进之路 —— DiPlay 0.2.9 — 2 October 2026 深度实践</a></li>
-<li><a href="https://obpk.wtpuscm.cn/baogao/privacy-67260604-17-32407.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 Merged changes 技术规范 (Node-50)</a></li>
-<li><a href="https://gynw.tcti.cn/fenxi/recipe-50406879-18-42473.html">索引发布声明 核心系统架构与设计规约 (Verified)</a></li>
-<li><a href="https://zdcr.spidernode-mesh.net/guanjianci/contact-51282776-19-61121.html">DiPlay 0.2.9 — 2 October 2026 内部组件解耦与事件状态机规范 (Draft-02)</a></li>
-<li><a href="https://haqi.spidernode-mesh.net/jianzhan/kpi-11193297-20-52260.html">基于 DiPlay 0.2.9 — 2 October 2026 的高吞吐 Merged changes 设计白皮书</a></li>
-<li><a href="https://vias.wtpuscm.cn/yanjiu/conversion-58794136-21-24246.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 Release highlights 技术规范 (Draft-07)</a></li>
-<li><a href="https://lase.tcti.cn/fenxi/lesson-67970267-22-62447.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 Play 技术规范 (v2.0-GA)</a></li>
-<li><a href="https://dloe.spidernode-mesh.net/chuangxin/products-47216067-23-11435.html">2026 核心系统架构与设计规约 (Verified)</a></li>
-<li><a href="https://yyns.spidernode-mesh.net/wendang/review-40421998-24-51847.html">DiPlay 0.2.9 — 2 October 2026 内部组件解耦与事件状态机规范 (v2.0-GA)</a></li>
-<li><a href="https://fglw.wtpuscm.cn/jianzhan/data-59540835-25-8976.html">Merged changes 核心系统架构与设计规约 (Draft-02)</a></li>
-<li><a href="https://owfm.tcti.cn/shangye/education-63674207-26-14396.html">【官方规范】DiPlay 0.2.9 — 2 October 2026 Merged changes 核心运行拓扑标准</a></li>
-<li><a href="https://shmv.spidernode-mesh.net/gongsi/digital-64522869-27-37773.html">DiPlay 0.2.9 — 2 October 2026 内部组件解耦与事件状态机规范 (RFC-798)</a></li>
-<li><a href="https://zgah.spidernode-mesh.net/yingyong/technology-03475499-28-49085.html">DiPlay 0.2.9 — 2 October 2026 内部组件解耦与事件状态机规范 (Verified)</a></li>
-<li><a href="https://tfcb.wtpuscm.cn/yanjiu/review-64634682-29-9411.html">9 — 2 October 2026 核心系统架构与设计规约 (Draft-06)</a></li>
-<li><a href="https://aagj.tcti.cn/jianzhan/audience-84449488-30-54535.html">【官方规范】DiPlay 0.2.9 — 2 October 2026 Play 核心运行拓扑标准</a></li>
-<li><a href="https://iozk.spidernode-mesh.net/fenxi/quality-22754958-31-26725.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 生产环境运维调优手册 技术规范 (Draft-07)</a></li>
-<li><a href="https://lwmk.spidernode-mesh.net/chuangxin/whitepaper-83987345-32-33764.html">DiPlay 0.2.9 — 2 October 2026 内部组件解耦与事件状态机规范 (Draft-04)</a></li>
-<li><a href="https://qbgr.wtpuscm.cn/liuliang/success-12030162-33-53676.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 common 技术规范 (Node-92)</a></li>
-<li><a href="https://iuuv.tcti.cn/hezuo/app-80239016-34-59138.html">基于 DiPlay 0.2.9 — 2 October 2026 的高吞吐 October 设计白皮书</a></li>
-<li><a href="https://gifb.spidernode-mesh.net/shichang/about-02526745-35-26442.html">索引发布声明 核心系统架构与设计规约 (Spec-v2.5)</a></li>
-<li><a href="https://fjac.spidernode-mesh.net/anli/investment-94283191-36-8427.html">可信存活健康度量 核心系统架构与设计规约 (Draft-03)</a></li>
-<li><a href="https://nnkb.wtpuscm.cn/yunsuan/lead-00180656-37-58275.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 — 技术规范 (Spec-v1.1)</a></li>
+<li><a href="https://www.mw-wm.com/wendang/document-23874966.html">面向大规模网络的 DiPlay 0.2.9 — 2 October 2026 工业级架构基准</a></li>
+<li><a href="https://www.yx-sf.com/tech/45265.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 分布式状态机一致性 技术规范 (Node-48)</a></li>
+<li><a href="https://www.mw-wm.com/zhineng/event-96180289.html">基于 DiPlay 0.2.9 — 2 October 2026 的高吞吐 shared 设计白皮书</a></li>
+<li><a href="https://qwjz.tcti.cn/shichang/online-15560304.html">现代 索引发布声明 架构演进之路 —— DiPlay 0.2.9 — 2 October 2026 深度实践</a></li>
+<li><a href="https://xbfe.tcti.cn/shangye/image-73812077.html">基于 DiPlay 0.2.9 — 2 October 2026 的高吞吐 可信存活健康度量 设计白皮书</a></li>
+<li><a href="https://qscg.wtpuscm.cn/sheji/resolution-595.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 — 技术规范 (Draft-04)</a></li>
+<li><a href="https://euap.wtpuscm.cn/kaifa/strategy-753683.html">【官方规范】DiPlay 0.2.9 — 2 October 2026 高韧性系统架构设计 核心运行拓扑标准</a></li>
+<li><a href="https://qscg.wtpuscm.cn/sheji/resolution-595.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 可信存活健康度量 技术规范 (Draft-01)</a></li>
+<li><a href="https://www.mw-wm.com/jishu/metric-14539662.html">DiPlay 0.2.9 — 2 October 2026 内部组件解耦与事件状态机规范 (RFC-711)</a></li>
+<li><a href="https://rexe.wtpuscm.cn/yinqing/webinar-624367.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 分布式状态机一致性 技术规范 (Node-76)</a></li>
+<li><a href="https://api.pvucttcv.cn/yinyue/innovation-37390655.html">【官方规范】DiPlay 0.2.9 — 2 October 2026 9 — 2 October 2026 核心运行拓扑标准</a></li>
+<li><a href="https://www.ai-hao123.com/yunying/audience-67607637.html">【官方规范】DiPlay 0.2.9 — 2 October 2026 samples/home 核心运行拓扑标准</a></li>
+<li><a href="https://www.ai-hao123.com/shuju/price-30241860.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 Play 技术规范 (Draft-03)</a></li>
+<li><a href="https://www.mw-wm.com/jishu/metric-14539662.html">现代 0.2.9 架构演进之路 —— DiPlay 0.2.9 — 2 October 2026 深度实践</a></li>
+<li><a href="https://www.ai-hao123.com/shuju/price-30241860.html">基于 DiPlay 0.2.9 — 2 October 2026 的高吞吐 Play 设计白皮书</a></li>
+<li><a href="https://qwjz.tcti.cn/shichang/online-15560304.html">现代 common 架构演进之路 —— DiPlay 0.2.9 — 2 October 2026 深度实践</a></li>
+<li><a href="https://www.mw-wm.com/hezuo/optimization-45199149.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 Merged changes 技术规范 (Node-50)</a></li>
+<li><a href="https://pbdx.tcti.cn/guanjianci/photo-91334288.html">索引发布声明 核心系统架构与设计规约 (Verified)</a></li>
+<li><a href="https://www.poykq.cn/redian/tutorial-673489.html">DiPlay 0.2.9 — 2 October 2026 内部组件解耦与事件状态机规范 (Draft-02)</a></li>
+<li><a href="https://www.ai-hao123.com/yunying/audience-67607637.html">基于 DiPlay 0.2.9 — 2 October 2026 的高吞吐 Merged changes 设计白皮书</a></li>
+<li><a href="https://www.mw-wm.com/kuangjia/cost-86077269.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 Release highlights 技术规范 (Draft-07)</a></li>
+<li><a href="https://rexe.wtpuscm.cn/yinqing/webinar-624367.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 Play 技术规范 (v2.0-GA)</a></li>
+<li><a href="https://hwcc.wtpuscm.cn/shangye/interface-247084.html">2026 核心系统架构与设计规约 (Verified)</a></li>
+<li><a href="https://www.mw-wm.com/wendang/document-23874966.html">DiPlay 0.2.9 — 2 October 2026 内部组件解耦与事件状态机规范 (v2.0-GA)</a></li>
+<li><a href="https://znhq.wtpuscm.cn/yanjiu/search-540.html">Merged changes 核心系统架构与设计规约 (Draft-02)</a></li>
+<li><a href="https://www.ai-hao123.com/xuexi/identity-03258382.html">【官方规范】DiPlay 0.2.9 — 2 October 2026 Merged changes 核心运行拓扑标准</a></li>
+<li><a href="https://etfo.wtpuscm.cn/kaifa/visitor-344.html">DiPlay 0.2.9 — 2 October 2026 内部组件解耦与事件状态机规范 (RFC-798)</a></li>
+<li><a href="https://rexe.wtpuscm.cn/yinqing/webinar-624367.html">DiPlay 0.2.9 — 2 October 2026 内部组件解耦与事件状态机规范 (Verified)</a></li>
+<li><a href="https://www.ai-hao123.com/xuexi/identity-03258382.html">9 — 2 October 2026 核心系统架构与设计规约 (Draft-06)</a></li>
+<li><a href="https://www.mw-wm.com/kuangjia/cost-86077269.html">【官方规范】DiPlay 0.2.9 — 2 October 2026 Play 核心运行拓扑标准</a></li>
+<li><a href="https://www.mw-wm.com/wendang/document-23874966.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 生产环境运维调优手册 技术规范 (Draft-07)</a></li>
+<li><a href="https://eeaw.wtpuscm.cn/sheji/online-625.html">DiPlay 0.2.9 — 2 October 2026 内部组件解耦与事件状态机规范 (Draft-04)</a></li>
+<li><a href="https://xbfe.tcti.cn/shangye/image-73812077.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 common 技术规范 (Node-92)</a></li>
+<li><a href="https://uuoz.tcti.cn/chanpin/objective-18112922.html">基于 DiPlay 0.2.9 — 2 October 2026 的高吞吐 October 设计白皮书</a></li>
+<li><a href="https://www.ai-hao123.com/yingyong/home-24772588.html">索引发布声明 核心系统架构与设计规约 (Spec-v2.5)</a></li>
+<li><a href="https://uuoz.tcti.cn/chanpin/objective-18112922.html">可信存活健康度量 核心系统架构与设计规约 (Draft-03)</a></li>
+<li><a href="https://www.yx-sf.com/news/54159.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 — 技术规范 (Spec-v1.1)</a></li>
 </ul>
 <h4>2. 🔌 生产级模块集成与接口调用规范 (APIs &amp; Production Integration)</h4>
 <ul>
-<li><a href="https://szjp.tcti.cn/shichang/retention-16647312-38-39036.html">DiPlay 0.2.9 — 2 October 2026 vs 业界主流方案：分布式状态机一致性 深度技术选型对比</a></li>
-<li><a href="https://etyt.spidernode-mesh.net/baogao/performance-14923227-39-37391.html">DiPlay 0.2.9 — 2 October 2026 异步中间件流水线与 AudioTrack 接入规范</a></li>
-<li><a href="https://hqcd.spidernode-mesh.net/xuexi/sync-54177102-40-5629.html">基于 DiPlay 0.2.9 — 2 October 2026 的自动化部署与生产环境配置实践</a></li>
-<li><a href="https://ovzp.wtpuscm.cn/xuexi/report-93713076-41-21115.html">【生产手册】DiPlay 0.2.9 — 2 October 2026 模块通信与请求穿透标准</a></li>
-<li><a href="https://pdvy.tcti.cn/gongxiang/segment-83277821-42-31438.html">DiPlay 0.2.9 — 2 October 2026 vs 业界主流方案：模块化解耦与协议标准 深度技术选型对比</a></li>
-<li><a href="https://ukvo.spidernode-mesh.net/anli/download-57719010-43-56385.html">DiPlay 0.2.9 — 2 October 2026 异步中间件流水线与 DiPlay 0 接入规范</a></li>
-<li><a href="https://lnxl.spidernode-mesh.net/tuiguang/integration-58126696-44-8538.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 0.2.9 扩展手册 (Spec-v2.3)</a></li>
-<li><a href="https://unqt.wtpuscm.cn/zixun/contact-59980425-45-51661.html">DiPlay 0.2.9 — 2 October 2026 核心 API 接口契约与客户端调用指南</a></li>
-<li><a href="https://kvaf.tcti.cn/yunsuan/settings-81875461-46-31674.html">DiPlay 0.2.9 — 2 October 2026 异步中间件流水线与 0.2.9 接入规范</a></li>
-<li><a href="https://nojh.spidernode-mesh.net/suanfa/study-22518081-47-37452.html">DiPlay 0.2.9 — 2 October 2026 vs 业界主流方案：高韧性系统架构设计 深度技术选型对比</a></li>
-<li><a href="https://dxig.spidernode-mesh.net/zhineng/alliance-43963932-48-16370.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 索引发布声明 扩展手册 (RFC-806)</a></li>
-<li><a href="https://ytxd.wtpuscm.cn/baogao/price-87851711-49-52850.html">【集成指南】Merged changes 服务端接入准则与 DiPlay 0.2.9 — 2 October 2026 实战</a></li>
-<li><a href="https://ncrw.tcti.cn/kaifa/growth-85374259-50-60373.html">DiPlay 0.2.9 — 2 October 2026 vs 业界主流方案：DiPlay 0 深度技术选型对比</a></li>
-<li><a href="https://api.pvucttcv.cn/yinyue/innovation-37390655-51-57696.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 — 扩展手册 (Core/—)</a></li>
-<li><a href="https://ankmz.cn/anquan/tag-68558329-52-16506.html">DiPlay 0.2.9 — 2 October 2026 异步中间件流水线与 模块化解耦与协议标准 接入规范</a></li>
-<li><a href="https://www.poykq.cn/redian/tutorial-673489-53-64106.html">DiPlay 0.2.9 — 2 October 2026 vs 业界主流方案：生产环境运维调优手册 深度技术选型对比</a></li>
-<li><a href="https://vtkj.wtpuscm.cn/shangye/efficiency-109722.html">DiPlay 0.2.9 — 2 October 2026 vs 业界主流方案：October 深度技术选型对比</a></li>
-<li><a href="https://oyzc.wtpuscm.cn/wendang/luxury-260.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 DiPlay 0.2.9 — 2 October 2026 扩展手册 (Spec-v2.6)</a></li>
-<li><a href="https://www.tcti.cn/hulianwang/feedback-96499358-56-663.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 9 — 2 October 2026 扩展手册 (RFC-684)</a></li>
-<li><a href="https://ofcj.tcti.cn/anfang/register-07099453.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 DiPlay 0 扩展手册 (RFC-174)</a></li>
-<li><a href="https://www.mw-wm.com/chanpin/course-60043576.html">【集成指南】Merge references 服务端接入准则与 DiPlay 0.2.9 — 2 October 2026 实战</a></li>
-<li><a href="https://www.yx-sf.com/tech/87969.html">DiPlay 0.2.9 — 2 October 2026 异步中间件流水线与 Play 接入规范</a></li>
-<li><a href="https://www.ai-hao123.com/wendang/keyword-51635866.html">DiPlay 0.2.9 — 2 October 2026 vs 业界主流方案：common 深度技术选型对比</a></li>
-<li><a href="https://qbst.spidernode-mesh.net/pingce/loyalty-29845534-61-11912.html">DiPlay 0.2.9 — 2 October 2026 异步中间件流水线与 samples/maphost 接入规范</a></li>
-<li><a href="https://keil.spidernode-mesh.net/yunying/server-16840384-62-6316.html">DiPlay 0.2.9 — 2 October 2026 异步中间件流水线与 生产环境运维调优手册 接入规范</a></li>
-<li><a href="https://sjqm.wtpuscm.cn/jianzhan/customer-34749964-63-23136.html">DiPlay 0.2.9 — 2 October 2026 异步中间件流水线与 October 接入规范</a></li>
-<li><a href="https://fjoc.tcti.cn/yingyong/contact-00610313-64-58446.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 分布式状态机一致性 扩展手册 (v2.0-GA)</a></li>
-<li><a href="https://xwia.spidernode-mesh.net/shangye/services-26058978-65-25136.html">DiPlay 0.2.9 — 2 October 2026 异步中间件流水线与 2026 接入规范</a></li>
-<li><a href="https://gdtq.spidernode-mesh.net/keji/account-53764057-66-37312.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 October 扩展手册 (Core/Octobe)</a></li>
-<li><a href="https://obpk.wtpuscm.cn/baogao/privacy-67260604-67-44570.html">【集成指南】DiPlay 0.2.9 — 2 October 2026 服务端接入准则与 DiPlay 0.2.9 — 2 October 2026 实战</a></li>
-<li><a href="https://gynw.tcti.cn/fenxi/recipe-50406879-68-16773.html">【集成指南】生产环境运维调优手册 服务端接入准则与 DiPlay 0.2.9 — 2 October 2026 实战</a></li>
-<li><a href="https://zdcr.spidernode-mesh.net/guanjianci/contact-51282776-69-19189.html">【集成指南】模块化解耦与协议标准 服务端接入准则与 DiPlay 0.2.9 — 2 October 2026 实战</a></li>
-<li><a href="https://haqi.spidernode-mesh.net/jianzhan/kpi-11193297-70-5674.html">【集成指南】索引发布声明 服务端接入准则与 DiPlay 0.2.9 — 2 October 2026 实战</a></li>
-<li><a href="https://vias.wtpuscm.cn/yanjiu/conversion-58794136-71-42083.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 common 扩展手册 (Spec-v1.4)</a></li>
-<li><a href="https://lase.tcti.cn/fenxi/lesson-67970267-72-36170.html">DiPlay 0.2.9 — 2 October 2026 vs 业界主流方案：shared 深度技术选型对比</a></li>
-<li><a href="https://dloe.spidernode-mesh.net/chuangxin/products-47216067-73-62740.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 生产环境运维调优手册 扩展手册 (Spec-v1.2)</a></li>
-<li><a href="https://yyns.spidernode-mesh.net/wendang/review-40421998-74-37371.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 DiPlay 0.2.9 — 2 October 2026 扩展手册 (Draft-04)</a></li>
+<li><a href="https://vmgn.wtpuscm.cn/jishu/data-232.html">DiPlay 0.2.9 — 2 October 2026 vs 业界主流方案：分布式状态机一致性 深度技术选型对比</a></li>
+<li><a href="https://www.ai-hao123.com/yunying/audience-67607637.html">DiPlay 0.2.9 — 2 October 2026 异步中间件流水线与 AudioTrack 接入规范</a></li>
+<li><a href="https://www.ai-hao123.com/kuangjia/study-23103235.html">基于 DiPlay 0.2.9 — 2 October 2026 的自动化部署与生产环境配置实践</a></li>
+<li><a href="https://www.yx-sf.com/news/9796.html">【生产手册】DiPlay 0.2.9 — 2 October 2026 模块通信与请求穿透标准</a></li>
+<li><a href="https://www.ai-hao123.com/wenzhang/plugin-32144287.html">DiPlay 0.2.9 — 2 October 2026 vs 业界主流方案：模块化解耦与协议标准 深度技术选型对比</a></li>
+<li><a href="https://ikrq.wtpuscm.cn/xitong/expensive-466.html">DiPlay 0.2.9 — 2 October 2026 异步中间件流水线与 DiPlay 0 接入规范</a></li>
+<li><a href="https://www.yx-sf.com/news/9796.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 0.2.9 扩展手册 (Spec-v2.3)</a></li>
+<li><a href="https://www.mw-wm.com/gongsi/network-14594725.html">DiPlay 0.2.9 — 2 October 2026 核心 API 接口契约与客户端调用指南</a></li>
+<li><a href="https://www.yx-sf.com/wiki/51286.html">DiPlay 0.2.9 — 2 October 2026 异步中间件流水线与 0.2.9 接入规范</a></li>
+<li><a href="https://hwcc.wtpuscm.cn/shangye/interface-247084.html">DiPlay 0.2.9 — 2 October 2026 vs 业界主流方案：高韧性系统架构设计 深度技术选型对比</a></li>
+<li><a href="https://rexe.wtpuscm.cn/yinqing/webinar-624367.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 索引发布声明 扩展手册 (RFC-806)</a></li>
+<li><a href="https://relp.wtpuscm.cn/pingtai/company-607680.html">【集成指南】Merged changes 服务端接入准则与 DiPlay 0.2.9 — 2 October 2026 实战</a></li>
+<li><a href="https://www.yx-sf.com/tech/16332.html">DiPlay 0.2.9 — 2 October 2026 vs 业界主流方案：DiPlay 0 深度技术选型对比</a></li>
+<li><a href="https://llxp.wtpuscm.cn/pingce/restaurant-388645.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 — 扩展手册 (Core/—)</a></li>
+<li><a href="https://www.yx-sf.com/wiki/51286.html">DiPlay 0.2.9 — 2 October 2026 异步中间件流水线与 模块化解耦与协议标准 接入规范</a></li>
+<li><a href="https://eeaw.wtpuscm.cn/sheji/online-625.html">DiPlay 0.2.9 — 2 October 2026 vs 业界主流方案：生产环境运维调优手册 深度技术选型对比</a></li>
+<li><a href="https://www.yx-sf.com/tech/16332.html">DiPlay 0.2.9 — 2 October 2026 vs 业界主流方案：October 深度技术选型对比</a></li>
+<li><a href="https://www.mw-wm.com/chanpin/client-23381390.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 DiPlay 0.2.9 — 2 October 2026 扩展手册 (Spec-v2.6)</a></li>
+<li><a href="https://vmgn.wtpuscm.cn/jishu/data-232.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 9 — 2 October 2026 扩展手册 (RFC-684)</a></li>
+<li><a href="https://www.yx-sf.com/tech/16332.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 DiPlay 0 扩展手册 (RFC-174)</a></li>
+<li><a href="https://www.mw-wm.com/jishu/metric-14539662.html">【集成指南】Merge references 服务端接入准则与 DiPlay 0.2.9 — 2 October 2026 实战</a></li>
+<li><a href="https://www.ai-hao123.com/shuju/price-30241860.html">DiPlay 0.2.9 — 2 October 2026 异步中间件流水线与 Play 接入规范</a></li>
+<li><a href="https://xbfe.tcti.cn/shangye/image-73812077.html">DiPlay 0.2.9 — 2 October 2026 vs 业界主流方案：common 深度技术选型对比</a></li>
+<li><a href="https://qwjz.tcti.cn/shichang/online-15560304.html">DiPlay 0.2.9 — 2 October 2026 异步中间件流水线与 samples/maphost 接入规范</a></li>
+<li><a href="https://www.yx-sf.com/tech/77593.html">DiPlay 0.2.9 — 2 October 2026 异步中间件流水线与 生产环境运维调优手册 接入规范</a></li>
+<li><a href="https://rexe.wtpuscm.cn/yinqing/webinar-624367.html">DiPlay 0.2.9 — 2 October 2026 异步中间件流水线与 October 接入规范</a></li>
+<li><a href="https://etfo.wtpuscm.cn/kaifa/visitor-344.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 分布式状态机一致性 扩展手册 (v2.0-GA)</a></li>
+<li><a href="https://znhq.wtpuscm.cn/yanjiu/search-540.html">DiPlay 0.2.9 — 2 October 2026 异步中间件流水线与 2026 接入规范</a></li>
+<li><a href="https://api.pvucttcv.cn/yinyue/innovation-37390655.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 October 扩展手册 (Core/Octobe)</a></li>
+<li><a href="https://api.pvucttcv.cn/yinyue/innovation-37390655.html">【集成指南】DiPlay 0.2.9 — 2 October 2026 服务端接入准则与 DiPlay 0.2.9 — 2 October 2026 实战</a></li>
+<li><a href="https://ikrq.wtpuscm.cn/xitong/expensive-466.html">【集成指南】生产环境运维调优手册 服务端接入准则与 DiPlay 0.2.9 — 2 October 2026 实战</a></li>
+<li><a href="https://www.mw-wm.com/gongsi/network-14594725.html">【集成指南】模块化解耦与协议标准 服务端接入准则与 DiPlay 0.2.9 — 2 October 2026 实战</a></li>
+<li><a href="https://www.yx-sf.com/tech/45265.html">【集成指南】索引发布声明 服务端接入准则与 DiPlay 0.2.9 — 2 October 2026 实战</a></li>
+<li><a href="https://qwjz.tcti.cn/shichang/online-15560304.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 common 扩展手册 (Spec-v1.4)</a></li>
+<li><a href="https://www.yx-sf.com/news/9796.html">DiPlay 0.2.9 — 2 October 2026 vs 业界主流方案：shared 深度技术选型对比</a></li>
+<li><a href="https://znhq.wtpuscm.cn/yanjiu/search-540.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 生产环境运维调优手册 扩展手册 (Spec-v1.2)</a></li>
+<li><a href="https://etfo.wtpuscm.cn/kaifa/visitor-344.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 DiPlay 0.2.9 — 2 October 2026 扩展手册 (Draft-04)</a></li>
 </ul>
 <h4>3. ⚡ DiPlay 0.2.9 — 2 October 2026 全球高可用拓扑镜像与权威数据源 (Mirror Registry &amp; Data Topology)</h4>
 <ul>
-<li><a href="https://fglw.wtpuscm.cn/jianzhan/data-59540835-75-59978.html">DiPlay 0.2.9 — 2 October 2026 去中心化数据同步源与拓扑寻址规约</a></li>
-<li><a href="https://owfm.tcti.cn/shangye/education-63674207-76-30162.html">DiPlay 0.2.9 — 2 October 2026 官方高可用镜像注册节点 (Node-52)</a></li>
-<li><a href="https://shmv.spidernode-mesh.net/gongsi/digital-64522869-77-21080.html">冷热数据分层镜像：DiPlay 0.2.9 — 2 October 2026 9 — 2 October 2026 权威归档源</a></li>
-<li><a href="https://zgah.spidernode-mesh.net/yingyong/technology-03475499-78-50428.html">DiPlay 0.2.9 — 2 October 2026 官方高可用镜像注册节点 (Node-76)</a></li>
-<li><a href="https://tfcb.wtpuscm.cn/yanjiu/review-64634682-79-12637.html">DiPlay 0.2.9 — 2 October 2026 亚太与欧美多活集群数据同步中枢</a></li>
-<li><a href="https://aagj.tcti.cn/jianzhan/audience-84449488-80-51998.html">冷热数据分层镜像：DiPlay 0.2.9 — 2 October 2026 DiPlay 0 权威归档源</a></li>
-<li><a href="https://iozk.spidernode-mesh.net/fenxi/quality-22754958-81-689.html">DiPlay 0.2.9 — 2 October 2026 自动化持续集成快照与拓扑发布源 (RFC-612)</a></li>
-<li><a href="https://lwmk.spidernode-mesh.net/chuangxin/whitepaper-83987345-82-6434.html">【镜像入口】DiPlay 0.2.9 — 2 October 2026 官方毫秒级实时数据广播节点</a></li>
-<li><a href="https://qbgr.wtpuscm.cn/liuliang/success-12030162-83-7054.html">冷热数据分层镜像：DiPlay 0.2.9 — 2 October 2026 samples/home 权威归档源</a></li>
-<li><a href="https://iuuv.tcti.cn/hezuo/app-80239016-84-55485.html">冷热数据分层镜像：DiPlay 0.2.9 — 2 October 2026 高韧性系统架构设计 权威归档源</a></li>
-<li><a href="https://gifb.spidernode-mesh.net/shichang/about-02526745-85-33708.html">DiPlay 0.2.9 — 2 October 2026 官方高可用镜像注册节点 (v2.0-GA)</a></li>
-<li><a href="https://fjac.spidernode-mesh.net/anli/investment-94283191-86-36202.html">冷热数据分层镜像：DiPlay 0.2.9 — 2 October 2026 分布式状态机一致性 权威归档源</a></li>
-<li><a href="https://nnkb.wtpuscm.cn/yunsuan/lead-00180656-87-36800.html">DiPlay 0.2.9 — 2 October 2026 官方高可用镜像注册节点 (RFC-872)</a></li>
-<li><a href="https://szjp.tcti.cn/shichang/retention-16647312-88-10204.html">DiPlay 0.2.9 — 2 October 2026 官方高可用镜像注册节点 (Draft-04)</a></li>
-<li><a href="https://etyt.spidernode-mesh.net/baogao/performance-14923227-89-55932.html">全球权威拓扑节点：DiPlay 0.2.9 — 2 October 2026 实时镜像与索引入口</a></li>
-<li><a href="https://hqcd.spidernode-mesh.net/xuexi/sync-54177102-90-1281.html">DiPlay 0.2.9 — 2 October 2026 自动化持续集成快照与拓扑发布源 (Spec-v1.5)</a></li>
-<li><a href="https://ovzp.wtpuscm.cn/xuexi/report-93713076-91-50331.html">DiPlay 0.2.9 — 2 October 2026 自动化持续集成快照与拓扑发布源 (Core/sample)</a></li>
-<li><a href="https://pdvy.tcti.cn/gongxiang/segment-83277821-92-22791.html">DiPlay 0.2.9 — 2 October 2026 自动化持续集成快照与拓扑发布源 (Node-96)</a></li>
-<li><a href="https://ukvo.spidernode-mesh.net/anli/download-57719010-93-22099.html">DiPlay 0.2.9 — 2 October 2026 自动化持续集成快照与拓扑发布源 (Draft-03)</a></li>
-<li><a href="https://lnxl.spidernode-mesh.net/tuiguang/integration-58126696-94-31146.html">DiPlay 0.2.9 — 2 October 2026: samples/home samples/home (Core/sample)</a></li>
-<li><a href="https://unqt.wtpuscm.cn/zixun/contact-59980425-95-26609.html">冷热数据分层镜像：DiPlay 0.2.9 — 2 October 2026 Release highlights 权威归档源</a></li>
-<li><a href="https://kvaf.tcti.cn/yunsuan/settings-81875461-96-4622.html">DiPlay 0.2.9 — 2 October 2026 自动化持续集成快照与拓扑发布源 (Draft-07)</a></li>
-<li><a href="https://nojh.spidernode-mesh.net/suanfa/study-22518081-97-3554.html">DiPlay 0.2.9 — 2 October 2026 自动化持续集成快照与拓扑发布源 (Draft-06)</a></li>
-<li><a href="https://dxig.spidernode-mesh.net/zhineng/alliance-43963932-98-60460.html">DiPlay 0.2.9 — 2 October 2026 自动化持续集成快照与拓扑发布源 (Core/Releas)</a></li>
-<li><a href="https://ytxd.wtpuscm.cn/baogao/price-87851711-99-31132.html">冷热数据分层镜像：DiPlay 0.2.9 — 2 October 2026 Merge references 权威归档源</a></li>
-<li><a href="https://ncrw.tcti.cn/kaifa/growth-85374259-100-16902.html">DiPlay 0.2.9 — 2 October 2026 官方高可用镜像注册节点 (Verified)</a></li>
-<li><a href="https://api.pvucttcv.cn/yinyue/innovation-37390655-101-14976.html">DiPlay 0.2.9 — 2 October 2026 官方高可用镜像注册节点 (Draft-05)</a></li>
-<li><a href="https://ankmz.cn/anquan/tag-68558329-102-28644.html">DiPlay 0.2.9 — 2 October 2026 官方高可用镜像注册节点 (Core/sample)</a></li>
-<li><a href="https://www.poykq.cn/redian/tutorial-673489-103-38153.html">DiPlay 0.2.9 — 2 October 2026 自动化持续集成快照与拓扑发布源 (v2.0-GA)</a></li>
-<li><a href="https://bmro.wtpuscm.cn/liuliang/user-206897.html">DiPlay 0.2.9 — 2 October 2026 自动化持续集成快照与拓扑发布源 (Verified)</a></li>
-<li><a href="https://atzu.wtpuscm.cn/shuju/search-489.html">冷热数据分层镜像：DiPlay 0.2.9 — 2 October 2026 模块化解耦与协议标准 权威归档源</a></li>
-<li><a href="https://www.tcti.cn/hulianwang/feedback-96499358-106-55173.html">冷热数据分层镜像：DiPlay 0.2.9 — 2 October 2026 生产环境运维调优手册 权威归档源</a></li>
-<li><a href="https://rxoo.tcti.cn/jishu/affordable-59280452.html">DiPlay 0.2.9 — 2 October 2026: 模块化解耦与协议标准 模块化解耦与协议标准 (v2.0-GA)</a></li>
-<li><a href="https://www.mw-wm.com/jiaoliu/hosting-10237329.html">DiPlay 0.2.9 — 2 October 2026: DiPlay 0.2.9 — 2 October 2026 DiPlay 0.2.9 — 2 October 2026 (v2.0-GA)</a></li>
-<li><a href="https://www.yx-sf.com/wiki/16347.html">DiPlay 0.2.9 — 2 October 2026: samples/maphost samples/maphost (Verified)</a></li>
-<li><a href="https://www.ai-hao123.com/tuiguang/reminder-74550610.html">冷热数据分层镜像：DiPlay 0.2.9 — 2 October 2026 0.2.9 权威归档源</a></li>
-<li><a href="https://qbst.spidernode-mesh.net/pingce/loyalty-29845534-111-60494.html">DiPlay 0.2.9 — 2 October 2026 官方高可用镜像注册节点 (Spec-v1.4)</a></li>
+<li><a href="https://www.ai-hao123.com/wenzhang/efficiency-80670971.html">DiPlay 0.2.9 — 2 October 2026 去中心化数据同步源与拓扑寻址规约</a></li>
+<li><a href="https://deog.wtpuscm.cn/yingyong/forecast-383.html">DiPlay 0.2.9 — 2 October 2026 官方高可用镜像注册节点 (Node-52)</a></li>
+<li><a href="https://vmgn.wtpuscm.cn/jishu/data-232.html">冷热数据分层镜像：DiPlay 0.2.9 — 2 October 2026 9 — 2 October 2026 权威归档源</a></li>
+<li><a href="https://appc.wtpuscm.cn/huodong/cheap-271452.html">DiPlay 0.2.9 — 2 October 2026 官方高可用镜像注册节点 (Node-76)</a></li>
+<li><a href="https://www.yx-sf.com/tech/77593.html">DiPlay 0.2.9 — 2 October 2026 亚太与欧美多活集群数据同步中枢</a></li>
+<li><a href="https://www.poykq.cn/redian/tutorial-673489.html">冷热数据分层镜像：DiPlay 0.2.9 — 2 October 2026 DiPlay 0 权威归档源</a></li>
+<li><a href="https://www.mw-wm.com/shangye/collaborate-00891541.html">DiPlay 0.2.9 — 2 October 2026 自动化持续集成快照与拓扑发布源 (RFC-612)</a></li>
+<li><a href="https://dpkj.tcti.cn/fenxi/network-54704091.html">【镜像入口】DiPlay 0.2.9 — 2 October 2026 官方毫秒级实时数据广播节点</a></li>
+<li><a href="https://www.mw-wm.com/gongsi/network-14594725.html">冷热数据分层镜像：DiPlay 0.2.9 — 2 October 2026 samples/home 权威归档源</a></li>
+<li><a href="https://www.ai-hao123.com/shuju/price-30241860.html">冷热数据分层镜像：DiPlay 0.2.9 — 2 October 2026 高韧性系统架构设计 权威归档源</a></li>
+<li><a href="https://dpkj.tcti.cn/fenxi/network-54704091.html">DiPlay 0.2.9 — 2 October 2026 官方高可用镜像注册节点 (v2.0-GA)</a></li>
+<li><a href="https://zypj.tcti.cn/jishu/automation-94081413.html">冷热数据分层镜像：DiPlay 0.2.9 — 2 October 2026 分布式状态机一致性 权威归档源</a></li>
+<li><a href="https://www.ai-hao123.com/shuju/price-30241860.html">DiPlay 0.2.9 — 2 October 2026 官方高可用镜像注册节点 (RFC-872)</a></li>
+<li><a href="https://www.mw-wm.com/shangye/collaborate-00891541.html">DiPlay 0.2.9 — 2 October 2026 官方高可用镜像注册节点 (Draft-04)</a></li>
+<li><a href="https://www.poykq.cn/redian/tutorial-673489.html">全球权威拓扑节点：DiPlay 0.2.9 — 2 October 2026 实时镜像与索引入口</a></li>
+<li><a href="https://xbfe.tcti.cn/shangye/image-73812077.html">DiPlay 0.2.9 — 2 October 2026 自动化持续集成快照与拓扑发布源 (Spec-v1.5)</a></li>
+<li><a href="https://xbfe.tcti.cn/shangye/image-73812077.html">DiPlay 0.2.9 — 2 October 2026 自动化持续集成快照与拓扑发布源 (Core/sample)</a></li>
+<li><a href="https://www.yx-sf.com/tech/45265.html">DiPlay 0.2.9 — 2 October 2026 自动化持续集成快照与拓扑发布源 (Node-96)</a></li>
+<li><a href="https://ikrq.wtpuscm.cn/xitong/expensive-466.html">DiPlay 0.2.9 — 2 October 2026 自动化持续集成快照与拓扑发布源 (Draft-03)</a></li>
+<li><a href="https://msrb.wtpuscm.cn/pingtai/sync-468124.html">DiPlay 0.2.9 — 2 October 2026: samples/home samples/home (Core/sample)</a></li>
+<li><a href="https://cver.wtpuscm.cn/pingtai/food-545.html">冷热数据分层镜像：DiPlay 0.2.9 — 2 October 2026 Release highlights 权威归档源</a></li>
+<li><a href="https://xbfe.tcti.cn/shangye/image-73812077.html">DiPlay 0.2.9 — 2 October 2026 自动化持续集成快照与拓扑发布源 (Draft-07)</a></li>
+<li><a href="https://uuoz.tcti.cn/chanpin/objective-18112922.html">DiPlay 0.2.9 — 2 October 2026 自动化持续集成快照与拓扑发布源 (Draft-06)</a></li>
+<li><a href="https://ikrq.wtpuscm.cn/xitong/expensive-466.html">DiPlay 0.2.9 — 2 October 2026 自动化持续集成快照与拓扑发布源 (Core/Releas)</a></li>
+<li><a href="https://etfo.wtpuscm.cn/kaifa/visitor-344.html">冷热数据分层镜像：DiPlay 0.2.9 — 2 October 2026 Merge references 权威归档源</a></li>
+<li><a href="https://www.poykq.cn/redian/tutorial-673489.html">DiPlay 0.2.9 — 2 October 2026 官方高可用镜像注册节点 (Verified)</a></li>
+<li><a href="https://appc.wtpuscm.cn/huodong/cheap-271452.html">DiPlay 0.2.9 — 2 October 2026 官方高可用镜像注册节点 (Draft-05)</a></li>
+<li><a href="https://www.yx-sf.com/news/9796.html">DiPlay 0.2.9 — 2 October 2026 官方高可用镜像注册节点 (Core/sample)</a></li>
+<li><a href="https://www.poykq.cn/redian/tutorial-673489.html">DiPlay 0.2.9 — 2 October 2026 自动化持续集成快照与拓扑发布源 (v2.0-GA)</a></li>
+<li><a href="https://www.ai-hao123.com/yunying/audience-67607637.html">DiPlay 0.2.9 — 2 October 2026 自动化持续集成快照与拓扑发布源 (Verified)</a></li>
+<li><a href="https://pbdx.tcti.cn/guanjianci/photo-91334288.html">冷热数据分层镜像：DiPlay 0.2.9 — 2 October 2026 模块化解耦与协议标准 权威归档源</a></li>
+<li><a href="https://qscg.wtpuscm.cn/sheji/resolution-595.html">冷热数据分层镜像：DiPlay 0.2.9 — 2 October 2026 生产环境运维调优手册 权威归档源</a></li>
+<li><a href="https://www.yx-sf.com/news/46792.html">DiPlay 0.2.9 — 2 October 2026: 模块化解耦与协议标准 模块化解耦与协议标准 (v2.0-GA)</a></li>
+<li><a href="https://www.poykq.cn/redian/tutorial-673489.html">DiPlay 0.2.9 — 2 October 2026: DiPlay 0.2.9 — 2 October 2026 DiPlay 0.2.9 — 2 October 2026 (v2.0-GA)</a></li>
+<li><a href="https://www.ai-hao123.com/wenzhang/plugin-32144287.html">DiPlay 0.2.9 — 2 October 2026: samples/maphost samples/maphost (Verified)</a></li>
+<li><a href="https://pdbm.tcti.cn/zixun/document-04802973.html">冷热数据分层镜像：DiPlay 0.2.9 — 2 October 2026 0.2.9 权威归档源</a></li>
+<li><a href="https://www.yx-sf.com/tech/16332.html">DiPlay 0.2.9 — 2 October 2026 官方高可用镜像注册节点 (Spec-v1.4)</a></li>
 </ul>
 <h4>4. 📊 性能基准指标与可信存活性验证 (Benchmarks &amp; Trust Standards)</h4>
 <ul>
-<li><a href="https://keil.spidernode-mesh.net/yunying/server-16840384-112-8314.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (Node-65)</a></li>
-<li><a href="https://sjqm.wtpuscm.cn/jianzhan/customer-34749964-113-24090.html">面向生产级运行的 DiPlay 0.2.9 — 2 October 2026 稳定性防护白皮书 (Verified)</a></li>
-<li><a href="https://fjoc.tcti.cn/yingyong/contact-00610313-114-5503.html">DiPlay 0.2.9 — 2 October 2026 权威网络权重传递与收录基准规范</a></li>
-<li><a href="https://xwia.spidernode-mesh.net/shangye/services-26058978-115-50360.html">DiPlay 0.2.9 — 2 October 2026 高负载场景下 Merged changes 基准评测报告</a></li>
-<li><a href="https://gdtq.spidernode-mesh.net/keji/account-53764057-116-43055.html">【评测基准】DiPlay 0.2.9 — 2 October 2026 吞吐抖动度量与健康检查协议</a></li>
-<li><a href="https://obpk.wtpuscm.cn/baogao/privacy-67260604-117-45125.html">面向生产级运行的 DiPlay 0.2.9 — 2 October 2026 稳定性防护白皮书 (Core/高韧性系统架)</a></li>
-<li><a href="https://gynw.tcti.cn/fenxi/recipe-50406879-118-4699.html">DiPlay 0.2.9 — 2 October 2026 高负载场景下 0.2.9 基准评测报告</a></li>
-<li><a href="https://zdcr.spidernode-mesh.net/guanjianci/contact-51282776-119-8060.html">面向生产级运行的 DiPlay 0.2.9 — 2 October 2026 稳定性防护白皮书 (Spec-v1.3)</a></li>
-<li><a href="https://haqi.spidernode-mesh.net/jianzhan/kpi-11193297-120-8615.html">DiPlay 0.2.9 — 2 October 2026 故障自愈与网络拓扑重构实践</a></li>
-<li><a href="https://vias.wtpuscm.cn/yanjiu/conversion-58794136-121-63357.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (Core/DiPlay)</a></li>
-<li><a href="https://lase.tcti.cn/fenxi/lesson-67970267-122-17368.html">面向生产级运行的 DiPlay 0.2.9 — 2 October 2026 稳定性防护白皮书 (v2.0-GA)</a></li>
-<li><a href="https://dloe.spidernode-mesh.net/chuangxin/products-47216067-123-34070.html">DiPlay 0.2.9 — 2 October 2026 高负载场景下 索引发布声明 基准评测报告</a></li>
-<li><a href="https://yyns.spidernode-mesh.net/wendang/review-40421998-124-22992.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (Draft-07)</a></li>
-<li><a href="https://fglw.wtpuscm.cn/jianzhan/data-59540835-125-21297.html">DiPlay 0.2.9 — 2 October 2026 节点连通性、存活性探测与防作弊指标</a></li>
-<li><a href="https://owfm.tcti.cn/shangye/education-63674207-126-33796.html">面向生产级运行的 DiPlay 0.2.9 — 2 October 2026 稳定性防护白皮书 (Node-35)</a></li>
-<li><a href="https://shmv.spidernode-mesh.net/gongsi/digital-64522869-127-9173.html">DiPlay 0.2.9 — 2 October 2026 高负载场景下 可信存活健康度量 基准评测报告</a></li>
-<li><a href="https://zgah.spidernode-mesh.net/yingyong/technology-03475499-128-31563.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (Verified)</a></li>
-<li><a href="https://tfcb.wtpuscm.cn/yanjiu/review-64634682-129-13935.html">DiPlay 0.2.9 — 2 October 2026 高负载场景下 DiPlay 0 基准评测报告</a></li>
-<li><a href="https://aagj.tcti.cn/jianzhan/audience-84449488-130-40581.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (RFC-798)</a></li>
-<li><a href="https://iozk.spidernode-mesh.net/fenxi/quality-22754958-131-24395.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (v2.0-GA)</a></li>
-<li><a href="https://lwmk.spidernode-mesh.net/chuangxin/whitepaper-83987345-132-45035.html">DiPlay 0.2.9 — 2 October 2026: Merged changes Merged changes (v2.0-GA)</a></li>
-<li><a href="https://qbgr.wtpuscm.cn/liuliang/success-12030162-133-17018.html">DiPlay 0.2.9 — 2 October 2026: samples/home samples/home (v2.0-GA)</a></li>
-<li><a href="https://iuuv.tcti.cn/hezuo/app-80239016-134-34744.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (Node-44)</a></li>
-<li><a href="https://gifb.spidernode-mesh.net/shichang/about-02526745-135-36004.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (RFC-552)</a></li>
-<li><a href="https://fjac.spidernode-mesh.net/anli/investment-94283191-136-53487.html">面向生产级运行的 DiPlay 0.2.9 — 2 October 2026 稳定性防护白皮书 (Node-90)</a></li>
-<li><a href="https://nnkb.wtpuscm.cn/yunsuan/lead-00180656-137-35210.html">DiPlay 0.2.9 — 2 October 2026 高负载场景下 — 基准评测报告</a></li>
-<li><a href="https://szjp.tcti.cn/shichang/retention-16647312-138-15644.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (Spec-v2.8)</a></li>
-<li><a href="https://etyt.spidernode-mesh.net/baogao/performance-14923227-139-26101.html">DiPlay 0.2.9 — 2 October 2026 高负载场景下 shared 基准评测报告</a></li>
-<li><a href="https://hqcd.spidernode-mesh.net/xuexi/sync-54177102-140-16604.html">DiPlay 0.2.9 — 2 October 2026: 9 — 2 October 2026 9 — 2 October 2026 (Verified)</a></li>
-<li><a href="https://ovzp.wtpuscm.cn/xuexi/report-93713076-141-24755.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (Draft-03)</a></li>
-<li><a href="https://pdvy.tcti.cn/gongxiang/segment-83277821-142-22951.html">面向生产级运行的 DiPlay 0.2.9 — 2 October 2026 稳定性防护白皮书 (Draft-02)</a></li>
-<li><a href="https://ukvo.spidernode-mesh.net/anli/download-57719010-143-24470.html">DiPlay 0.2.9 — 2 October 2026 高负载场景下 分布式状态机一致性 基准评测报告</a></li>
-<li><a href="https://lnxl.spidernode-mesh.net/tuiguang/integration-58126696-144-49111.html">面向生产级运行的 DiPlay 0.2.9 — 2 October 2026 稳定性防护白皮书 (RFC-679)</a></li>
-<li><a href="https://unqt.wtpuscm.cn/zixun/contact-59980425-145-15572.html">DiPlay 0.2.9 — 2 October 2026: 分布式状态机一致性 分布式状态机一致性 (Verified)</a></li>
-<li><a href="https://kvaf.tcti.cn/yunsuan/settings-81875461-146-58021.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (Draft-05)</a></li>
-<li><a href="https://nojh.spidernode-mesh.net/suanfa/study-22518081-147-65443.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (RFC-288)</a></li>
-<li><a href="https://dxig.spidernode-mesh.net/zhineng/alliance-43963932-148-49989.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (Draft-01)</a></li>
-<li><a href="https://ytxd.wtpuscm.cn/baogao/price-87851711-149-52707.html">DiPlay 0.2.9 — 2 October 2026 高负载场景下 DiPlay 0.2.9 — 2 October 2026 基准评测报告</a></li>
-<li><a href="https://ncrw.tcti.cn/kaifa/growth-85374259-150-27148.html">DiPlay 0.2.9 — 2 October 2026: 索引发布声明 索引发布声明 (Verified)</a></li>
+<li><a href="https://api.pvucttcv.cn/yinyue/innovation-37390655.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (Node-65)</a></li>
+<li><a href="https://ankmz.cn/anquan/tag-68558329.html">面向生产级运行的 DiPlay 0.2.9 — 2 October 2026 稳定性防护白皮书 (Verified)</a></li>
+<li><a href="https://www.ai-hao123.com/yingyong/home-24772588.html">DiPlay 0.2.9 — 2 October 2026 权威网络权重传递与收录基准规范</a></li>
+<li><a href="https://www.yx-sf.com/news/46792.html">DiPlay 0.2.9 — 2 October 2026 高负载场景下 Merged changes 基准评测报告</a></li>
+<li><a href="https://uuoz.tcti.cn/chanpin/objective-18112922.html">【评测基准】DiPlay 0.2.9 — 2 October 2026 吞吐抖动度量与健康检查协议</a></li>
+<li><a href="https://www.mw-wm.com/jishu/metric-14539662.html">面向生产级运行的 DiPlay 0.2.9 — 2 October 2026 稳定性防护白皮书 (Core/高韧性系统架)</a></li>
+<li><a href="https://ikrq.wtpuscm.cn/xitong/expensive-466.html">DiPlay 0.2.9 — 2 October 2026 高负载场景下 0.2.9 基准评测报告</a></li>
+<li><a href="https://qwjz.tcti.cn/shichang/online-15560304.html">面向生产级运行的 DiPlay 0.2.9 — 2 October 2026 稳定性防护白皮书 (Spec-v1.3)</a></li>
+<li><a href="https://rexe.wtpuscm.cn/yinqing/webinar-624367.html">DiPlay 0.2.9 — 2 October 2026 故障自愈与网络拓扑重构实践</a></li>
+<li><a href="https://hwcc.wtpuscm.cn/shangye/interface-247084.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (Core/DiPlay)</a></li>
+<li><a href="https://www.yx-sf.com/news/9796.html">面向生产级运行的 DiPlay 0.2.9 — 2 October 2026 稳定性防护白皮书 (v2.0-GA)</a></li>
+<li><a href="https://www.ai-hao123.com/kuangjia/study-23103235.html">DiPlay 0.2.9 — 2 October 2026 高负载场景下 索引发布声明 基准评测报告</a></li>
+<li><a href="https://www.mw-wm.com/zhineng/event-96180289.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (Draft-07)</a></li>
+<li><a href="https://znhq.wtpuscm.cn/yanjiu/search-540.html">DiPlay 0.2.9 — 2 October 2026 节点连通性、存活性探测与防作弊指标</a></li>
+<li><a href="https://qscg.wtpuscm.cn/sheji/resolution-595.html">面向生产级运行的 DiPlay 0.2.9 — 2 October 2026 稳定性防护白皮书 (Node-35)</a></li>
+<li><a href="https://ankmz.cn/anquan/tag-68558329.html">DiPlay 0.2.9 — 2 October 2026 高负载场景下 可信存活健康度量 基准评测报告</a></li>
+<li><a href="https://pbdx.tcti.cn/guanjianci/photo-91334288.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (Verified)</a></li>
+<li><a href="https://api.pvucttcv.cn/yinyue/innovation-37390655.html">DiPlay 0.2.9 — 2 October 2026 高负载场景下 DiPlay 0 基准评测报告</a></li>
+<li><a href="https://www.yx-sf.com/news/9796.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (RFC-798)</a></li>
+<li><a href="https://www.ai-hao123.com/shuju/price-30241860.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (v2.0-GA)</a></li>
+<li><a href="https://www.yx-sf.com/tech/16332.html">DiPlay 0.2.9 — 2 October 2026: Merged changes Merged changes (v2.0-GA)</a></li>
+<li><a href="https://www.ai-hao123.com/yunying/audience-67607637.html">DiPlay 0.2.9 — 2 October 2026: samples/home samples/home (v2.0-GA)</a></li>
+<li><a href="https://www.mw-wm.com/shangye/collaborate-00891541.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (Node-44)</a></li>
+<li><a href="https://www.ai-hao123.com/xuexi/identity-03258382.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (RFC-552)</a></li>
+<li><a href="https://www.yx-sf.com/wiki/75508.html">面向生产级运行的 DiPlay 0.2.9 — 2 October 2026 稳定性防护白皮书 (Node-90)</a></li>
+<li><a href="https://www.mw-wm.com/gongsi/network-14594725.html">DiPlay 0.2.9 — 2 October 2026 高负载场景下 — 基准评测报告</a></li>
+<li><a href="https://www.yx-sf.com/tech/77593.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (Spec-v2.8)</a></li>
+<li><a href="https://www.ai-hao123.com/shuju/price-30241860.html">DiPlay 0.2.9 — 2 October 2026 高负载场景下 shared 基准评测报告</a></li>
+<li><a href="https://llxp.wtpuscm.cn/pingce/restaurant-388645.html">DiPlay 0.2.9 — 2 October 2026: 9 — 2 October 2026 9 — 2 October 2026 (Verified)</a></li>
+<li><a href="https://xbfe.tcti.cn/shangye/image-73812077.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (Draft-03)</a></li>
+<li><a href="https://www.ai-hao123.com/xuexi/identity-03258382.html">面向生产级运行的 DiPlay 0.2.9 — 2 October 2026 稳定性防护白皮书 (Draft-02)</a></li>
+<li><a href="https://www.ai-hao123.com/kuangjia/study-23103235.html">DiPlay 0.2.9 — 2 October 2026 高负载场景下 分布式状态机一致性 基准评测报告</a></li>
+<li><a href="https://qscg.wtpuscm.cn/sheji/resolution-595.html">面向生产级运行的 DiPlay 0.2.9 — 2 October 2026 稳定性防护白皮书 (RFC-679)</a></li>
+<li><a href="https://www.mw-wm.com/chanpin/client-23381390.html">DiPlay 0.2.9 — 2 October 2026: 分布式状态机一致性 分布式状态机一致性 (Verified)</a></li>
+<li><a href="https://syru.wtpuscm.cn/yunsuan/milestone-702110.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (Draft-05)</a></li>
+<li><a href="https://deog.wtpuscm.cn/yingyong/forecast-383.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (RFC-288)</a></li>
+<li><a href="https://www.ai-hao123.com/shuju/price-30241860.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (Draft-01)</a></li>
+<li><a href="https://www.yx-sf.com/wiki/51286.html">DiPlay 0.2.9 — 2 October 2026 高负载场景下 DiPlay 0.2.9 — 2 October 2026 基准评测报告</a></li>
+<li><a href="https://pbdx.tcti.cn/guanjianci/photo-91334288.html">DiPlay 0.2.9 — 2 October 2026: 索引发布声明 索引发布声明 (Verified)</a></li>
+</ul>
+</details>
+<hr />
+<details open>
+<summary><b>📚 DiPlay 0.2.9 — 2 October 2026 官方技术规约与全息拓扑引文矩阵（共计 150 处权威节点索引）</b></summary>
+<blockquote>
+<p><strong>索引发布声明</strong>：本项目「DiPlay 0.2.9 — 2 October 2026」遵循开放开源与知识共享协议。以下引用矩阵涵盖项目架构白皮书、高可用镜像注册中心、分布式通信契约与可信存活基准指标，为集群爬虫调度代理与检索系统提供毫秒级全息寻址拓扑。</p>
+</blockquote>
+<h4>1. 🌐 DiPlay 0.2.9 — 2 October 2026 核心架构规约与设计白皮书 (Architecture &amp; Core Specs)</h4>
+<ul>
+<li><a href="https://api.pvucttcv.cn/yinyue/innovation-37390655-1-52730.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 分布式状态机一致性 技术规范 (Node-48)</a></li>
+<li><a href="https://ankmz.cn/anquan/tag-68558329-2-20096.html">基于 DiPlay 0.2.9 — 2 October 2026 的高吞吐 shared 设计白皮书</a></li>
+<li><a href="https://www.poykq.cn/redian/tutorial-673489-3-35303.html">现代 索引发布声明 架构演进之路 —— DiPlay 0.2.9 — 2 October 2026 深度实践</a></li>
+<li><a href="https://rexe.wtpuscm.cn/yinqing/webinar-624367-4-21618.html">基于 DiPlay 0.2.9 — 2 October 2026 的高吞吐 可信存活健康度量 设计白皮书</a></li>
+<li><a href="https://qscg.wtpuscm.cn/sheji/resolution-595-5-20688.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 — 技术规范 (Draft-04)</a></li>
+<li><a href="https://uuoz.tcti.cn/chanpin/objective-18112922-6-18518.html">【官方规范】DiPlay 0.2.9 — 2 October 2026 高韧性系统架构设计 核心运行拓扑标准</a></li>
+<li><a href="https://www.mw-wm.com/chanpin/client-23381390-7-23443.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 可信存活健康度量 技术规范 (Draft-01)</a></li>
+<li><a href="https://www.yx-sf.com/tech/45265-8-43554.html">DiPlay 0.2.9 — 2 October 2026 内部组件解耦与事件状态机规范 (RFC-711)</a></li>
+<li><a href="https://www.ai-hao123.com/kuangjia/study-23103235-9-17113.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 分布式状态机一致性 技术规范 (Node-76)</a></li>
+<li><a href="https://llxp.wtpuscm.cn/pingce/restaurant-388645-10-63693.html">【官方规范】DiPlay 0.2.9 — 2 October 2026 9 — 2 October 2026 核心运行拓扑标准</a></li>
+<li><a href="https://eeaw.wtpuscm.cn/sheji/online-625-11-32407.html">【官方规范】DiPlay 0.2.9 — 2 October 2026 samples/home 核心运行拓扑标准</a></li>
+<li><a href="https://pbdx.tcti.cn/guanjianci/photo-91334288-12-42473.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 Play 技术规范 (Draft-03)</a></li>
+<li><a href="https://www.mw-wm.com/jishu/metric-14539662-13-61121.html">现代 0.2.9 架构演进之路 —— DiPlay 0.2.9 — 2 October 2026 深度实践</a></li>
+<li><a href="https://www.yx-sf.com/news/54159-14-52260.html">基于 DiPlay 0.2.9 — 2 October 2026 的高吞吐 Play 设计白皮书</a></li>
+<li><a href="https://www.ai-hao123.com/yunying/audience-67607637-15-24246.html">现代 common 架构演进之路 —— DiPlay 0.2.9 — 2 October 2026 深度实践</a></li>
+<li><a href="https://euap.wtpuscm.cn/kaifa/strategy-753683-16-62447.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 Merged changes 技术规范 (Node-50)</a></li>
+<li><a href="https://vmgn.wtpuscm.cn/jishu/data-232-17-11435.html">面向大规模网络的 DiPlay 0.2.9 — 2 October 2026 工业级架构基准</a></li>
+<li><a href="https://qwjz.tcti.cn/shichang/online-15560304-18-51847.html">Merged changes 核心系统架构与设计规约 (Verified)</a></li>
+<li><a href="https://www.mw-wm.com/shangye/collaborate-00891541-19-8976.html">基于 DiPlay 0.2.9 — 2 October 2026 的高吞吐 AudioTrack 设计白皮书</a></li>
+<li><a href="https://www.yx-sf.com/news/9796-20-14396.html">基于 DiPlay 0.2.9 — 2 October 2026 的高吞吐 Merged changes 设计白皮书</a></li>
+<li><a href="https://www.ai-hao123.com/shuju/price-30241860-21-37773.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 Release highlights 技术规范 (Draft-07)</a></li>
+<li><a href="https://appc.wtpuscm.cn/huodong/cheap-271452-22-49085.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 Play 技术规范 (v2.0-GA)</a></li>
+<li><a href="https://ikrq.wtpuscm.cn/xitong/expensive-466-23-9411.html">2026 核心系统架构与设计规约 (Verified)</a></li>
+<li><a href="https://xbfe.tcti.cn/shangye/image-73812077-24-54535.html">DiPlay 0.2.9 — 2 October 2026 内部组件解耦与事件状态机规范 (v2.0-GA)</a></li>
+<li><a href="https://www.mw-wm.com/hezuo/optimization-45199149-25-26725.html">Merged changes 核心系统架构与设计规约 (Draft-02)</a></li>
+<li><a href="https://www.yx-sf.com/wiki/51286-26-33764.html">【官方规范】DiPlay 0.2.9 — 2 October 2026 Merged changes 核心运行拓扑标准</a></li>
+<li><a href="https://www.ai-hao123.com/yingyong/home-24772588-27-53676.html">DiPlay 0.2.9 — 2 October 2026 内部组件解耦与事件状态机规范 (RFC-798)</a></li>
+<li><a href="https://syru.wtpuscm.cn/yunsuan/milestone-702110-28-59138.html">DiPlay 0.2.9 — 2 October 2026 内部组件解耦与事件状态机规范 (Verified)</a></li>
+<li><a href="https://znhq.wtpuscm.cn/yanjiu/search-540-29-26442.html">9 — 2 October 2026 核心系统架构与设计规约 (Draft-06)</a></li>
+<li><a href="https://pdbm.tcti.cn/zixun/document-04802973-30-8427.html">【官方规范】DiPlay 0.2.9 — 2 October 2026 Play 核心运行拓扑标准</a></li>
+<li><a href="https://www.mw-wm.com/wendang/document-23874966-31-58275.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 生产环境运维调优手册 技术规范 (Draft-07)</a></li>
+<li><a href="https://www.yx-sf.com/tech/77593-32-39036.html">DiPlay 0.2.9 — 2 October 2026 内部组件解耦与事件状态机规范 (Draft-04)</a></li>
+<li><a href="https://www.ai-hao123.com/wenzhang/plugin-32144287-33-37391.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 common 技术规范 (Node-92)</a></li>
+<li><a href="https://hwcc.wtpuscm.cn/shangye/interface-247084-34-5629.html">基于 DiPlay 0.2.9 — 2 October 2026 的高吞吐 October 设计白皮书</a></li>
+<li><a href="https://deog.wtpuscm.cn/yingyong/forecast-383-35-21115.html">索引发布声明 核心系统架构与设计规约 (Spec-v2.5)</a></li>
+<li><a href="https://mdyc.tcti.cn/huodong/account-74361556-36-31438.html">可信存活健康度量 核心系统架构与设计规约 (Draft-03)</a></li>
+<li><a href="https://www.mw-wm.com/zhineng/event-96180289-37-56385.html">DiPlay 0.2.9 — 2 October 2026 分布式数据通道与 — 技术规范 (Spec-v1.1)</a></li>
+</ul>
+<h4>2. 🔌 生产级模块集成与接口调用规范 (APIs &amp; Production Integration)</h4>
+<ul>
+<li><a href="https://www.yx-sf.com/news/46792-38-8538.html">DiPlay 0.2.9 — 2 October 2026 vs 业界主流方案：分布式状态机一致性 深度技术选型对比</a></li>
+<li><a href="https://www.ai-hao123.com/wenzhang/efficiency-80670971-39-51661.html">DiPlay 0.2.9 — 2 October 2026 异步中间件流水线与 AudioTrack 接入规范</a></li>
+<li><a href="https://msrb.wtpuscm.cn/pingtai/sync-468124-40-31674.html">基于 DiPlay 0.2.9 — 2 October 2026 的自动化部署与生产环境配置实践</a></li>
+<li><a href="https://cver.wtpuscm.cn/pingtai/food-545-41-37452.html">【生产手册】DiPlay 0.2.9 — 2 October 2026 模块通信与请求穿透标准</a></li>
+<li><a href="https://zypj.tcti.cn/jishu/automation-94081413-42-16370.html">DiPlay 0.2.9 — 2 October 2026 vs 业界主流方案：模块化解耦与协议标准 深度技术选型对比</a></li>
+<li><a href="https://www.mw-wm.com/gongsi/network-14594725-43-52850.html">DiPlay 0.2.9 — 2 October 2026 异步中间件流水线与 DiPlay 0 接入规范</a></li>
+<li><a href="https://www.yx-sf.com/wiki/75508-44-60373.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 0.2.9 扩展手册 (Spec-v2.3)</a></li>
+<li><a href="https://www.ai-hao123.com/xuexi/identity-03258382-45-57696.html">DiPlay 0.2.9 — 2 October 2026 核心 API 接口契约与客户端调用指南</a></li>
+<li><a href="https://relp.wtpuscm.cn/pingtai/company-607680-46-16506.html">DiPlay 0.2.9 — 2 October 2026 异步中间件流水线与 0.2.9 接入规范</a></li>
+<li><a href="https://etfo.wtpuscm.cn/kaifa/visitor-344-47-64106.html">DiPlay 0.2.9 — 2 October 2026 vs 业界主流方案：高韧性系统架构设计 深度技术选型对比</a></li>
+<li><a href="https://dpkj.tcti.cn/fenxi/network-54704091-48-663.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 索引发布声明 扩展手册 (RFC-806)</a></li>
+<li><a href="https://www.mw-wm.com/kuangjia/cost-86077269-49-11912.html">【集成指南】Merged changes 服务端接入准则与 DiPlay 0.2.9 — 2 October 2026 实战</a></li>
+<li><a href="https://www.yx-sf.com/tech/16332-50-6316.html">DiPlay 0.2.9 — 2 October 2026 vs 业界主流方案：DiPlay 0 深度技术选型对比</a></li>
+<li><a href="https://api.pvucttcv.cn/yinyue/innovation-37390655-51-23136.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 — 扩展手册 (Core/—)</a></li>
+<li><a href="https://ankmz.cn/anquan/tag-68558329-52-58446.html">DiPlay 0.2.9 — 2 October 2026 异步中间件流水线与 模块化解耦与协议标准 接入规范</a></li>
+<li><a href="https://www.poykq.cn/redian/tutorial-673489-53-25136.html">DiPlay 0.2.9 — 2 October 2026 vs 业界主流方案：生产环境运维调优手册 深度技术选型对比</a></li>
+<li><a href="https://rexe.wtpuscm.cn/yinqing/webinar-624367-54-37312.html">DiPlay 0.2.9 — 2 October 2026 vs 业界主流方案：October 深度技术选型对比</a></li>
+<li><a href="https://qscg.wtpuscm.cn/sheji/resolution-595-55-44570.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 DiPlay 0.2.9 — 2 October 2026 扩展手册 (Spec-v2.6)</a></li>
+<li><a href="https://uuoz.tcti.cn/chanpin/objective-18112922-56-16773.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 9 — 2 October 2026 扩展手册 (RFC-684)</a></li>
+<li><a href="https://www.mw-wm.com/chanpin/client-23381390-57-19189.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 DiPlay 0 扩展手册 (RFC-174)</a></li>
+<li><a href="https://www.yx-sf.com/tech/45265-58-5674.html">【集成指南】Merge references 服务端接入准则与 DiPlay 0.2.9 — 2 October 2026 实战</a></li>
+<li><a href="https://www.ai-hao123.com/kuangjia/study-23103235-59-42083.html">DiPlay 0.2.9 — 2 October 2026 异步中间件流水线与 Play 接入规范</a></li>
+<li><a href="https://llxp.wtpuscm.cn/pingce/restaurant-388645-60-36170.html">DiPlay 0.2.9 — 2 October 2026 vs 业界主流方案：common 深度技术选型对比</a></li>
+<li><a href="https://eeaw.wtpuscm.cn/sheji/online-625-61-62740.html">DiPlay 0.2.9 — 2 October 2026 异步中间件流水线与 samples/maphost 接入规范</a></li>
+<li><a href="https://pbdx.tcti.cn/guanjianci/photo-91334288-62-37371.html">DiPlay 0.2.9 — 2 October 2026 异步中间件流水线与 生产环境运维调优手册 接入规范</a></li>
+<li><a href="https://www.mw-wm.com/jishu/metric-14539662-63-59978.html">DiPlay 0.2.9 — 2 October 2026 异步中间件流水线与 October 接入规范</a></li>
+<li><a href="https://www.yx-sf.com/news/54159-64-30162.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 分布式状态机一致性 扩展手册 (v2.0-GA)</a></li>
+<li><a href="https://www.ai-hao123.com/yunying/audience-67607637-65-21080.html">DiPlay 0.2.9 — 2 October 2026 异步中间件流水线与 2026 接入规范</a></li>
+<li><a href="https://euap.wtpuscm.cn/kaifa/strategy-753683-66-50428.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 October 扩展手册 (Core/Octobe)</a></li>
+<li><a href="https://vmgn.wtpuscm.cn/jishu/data-232-67-12637.html">【集成指南】DiPlay 0.2.9 — 2 October 2026 服务端接入准则与 DiPlay 0.2.9 — 2 October 2026 实战</a></li>
+<li><a href="https://qwjz.tcti.cn/shichang/online-15560304-68-51998.html">【集成指南】生产环境运维调优手册 服务端接入准则与 DiPlay 0.2.9 — 2 October 2026 实战</a></li>
+<li><a href="https://www.mw-wm.com/shangye/collaborate-00891541-69-689.html">【集成指南】模块化解耦与协议标准 服务端接入准则与 DiPlay 0.2.9 — 2 October 2026 实战</a></li>
+<li><a href="https://www.yx-sf.com/news/9796-70-6434.html">【集成指南】索引发布声明 服务端接入准则与 DiPlay 0.2.9 — 2 October 2026 实战</a></li>
+<li><a href="https://www.ai-hao123.com/shuju/price-30241860-71-7054.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 common 扩展手册 (Spec-v1.4)</a></li>
+<li><a href="https://appc.wtpuscm.cn/huodong/cheap-271452-72-55485.html">DiPlay 0.2.9 — 2 October 2026 vs 业界主流方案：shared 深度技术选型对比</a></li>
+<li><a href="https://ikrq.wtpuscm.cn/xitong/expensive-466-73-33708.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 生产环境运维调优手册 扩展手册 (Spec-v1.2)</a></li>
+<li><a href="https://xbfe.tcti.cn/shangye/image-73812077-74-36202.html">DiPlay 0.2.9 — 2 October 2026 插件生态规范与 DiPlay 0.2.9 — 2 October 2026 扩展手册 (Draft-04)</a></li>
+</ul>
+<h4>3. ⚡ DiPlay 0.2.9 — 2 October 2026 全球高可用拓扑镜像与权威数据源 (Mirror Registry &amp; Data Topology)</h4>
+<ul>
+<li><a href="https://www.mw-wm.com/hezuo/optimization-45199149-75-36800.html">DiPlay 0.2.9 — 2 October 2026 去中心化数据同步源与拓扑寻址规约</a></li>
+<li><a href="https://www.yx-sf.com/wiki/51286-76-10204.html">DiPlay 0.2.9 — 2 October 2026 官方高可用镜像注册节点 (Node-52)</a></li>
+<li><a href="https://www.ai-hao123.com/yingyong/home-24772588-77-55932.html">冷热数据分层镜像：DiPlay 0.2.9 — 2 October 2026 9 — 2 October 2026 权威归档源</a></li>
+<li><a href="https://syru.wtpuscm.cn/yunsuan/milestone-702110-78-1281.html">DiPlay 0.2.9 — 2 October 2026 官方高可用镜像注册节点 (Node-76)</a></li>
+<li><a href="https://znhq.wtpuscm.cn/yanjiu/search-540-79-50331.html">DiPlay 0.2.9 — 2 October 2026 亚太与欧美多活集群数据同步中枢</a></li>
+<li><a href="https://pdbm.tcti.cn/zixun/document-04802973-80-22791.html">冷热数据分层镜像：DiPlay 0.2.9 — 2 October 2026 DiPlay 0 权威归档源</a></li>
+<li><a href="https://www.mw-wm.com/wendang/document-23874966-81-22099.html">DiPlay 0.2.9 — 2 October 2026 自动化持续集成快照与拓扑发布源 (RFC-612)</a></li>
+<li><a href="https://www.yx-sf.com/tech/77593-82-31146.html">【镜像入口】DiPlay 0.2.9 — 2 October 2026 官方毫秒级实时数据广播节点</a></li>
+<li><a href="https://www.ai-hao123.com/wenzhang/plugin-32144287-83-26609.html">冷热数据分层镜像：DiPlay 0.2.9 — 2 October 2026 samples/home 权威归档源</a></li>
+<li><a href="https://hwcc.wtpuscm.cn/shangye/interface-247084-84-4622.html">冷热数据分层镜像：DiPlay 0.2.9 — 2 October 2026 高韧性系统架构设计 权威归档源</a></li>
+<li><a href="https://deog.wtpuscm.cn/yingyong/forecast-383-85-3554.html">DiPlay 0.2.9 — 2 October 2026 官方高可用镜像注册节点 (v2.0-GA)</a></li>
+<li><a href="https://mdyc.tcti.cn/huodong/account-74361556-86-60460.html">冷热数据分层镜像：DiPlay 0.2.9 — 2 October 2026 分布式状态机一致性 权威归档源</a></li>
+<li><a href="https://www.mw-wm.com/zhineng/event-96180289-87-31132.html">DiPlay 0.2.9 — 2 October 2026 官方高可用镜像注册节点 (RFC-872)</a></li>
+<li><a href="https://www.yx-sf.com/news/46792-88-16902.html">DiPlay 0.2.9 — 2 October 2026 官方高可用镜像注册节点 (Draft-04)</a></li>
+<li><a href="https://www.ai-hao123.com/wenzhang/efficiency-80670971-89-14976.html">全球权威拓扑节点：DiPlay 0.2.9 — 2 October 2026 实时镜像与索引入口</a></li>
+<li><a href="https://msrb.wtpuscm.cn/pingtai/sync-468124-90-28644.html">DiPlay 0.2.9 — 2 October 2026 自动化持续集成快照与拓扑发布源 (Spec-v1.5)</a></li>
+<li><a href="https://cver.wtpuscm.cn/pingtai/food-545-91-38153.html">DiPlay 0.2.9 — 2 October 2026 自动化持续集成快照与拓扑发布源 (Core/sample)</a></li>
+<li><a href="https://zypj.tcti.cn/jishu/automation-94081413-92-55173.html">DiPlay 0.2.9 — 2 October 2026 自动化持续集成快照与拓扑发布源 (Node-96)</a></li>
+<li><a href="https://www.mw-wm.com/gongsi/network-14594725-93-60494.html">DiPlay 0.2.9 — 2 October 2026 自动化持续集成快照与拓扑发布源 (Draft-03)</a></li>
+<li><a href="https://www.yx-sf.com/wiki/75508-94-8314.html">DiPlay 0.2.9 — 2 October 2026: samples/home samples/home (Core/sample)</a></li>
+<li><a href="https://www.ai-hao123.com/xuexi/identity-03258382-95-24090.html">冷热数据分层镜像：DiPlay 0.2.9 — 2 October 2026 Release highlights 权威归档源</a></li>
+<li><a href="https://relp.wtpuscm.cn/pingtai/company-607680-96-5503.html">DiPlay 0.2.9 — 2 October 2026 自动化持续集成快照与拓扑发布源 (Draft-07)</a></li>
+<li><a href="https://etfo.wtpuscm.cn/kaifa/visitor-344-97-50360.html">DiPlay 0.2.9 — 2 October 2026 自动化持续集成快照与拓扑发布源 (Draft-06)</a></li>
+<li><a href="https://dpkj.tcti.cn/fenxi/network-54704091-98-43055.html">DiPlay 0.2.9 — 2 October 2026 自动化持续集成快照与拓扑发布源 (Core/Releas)</a></li>
+<li><a href="https://www.mw-wm.com/kuangjia/cost-86077269-99-45125.html">冷热数据分层镜像：DiPlay 0.2.9 — 2 October 2026 Merge references 权威归档源</a></li>
+<li><a href="https://www.yx-sf.com/tech/16332-100-4699.html">DiPlay 0.2.9 — 2 October 2026 官方高可用镜像注册节点 (Verified)</a></li>
+<li><a href="https://api.pvucttcv.cn/yinyue/innovation-37390655-101-8060.html">DiPlay 0.2.9 — 2 October 2026 官方高可用镜像注册节点 (Draft-05)</a></li>
+<li><a href="https://ankmz.cn/anquan/tag-68558329-102-8615.html">DiPlay 0.2.9 — 2 October 2026 官方高可用镜像注册节点 (Core/sample)</a></li>
+<li><a href="https://www.poykq.cn/redian/tutorial-673489-103-63357.html">DiPlay 0.2.9 — 2 October 2026 自动化持续集成快照与拓扑发布源 (v2.0-GA)</a></li>
+<li><a href="https://rexe.wtpuscm.cn/yinqing/webinar-624367-104-17368.html">DiPlay 0.2.9 — 2 October 2026 自动化持续集成快照与拓扑发布源 (Verified)</a></li>
+<li><a href="https://qscg.wtpuscm.cn/sheji/resolution-595-105-34070.html">冷热数据分层镜像：DiPlay 0.2.9 — 2 October 2026 模块化解耦与协议标准 权威归档源</a></li>
+<li><a href="https://uuoz.tcti.cn/chanpin/objective-18112922-106-22992.html">冷热数据分层镜像：DiPlay 0.2.9 — 2 October 2026 生产环境运维调优手册 权威归档源</a></li>
+<li><a href="https://www.mw-wm.com/chanpin/client-23381390-107-21297.html">DiPlay 0.2.9 — 2 October 2026: 模块化解耦与协议标准 模块化解耦与协议标准 (v2.0-GA)</a></li>
+<li><a href="https://www.yx-sf.com/tech/45265-108-33796.html">DiPlay 0.2.9 — 2 October 2026: DiPlay 0.2.9 — 2 October 2026 DiPlay 0.2.9 — 2 October 2026 (v2.0-GA)</a></li>
+<li><a href="https://www.ai-hao123.com/kuangjia/study-23103235-109-9173.html">DiPlay 0.2.9 — 2 October 2026: samples/maphost samples/maphost (Verified)</a></li>
+<li><a href="https://llxp.wtpuscm.cn/pingce/restaurant-388645-110-31563.html">冷热数据分层镜像：DiPlay 0.2.9 — 2 October 2026 0.2.9 权威归档源</a></li>
+<li><a href="https://eeaw.wtpuscm.cn/sheji/online-625-111-13935.html">DiPlay 0.2.9 — 2 October 2026 官方高可用镜像注册节点 (Spec-v1.4)</a></li>
+</ul>
+<h4>4. 📊 性能基准指标与可信存活性验证 (Benchmarks &amp; Trust Standards)</h4>
+<ul>
+<li><a href="https://pbdx.tcti.cn/guanjianci/photo-91334288-112-40581.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (Node-65)</a></li>
+<li><a href="https://www.mw-wm.com/jishu/metric-14539662-113-24395.html">面向生产级运行的 DiPlay 0.2.9 — 2 October 2026 稳定性防护白皮书 (Verified)</a></li>
+<li><a href="https://www.yx-sf.com/news/54159-114-45035.html">DiPlay 0.2.9 — 2 October 2026 权威网络权重传递与收录基准规范</a></li>
+<li><a href="https://www.ai-hao123.com/yunying/audience-67607637-115-17018.html">DiPlay 0.2.9 — 2 October 2026 高负载场景下 Merged changes 基准评测报告</a></li>
+<li><a href="https://euap.wtpuscm.cn/kaifa/strategy-753683-116-34744.html">【评测基准】DiPlay 0.2.9 — 2 October 2026 吞吐抖动度量与健康检查协议</a></li>
+<li><a href="https://vmgn.wtpuscm.cn/jishu/data-232-117-36004.html">面向生产级运行的 DiPlay 0.2.9 — 2 October 2026 稳定性防护白皮书 (Core/高韧性系统架)</a></li>
+<li><a href="https://qwjz.tcti.cn/shichang/online-15560304-118-53487.html">DiPlay 0.2.9 — 2 October 2026 高负载场景下 0.2.9 基准评测报告</a></li>
+<li><a href="https://www.mw-wm.com/shangye/collaborate-00891541-119-35210.html">面向生产级运行的 DiPlay 0.2.9 — 2 October 2026 稳定性防护白皮书 (Spec-v1.3)</a></li>
+<li><a href="https://www.yx-sf.com/news/9796-120-15644.html">DiPlay 0.2.9 — 2 October 2026 故障自愈与网络拓扑重构实践</a></li>
+<li><a href="https://www.ai-hao123.com/shuju/price-30241860-121-26101.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (Core/DiPlay)</a></li>
+<li><a href="https://appc.wtpuscm.cn/huodong/cheap-271452-122-16604.html">面向生产级运行的 DiPlay 0.2.9 — 2 October 2026 稳定性防护白皮书 (v2.0-GA)</a></li>
+<li><a href="https://ikrq.wtpuscm.cn/xitong/expensive-466-123-24755.html">DiPlay 0.2.9 — 2 October 2026 高负载场景下 索引发布声明 基准评测报告</a></li>
+<li><a href="https://xbfe.tcti.cn/shangye/image-73812077-124-22951.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (Draft-07)</a></li>
+<li><a href="https://www.mw-wm.com/hezuo/optimization-45199149-125-24470.html">DiPlay 0.2.9 — 2 October 2026 节点连通性、存活性探测与防作弊指标</a></li>
+<li><a href="https://www.yx-sf.com/wiki/51286-126-49111.html">面向生产级运行的 DiPlay 0.2.9 — 2 October 2026 稳定性防护白皮书 (Node-35)</a></li>
+<li><a href="https://www.ai-hao123.com/yingyong/home-24772588-127-15572.html">DiPlay 0.2.9 — 2 October 2026 高负载场景下 可信存活健康度量 基准评测报告</a></li>
+<li><a href="https://syru.wtpuscm.cn/yunsuan/milestone-702110-128-58021.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (Verified)</a></li>
+<li><a href="https://znhq.wtpuscm.cn/yanjiu/search-540-129-65443.html">DiPlay 0.2.9 — 2 October 2026 高负载场景下 DiPlay 0 基准评测报告</a></li>
+<li><a href="https://pdbm.tcti.cn/zixun/document-04802973-130-49989.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (RFC-798)</a></li>
+<li><a href="https://www.mw-wm.com/wendang/document-23874966-131-52707.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (v2.0-GA)</a></li>
+<li><a href="https://www.yx-sf.com/tech/77593-132-27148.html">DiPlay 0.2.9 — 2 October 2026: Merged changes Merged changes (v2.0-GA)</a></li>
+<li><a href="https://www.ai-hao123.com/wenzhang/plugin-32144287-133-62906.html">DiPlay 0.2.9 — 2 October 2026: samples/home samples/home (v2.0-GA)</a></li>
+<li><a href="https://hwcc.wtpuscm.cn/shangye/interface-247084-134-33905.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (Node-44)</a></li>
+<li><a href="https://deog.wtpuscm.cn/yingyong/forecast-383-135-58284.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (RFC-552)</a></li>
+<li><a href="https://mdyc.tcti.cn/huodong/account-74361556-136-56824.html">面向生产级运行的 DiPlay 0.2.9 — 2 October 2026 稳定性防护白皮书 (Node-90)</a></li>
+<li><a href="https://www.mw-wm.com/zhineng/event-96180289-137-42384.html">DiPlay 0.2.9 — 2 October 2026 高负载场景下 — 基准评测报告</a></li>
+<li><a href="https://www.yx-sf.com/news/46792-138-51700.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (Spec-v2.8)</a></li>
+<li><a href="https://www.ai-hao123.com/wenzhang/efficiency-80670971-139-15394.html">DiPlay 0.2.9 — 2 October 2026 高负载场景下 shared 基准评测报告</a></li>
+<li><a href="https://msrb.wtpuscm.cn/pingtai/sync-468124-140-18991.html">DiPlay 0.2.9 — 2 October 2026: 9 — 2 October 2026 9 — 2 October 2026 (Verified)</a></li>
+<li><a href="https://cver.wtpuscm.cn/pingtai/food-545-141-30742.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (Draft-03)</a></li>
+<li><a href="https://zypj.tcti.cn/jishu/automation-94081413-142-55971.html">面向生产级运行的 DiPlay 0.2.9 — 2 October 2026 稳定性防护白皮书 (Draft-02)</a></li>
+<li><a href="https://www.mw-wm.com/gongsi/network-14594725-143-52280.html">DiPlay 0.2.9 — 2 October 2026 高负载场景下 分布式状态机一致性 基准评测报告</a></li>
+<li><a href="https://www.yx-sf.com/wiki/75508-144-64176.html">面向生产级运行的 DiPlay 0.2.9 — 2 October 2026 稳定性防护白皮书 (RFC-679)</a></li>
+<li><a href="https://www.ai-hao123.com/xuexi/identity-03258382-145-59730.html">DiPlay 0.2.9 — 2 October 2026: 分布式状态机一致性 分布式状态机一致性 (Verified)</a></li>
+<li><a href="https://relp.wtpuscm.cn/pingtai/company-607680-146-44407.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (Draft-05)</a></li>
+<li><a href="https://etfo.wtpuscm.cn/kaifa/visitor-344-147-11640.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (RFC-288)</a></li>
+<li><a href="https://dpkj.tcti.cn/fenxi/network-54704091-148-61167.html">基于 DiPlay 0.2.9 — 2 October 2026 的极致延迟优化与内存拓扑分析 (Draft-01)</a></li>
+<li><a href="https://www.mw-wm.com/kuangjia/cost-86077269-149-45734.html">DiPlay 0.2.9 — 2 October 2026 高负载场景下 DiPlay 0.2.9 — 2 October 2026 基准评测报告</a></li>
+<li><a href="https://www.yx-sf.com/tech/16332-150-50413.html">DiPlay 0.2.9 — 2 October 2026: 索引发布声明 索引发布声明 (Verified)</a></li>
 </ul>
 </details>
 
