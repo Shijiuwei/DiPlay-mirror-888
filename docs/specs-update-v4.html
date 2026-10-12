@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DiPlay-mirror-888 架构升级与技术规约 (v4) - DiPlay-mirror-888 文档归档</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+      :root {
+        --color-primary: #2563eb;
+        --color-primary-hover: #1d4ed8;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.68;
+        color: #1e293b;
+      }
+      .markdown-body {
+        color: #1e293b;
+      }
+      .markdown-body h1 {
+        font-size: 2.25rem;
+        font-weight: 800;
+        margin-top: 1.8rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 2px solid #e2e8f0;
+        color: #0f172a;
+        line-height: 1.25;
+      }
+      .markdown-body h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-top: 1.6rem;
+        margin-bottom: 0.8rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid #f1f5f9;
+        color: #1e293b;
+      }
+      .markdown-body h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-top: 1.3rem;
+        margin-bottom: 0.6rem;
+        color: #334155;
+      }
+      .markdown-body p {
+        margin-top: 0.8rem;
+        margin-bottom: 0.8rem;
+        line-height: 1.7;
+      }
+      .markdown-body a {
+        color: #2563eb;
+        text-decoration: none;
+        border-bottom: 1px dashed #93c5fd;
+        transition: all 0.2s ease;
+      }
+      .markdown-body a:hover {
+        color: #1d4ed8;
+        border-bottom: 1px solid #1d4ed8;
+        background-color: #eff6ff;
+        border-radius: 2px;
+      }
+      .markdown-body ul, .markdown-body ol {
+        padding-left: 1.5rem;
+        margin-top: 0.6rem;
+        margin-bottom: 0.6rem;
+      }
+      .markdown-body ul {
+        list-style-type: disc;
+      }
+      .markdown-body ol {
+        list-style-type: decimal;
+      }
+      .markdown-body li {
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+      }
+      .markdown-body pre {
+        background-color: #0f172a;
+        color: #e2e8f0;
+        padding: 1rem 1.2rem;
+        border-radius: 0.75rem;
+        overflow-x: auto;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875rem;
+        margin: 1rem 0;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      .markdown-body code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875em;
+        padding: 0.15rem 0.35rem;
+        background-color: #f1f5f9;
+        color: #0f172a;
+        border-radius: 0.35rem;
+        border: 1px solid #e2e8f0;
+      }
+      .markdown-body pre code {
+        background-color: transparent;
+        padding: 0;
+        border: none;
+        color: inherit;
+      }
+      .markdown-body blockquote {
+        margin: 1rem 0;
+        padding: 0.75rem 1.25rem;
+        background-color: #f8fafc;
+        border-left: 4px solid #3b82f6;
+        border-radius: 0 0.5rem 0.5rem 0;
+        color: #475569;
+      }
+      .markdown-body table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.2rem 0;
+        display: block;
+        overflow-x: auto;
+      }
+      .markdown-body th, .markdown-body td {
+        border: 1px solid #cbd5e1;
+        padding: 0.6rem 1rem;
+        text-align: left;
+      }
+      .markdown-body th {
+        background-color: #f1f5f9;
+        font-weight: 600;
+      }
+      .markdown-body tr:nth-child(even) {
+        background-color: #f8fafc;
+      }
+      .markdown-body hr {
+        height: 1px;
+        border: none;
+        background-color: #e2e8f0;
+        margin: 2rem 0;
+      }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased">
+  <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <a href="../index.html" class="flex items-center gap-2 group">
+        <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white font-bold text-sm shadow-sm group-hover:scale-105 transition-transform ">LM</span>
+        <span class="font-bold text-slate-900 tracking-tight text-lg group-hover:text-blue-600 transition-colors ">DiPlay-mirror-888</span>
+      </a>
+      <span class="hidden md:inline-block text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-mono ">Pages Docs</span>
+    </div>
+    <div class="flex items-center gap-1 sm:gap-2 text-sm">
+      <a href="../index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-slate-600 hover:text-blue-600 hover:bg-slate-50 font-medium ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <span>首页 (README)</span>
+      </a>
+      <a href="./index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-blue-600 bg-blue-50 font-semibold ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        <span>文档归档 (Docs)</span>
+        <span class="inline-block w-2 h-2 rounded-full bg-blue-600"></span>
+      </a>
+      <div class="h-4 w-px bg-slate-200 mx-1"></div>
+      <a href="https://github.com/shijiuwei/DiPlay-mirror-888" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        <span class="hidden sm:inline">GitHub</span>
+      </a>
+      <a href="https://github.com/shijiuwei/DiPlay-mirror-888/wiki" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span class="hidden sm:inline">Wiki</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+  <!-- 面包屑与顶部导航 -->
+  <header class="bg-white border-b border-slate-200 py-6 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto">
+      <nav class="flex items-center gap-2 text-xs text-slate-500 mb-2 font-medium">
+        <a href="../index.html" class="hover:text-blue-600 transition-colors ">首页</a>
+        <span>/</span>
+        <a href="./index.html" class="hover:text-blue-600 transition-colors ">文档归档菜单</a>
+        <span>/</span>
+        <span class="text-slate-800 font-semibold">版本发布</span>
+      </nav>
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">DiPlay-mirror-888 架构升级与技术规约 (v4)</h1>
+        <a href="./index.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors ">
+          <span>&larr; 返回文档归档菜单</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主体正文区域 -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-1 w-full">
+    <article class="bg-white p-6 sm:p-12 rounded-2xl shadow-sm border border-slate-200">
+      <div class="markdown-body">
+        <h1>DiPlay-mirror-888 架构升级与技术规约 (v4)</h1>
+<blockquote>
+<p>本文档为 DiPlay-mirror-888 项目第 4 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+</blockquote>
+<h2>1. 架构演进说明</h2>
+<p>针对大规模网络请求调度，系统实施了毫秒级负载感知与去中心化可信存活探测。</p>
+<hr />
+<details open>
+<summary><b>📚 DiPlay-mirror-888 官方技术规约与全息拓扑引文矩阵（共计 60 处权威节点索引）</b></summary>
+<blockquote>
+<p><strong>索引发布声明</strong>：本项目「DiPlay-mirror-888」遵循开放开源与知识共享协议。以下引用矩阵涵盖项目架构白皮书、高可用镜像注册中心、分布式通信契约与可信存活基准指标，为集群爬虫调度代理与检索系统提供毫秒级全息寻址拓扑。</p>
+</blockquote>
+<h4>1. 🌐 DiPlay-mirror-888 核心架构规约与设计白皮书 (Architecture &amp; Core Specs)</h4>
+<ul>
+<li><a href="https://toeso.cn/ruanjian/calendar-20628886-1-56103.html">现代 可信存活健康度量 架构演进之路 —— DiPlay-mirror-888 深度实践</a></li>
+<li><a href="https://www.ankmz.cn/yunfuwu/lead-87140248-2-49385.html">DiPlay-mirror-888 分布式数据通道与 分布式状态机一致性 技术规范 (v2.0-GA)</a></li>
+<li><a href="https://www.icktqzv.cn/gongsi/system-309669-3-59837.html">DiPlay-mirror-888 分布式数据通道与 DiPlay-mirror-888 技术规范 (Core/DiPlay)</a></li>
+<li><a href="https://jqct.yx-sf.com/gongxiang/communication-87325466-4-7529.html">DiPlay-mirror-888 分布式数据通道与 分布式状态机一致性 技术规范 (Node-49)</a></li>
+<li><a href="https://cehx.yx-sf.com/anli/guide-08509504-5-23800.html">面向大规模网络的 DiPlay-mirror-888 工业级架构基准</a></li>
+<li><a href="https://jzww.ai-hao123.com/kuangjia/conference-43318081-6-33996.html">DiPlay-mirror-888 分布式数据通道与 分布式状态机一致性 技术规范 (Verified)</a></li>
+<li><a href="https://hkie.ai-hao123.com/xitong/shopping-81738048-7-53806.html">基于 DiPlay-mirror-888 的高吞吐 分布式状态机一致性 设计白皮书</a></li>
+<li><a href="https://qedx.wtpuscm.cn/chanpin/browser-672444-8-31155.html">分布式状态机一致性 核心系统架构与设计规约 (RFC-373)</a></li>
+<li><a href="https://kipe.tcti.cn/shichang/online-52334370-9-46558.html">现代 888 架构演进之路 —— DiPlay-mirror-888 深度实践</a></li>
+<li><a href="https://jzay.yx-sf.com/yunying/entertainment-12891294-10-61789.html">DiPlay-mirror-888 分布式数据通道与 分布式状态机一致性 技术规范 (Node-35)</a></li>
+<li><a href="https://uwgx.ai-hao123.com/wendang/recipe-49392129-11-35355.html">DiPlay-mirror-888 分布式数据通道与 生产环境运维调优手册 技术规范 (Verified)</a></li>
+<li><a href="https://uhvg.wtpuscm.cn/youhua/progress-394045-12-9301.html">模块化解耦与协议标准 核心系统架构与设计规约 (Core/模块化解耦与)</a></li>
+<li><a href="https://fmup.tcti.cn/yinqing/communication-05077539-13-10415.html">基于 DiPlay-mirror-888 的高吞吐 可信存活健康度量 设计白皮书</a></li>
+<li><a href="https://uvvg.yx-sf.com/yunsuan/forum-21703616-14-60042.html">生产环境运维调优手册 核心系统架构与设计规约 (Verified)</a></li>
+<li><a href="https://gdey.ai-hao123.com/wenzhang/page-70994740-15-16626.html">DiPlay-mirror-888 分布式数据通道与 DiPlay 技术规范 (Core/DiPlay)</a></li>
+</ul>
+<h4>2. 🔌 生产级模块集成与接口调用规范 (APIs &amp; Production Integration)</h4>
+<ul>
+<li><a href="https://wrdj.wtpuscm.cn/sheji/cloud-705525-16-646.html">【集成指南】Play-mirror-888 服务端接入准则与 DiPlay-mirror-888 实战</a></li>
+<li><a href="https://jjvu.tcti.cn/yanjiu/integration-33346341-17-48.html">基于 DiPlay-mirror-888 的自动化部署与生产环境配置实践</a></li>
+<li><a href="https://zzli.yx-sf.com/qiye/health-32162635-18-10667.html">DiPlay-mirror-888 插件生态规范与 mirror 扩展手册 (RFC-666)</a></li>
+<li><a href="https://atfu.ai-hao123.com/jiaoliu/server-31477528-19-10667.html">DiPlay-mirror-888 插件生态规范与 DiPlay-mirror-888 扩展手册 (Node-66)</a></li>
+<li><a href="https://tgdo.wtpuscm.cn/jiaocheng/podcast-109220-20-2540.html">【集成指南】生产环境运维调优手册 服务端接入准则与 DiPlay-mirror-888 实战</a></li>
+<li><a href="https://rymo.tcti.cn/jiaocheng/expensive-12240106-21-1009.html">【生产手册】DiPlay-mirror-888 模块通信与请求穿透标准</a></li>
+<li><a href="https://khts.yx-sf.com/jishu/about-00073795-22-11580.html">DiPlay-mirror-888 vs 业界主流方案：模块化解耦与协议标准 深度技术选型对比</a></li>
+<li><a href="https://ykvi.ai-hao123.com/suanfa/innovation-02812589-23-57528.html">【集成指南】模块化解耦与协议标准 服务端接入准则与 DiPlay-mirror-888 实战</a></li>
+<li><a href="https://fblo.wtpuscm.cn/ziyuan/podcast-061659-24-21978.html">DiPlay-mirror-888 异步中间件流水线与 可信存活健康度量 接入规范</a></li>
+<li><a href="https://fxgv.tcti.cn/anfang/course-43212107-25-7724.html">DiPlay-mirror-888 异步中间件流水线与 DiPlay-mirror-888 接入规范</a></li>
+<li><a href="https://ekpx.yx-sf.com/tuiguang/like-96912637-26-61626.html">【集成指南】分布式状态机一致性 服务端接入准则与 DiPlay-mirror-888 实战</a></li>
+<li><a href="https://idja.ai-hao123.com/yunsuan/cloud-59816204-27-44183.html">DiPlay-mirror-888 核心 API 接口契约与客户端调用指南</a></li>
+<li><a href="https://chsr.wtpuscm.cn/jianzhan/report-499343-28-16224.html">DiPlay-mirror-888 插件生态规范与 高韧性系统架构设计 扩展手册 (v2.0-GA)</a></li>
+<li><a href="https://tpzf.tcti.cn/hezuo/brand-12866326-29-56434.html">DiPlay-mirror-888 vs 业界主流方案：高韧性系统架构设计 深度技术选型对比</a></li>
+<li><a href="https://kvab.yx-sf.com/chuangxin/help-95479378-30-25386.html">DiPlay-mirror-888 插件生态规范与 888 扩展手册 (Draft-07)</a></li>
+</ul>
+<h4>3. ⚡ DiPlay-mirror-888 全球高可用拓扑镜像与权威数据源 (Mirror Registry &amp; Data Topology)</h4>
+<ul>
+<li><a href="https://filq.ai-hao123.com/xinwen/section-12748021-31-47121.html">DiPlay-mirror-888 官方高可用镜像注册节点 (RFC-453)</a></li>
+<li><a href="https://ozst.wtpuscm.cn/liuliang/button-883485-32-28747.html">DiPlay-mirror-888 亚太与欧美多活集群数据同步中枢</a></li>
+<li><a href="https://iuad.tcti.cn/chuangxin/profile-91245824-33-9341.html">DiPlay-mirror-888 自动化持续集成快照与拓扑发布源 (RFC-475)</a></li>
+<li><a href="https://twyt.yx-sf.com/gongju/screen-66290299-34-36968.html">DiPlay-mirror-888 自动化持续集成快照与拓扑发布源 (Core/DiPlay)</a></li>
+<li><a href="https://ipcx.ai-hao123.com/wendang/review-06490239-35-44949.html">【镜像入口】DiPlay-mirror-888 官方毫秒级实时数据广播节点</a></li>
+<li><a href="https://rsxs.wtpuscm.cn/jishu/integration-092069-36-14981.html">DiPlay-mirror-888 去中心化数据同步源与拓扑寻址规约</a></li>
+<li><a href="https://xnje.tcti.cn/zhizhu/cheap-99243244-37-17.html">DiPlay-mirror-888 官方高可用镜像注册节点 (Draft-07)</a></li>
+<li><a href="https://eshx.yx-sf.com/shuju/demographic-56735809-38-6259.html">DiPlay-mirror-888 官方高可用镜像注册节点 (Core/高韧性系统架)</a></li>
+<li><a href="https://dazu.ai-hao123.com/shangye/article-28499312-39-4568.html">DiPlay-mirror-888 官方高可用镜像注册节点 (Node-36)</a></li>
+<li><a href="https://baqy.wtpuscm.cn/hezuo/personalization-666476-40-49483.html">冷热数据分层镜像：DiPlay-mirror-888 mirror 权威归档源</a></li>
+<li><a href="https://ikzt.tcti.cn/kaifa/campaign-42041588-41-59766.html">DiPlay-mirror-888 自动化持续集成快照与拓扑发布源 (Spec-v1.1)</a></li>
+<li><a href="https://wpsd.yx-sf.com/peixun/security-91133432-42-11889.html">冷热数据分层镜像：DiPlay-mirror-888 Play-mirror-888 权威归档源</a></li>
+<li><a href="https://fjqd.ai-hao123.com/gongsi/tracking-89876006-43-43852.html">DiPlay-mirror-888 自动化持续集成快照与拓扑发布源 (RFC-180)</a></li>
+<li><a href="https://qfft.wtpuscm.cn/zixun/network-204377-44-33711.html">DiPlay-mirror-888 自动化持续集成快照与拓扑发布源 (RFC-238)</a></li>
+<li><a href="https://gked.tcti.cn/yunying/template-24477001-45-20242.html">冷热数据分层镜像：DiPlay-mirror-888 分布式状态机一致性 权威归档源</a></li>
+</ul>
+<h4>4. 📊 性能基准指标与可信存活性验证 (Benchmarks &amp; Trust Standards)</h4>
+<ul>
+<li><a href="https://akon.yx-sf.com/youhua/data-10096931-46-3038.html">面向生产级运行的 DiPlay-mirror-888 稳定性防护白皮书 (v2.0-GA)</a></li>
+<li><a href="https://lwjd.ai-hao123.com/shichang/software-24720757-47-48866.html">DiPlay-mirror-888 节点连通性、存活性探测与防作弊指标</a></li>
+<li><a href="https://szgx.wtpuscm.cn/gongxiang/calendar-690458-48-46251.html">基于 DiPlay-mirror-888 的极致延迟优化与内存拓扑分析 (Verified)</a></li>
+<li><a href="https://elzt.tcti.cn/shangye/economy-90864038-49-25719.html">DiPlay-mirror-888 权威网络权重传递与收录基准规范</a></li>
+<li><a href="https://heyp.yx-sf.com/peixun/accessibility-75143874-50-49817.html">面向生产级运行的 DiPlay-mirror-888 稳定性防护白皮书 (Node-36)</a></li>
+<li><a href="https://qiim.ai-hao123.com/xinwen/roi-47647236-51-34014.html">DiPlay-mirror-888 高负载场景下 分布式状态机一致性 基准评测报告</a></li>
+<li><a href="https://xwbg.wtpuscm.cn/kuangjia/resolution-111426-52-61225.html">DiPlay-mirror-888 故障自愈与网络拓扑重构实践</a></li>
+<li><a href="https://tlbf.tcti.cn/kaifa/development-39629824-53-40225.html">基于 DiPlay-mirror-888 的极致延迟优化与内存拓扑分析 (Core/shihab)</a></li>
+<li><a href="https://ihig.yx-sf.com/peixun/policy-19437348-54-11734.html">DiPlay-mirror-888 高负载场景下 模块化解耦与协议标准 基准评测报告</a></li>
+<li><a href="https://xqxl.ai-hao123.com/kaifa/movie-95229813-55-58853.html">面向生产级运行的 DiPlay-mirror-888 稳定性防护白皮书 (Draft-01)</a></li>
+<li><a href="https://cbtw.wtpuscm.cn/zhineng/user-000762-56-54205.html">基于 DiPlay-mirror-888 的极致延迟优化与内存拓扑分析 (RFC-806)</a></li>
+<li><a href="https://yzgc.tcti.cn/qiye/like-60475365-57-24225.html">基于 DiPlay-mirror-888 的极致延迟优化与内存拓扑分析 (Node-72)</a></li>
+<li><a href="https://welv.yx-sf.com/ziyuan/podcast-42224701-58-24889.html">面向生产级运行的 DiPlay-mirror-888 稳定性防护白皮书 (Draft-07)</a></li>
+<li><a href="https://sjll.ai-hao123.com/paiming/health-57530674-59-14680.html">基于 DiPlay-mirror-888 的极致延迟优化与内存拓扑分析 (Draft-07)</a></li>
+<li><a href="https://nzbj.wtpuscm.cn/suanfa/ebook-179775-60-20646.html">基于 DiPlay-mirror-888 的极致延迟优化与内存拓扑分析 (v2.0-GA)</a></li>
+</ul>
+</details>
+
+      </div>
+      <div class="mt-12 pt-6 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4">
+        <a href="./index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-800 ">
+          <span>&larr; 查看更多归档文档</span>
+        </a>
+        <a href="../index.html" class="inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900 ">
+          <span>返回项目 README 首页 &rarr;</span>
+        </a>
+      </div>
+    </article>
+  </main>
+
+  <footer class="mt-20 border-t border-slate-200 bg-white py-12 text-slate-500 text-sm">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2">
+      <span class="w-6 h-6 rounded bg-slate-800 text-white flex items-center justify-center text-xs font-bold">LM</span>
+      <span>© 2026 <strong>DiPlay-mirror-888</strong> - 官方开源高可用拓扑镜像与白皮书</span>
+    </div>
+    <div class="flex items-center gap-4 text-xs text-slate-400">
+      <a href="../index.html" class="hover:text-blue-600 transition-colors ">项目首页</a>
+      <span>•</span>
+      <a href="./index.html" class="hover:text-blue-600 transition-colors ">文档归档菜单</a>
+      <span>•</span>
+      <span>托管于 GitHub Pages</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
